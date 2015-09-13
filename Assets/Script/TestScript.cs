@@ -16,8 +16,9 @@ public class TestScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        timer += Time.deltaTime;
 
+        timer += Time.deltaTime;
+        
         if (timer < 1)
         {
             transform.Translate(dx * speed * Time.deltaTime, dy * speed * Time.deltaTime, 0);
@@ -46,6 +47,8 @@ public class TestScript : MonoBehaviour {
                 dy = 0;
             }
             timer = 0;
+            Debug.Log(GetComponent<SpriteRenderer>().color);
+            GetComponent<SpriteRenderer>().color = new Color(Random.value, Random.value, Random.value);
         }
 	}
 }

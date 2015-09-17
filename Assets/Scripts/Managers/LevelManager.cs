@@ -9,19 +9,23 @@ public class LevelManager : MonoBehaviour {
     public Hero h;
     public int enemiesAliveCount = 0;
     public int enemiesMax = 3;
+
+    public GameObject Hero;
    
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 
         enemiesList = new List<Enemy>();
         e = new Enemy(20, 20, 20, 20, 20, 20);
         enemiesList.Add(e);
         enemiesAliveCount = enemiesList.Count;
-        h = new Hero(20, 20, 20, 20, 20, 20);
+        GameObject Hero = Instantiate(Resources.Load("Prefabs/Hero")) as GameObject;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 
         //The enemy do Damage to the hero
         h.TakeDamage(e.DoDamage());
@@ -32,7 +36,10 @@ public class LevelManager : MonoBehaviour {
             enemiesList.Add(e);
         }
 
+        e.TakeDamage(h.DoDammage(2));
+        Debug.Log(e.Hp);
 	}
 
     
+
 }

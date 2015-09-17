@@ -20,6 +20,7 @@ public class Hero {
     private int xp;
     private int xpForNextLevel;
     private int level;
+    
 
     public Hero(int hp,int mana,int strenght,int inteligence, int agility, int vitality)
     {
@@ -44,9 +45,10 @@ public class Hero {
         }
     }
 
-    public void DealDammage()
+    public int DoDammage(int damage)
     {
-        //[TODO] Deal dammage to a monster
+        int value = damage; //[TODO] Use the formula here
+        return value;
     }
 
     private void Death()

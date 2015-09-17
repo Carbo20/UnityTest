@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class HeroManager : MonoBehaviour {
 
     public Hero hero;
-    private float heroActivation;
+    private float heroActivation = 0;
     private float heroDeltaTime;
     private float DeltaTime;
 
@@ -25,7 +25,7 @@ public class HeroManager : MonoBehaviour {
         heroDeltaTime += DeltaTime;
         if(heroDeltaTime >= heroActivation)
         {
-
+            hero.IsReady = true;
         }
 	}
 }

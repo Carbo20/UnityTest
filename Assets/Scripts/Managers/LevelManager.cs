@@ -10,7 +10,8 @@ public class LevelManager : MonoBehaviour {
     public int enemiesAliveCount = 0;
     public int enemiesMax = 3;
 
-    public GameObject Hero;
+    private GameObject Hero;
+    private HeroManager hManager;
    
 	// Use this for initialization
 	void Start ()
@@ -20,7 +21,8 @@ public class LevelManager : MonoBehaviour {
         e = new Enemy(20, 20, 20, 20, 20, 20);
         enemiesList.Add(e);
         enemiesAliveCount = enemiesList.Count;
-        GameObject Hero = Instantiate(Resources.Load("Prefabs/Hero")) as GameObject;
+        GameObject hero = Instantiate(Resources.Load("Prefabs/Hero")) as GameObject;
+        hManager = hero.GetComponent<HeroManager>();
 	}
 	
 	// Update is called once per frame

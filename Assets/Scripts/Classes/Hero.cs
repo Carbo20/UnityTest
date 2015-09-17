@@ -20,7 +20,8 @@ public class Hero {
     private int xp;
     private int xpForNextLevel;
     private int level;
-    
+
+    private bool isReady;
 
     public Hero(int hp,int mana,int strenght,int inteligence, int agility, int vitality)
     {
@@ -34,6 +35,7 @@ public class Hero {
         xp = 0;
         level = 1;
         xpForNextLevel = 50; // [TODO] Maybe we have to search into a list wich amount of xp we need for the next lvl
+        isReady = false;
     }
 
     public void TakeDamage(int damage)
@@ -213,6 +215,19 @@ public class Hero {
         set
         {
             speed = value;
+        }
+    }
+
+    public bool IsReady
+    {
+        get
+        {
+            return isReady;
+        }
+
+        set
+        {
+            isReady = value;
         }
     }
 }

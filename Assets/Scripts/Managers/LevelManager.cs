@@ -16,7 +16,6 @@ public class LevelManager : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-
         enemiesList = new List<Enemy>();
         e = new Enemy(20, 20, 20, 20, 20, 20);
         enemiesList.Add(e);
@@ -29,17 +28,14 @@ public class LevelManager : MonoBehaviour {
 	void Update ()
     {
 
-        //The enemy do Damage to the hero
-        h.TakeDamage(e.DoDamage());
-
-        //Keep the number of alive enemies to 3
-        if (enemiesAliveCount < enemiesMax)
+        //Hero Loop
+        if (hManager.hero.IsReady)
         {
-            enemiesList.Add(e);
+            //[TODO] A lot of stuff
         }
 
-        e.TakeDamage(h.DoDammage(2));
-        Debug.Log(e.Hp);
+        //Monsters Loop
+
 	}
 
     

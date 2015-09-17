@@ -30,8 +30,16 @@ public class Hero {
     public void TakeDamage(int damage)
     {
         Hp = Hp - damage;
+        if(Hp < 0)
+        {
+            Death();
+        }
     }
 
+    private void Death()
+    {
+
+    }
 
     /*** Getter and Setter ***/
 

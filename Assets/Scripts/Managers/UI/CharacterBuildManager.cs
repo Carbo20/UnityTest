@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MainMenuManager : MonoBehaviour {
+public class CharacterBuildManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -13,10 +13,8 @@ public class MainMenuManager : MonoBehaviour {
 	
 	}
 
-    public void goToCharacterBuilderScreen()
+    public void goBack()
     {
-        Application.LoadLevel("CharacterBuildScene");
+        Application.LoadLevel("MainMenu");
     }
-
-    
 }

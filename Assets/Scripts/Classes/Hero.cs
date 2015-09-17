@@ -17,6 +17,10 @@ public class Hero {
     private int critical;
     private int speed;
 
+    private int xp;
+    private int xpForNextLevel;
+    private int level;
+
     public Hero(int hp,int mana,int strenght,int inteligence, int agility, int vitality)
     {
         this.hp = hp;
@@ -25,6 +29,10 @@ public class Hero {
         this.inteligence = inteligence;
         this.agility = agility;
         this.vitality = vitality;
+
+        xp = 0;
+        level = 1;
+        xpForNextLevel = 50; // [TODO] Maybe we have to search into a list wich amount of xp we need for the next lvl
     }
 
     public void TakeDamage(int damage)
@@ -36,9 +44,29 @@ public class Hero {
         }
     }
 
+    public void DealDammage()
+    {
+        //[TODO] Deal dammage to a monster
+    }
+
     private void Death()
     {
 
+    }
+
+    public void GetXp(int xp)
+    {
+        this.xp = this.xp + xp;
+        if(xp >= xpForNextLevel)
+        {
+            GetLevel();
+        }
+    }
+
+    public void GetLevel()
+    {
+        level++;
+        //[TODO] Do some stuff after a lvl up, stats up or something like this
     }
 
     /*** Getter and Setter ***/

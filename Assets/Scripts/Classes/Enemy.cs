@@ -19,6 +19,7 @@ public class Enemy
     private int critical;
     private int speed;
 
+    private bool isReady;
 
     public Enemy(int hp, int mana, int strenght, int inteligence, int agility, int vitality)
     {
@@ -28,6 +29,8 @@ public class Enemy
         this.inteligence = inteligence;
         this.agility = agility;
         this.vitality = vitality;
+
+        isReady = false;
     }
 
     public void TakeDamage(int damage)
@@ -184,5 +187,18 @@ public class Enemy
             speed = value;
         }
     }
-     
+
+    public bool IsReady
+    {
+        get
+        {
+            return isReady;
+        }
+
+        set
+        {
+            isReady = value;
+        }
+    }
+
 }

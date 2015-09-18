@@ -10,34 +10,39 @@ public class LevelManager : MonoBehaviour {
     public int enemiesAliveCount = 0;
     public int enemiesMax = 3;
 
-    public GameObject Hero;
+    private GameObject Hero;
+    private HeroManager hManager;
+    private EnemiesManager eManager;
    
 	// Use this for initialization
 	void Start ()
     {
-
-        enemiesList = new List<Enemy>();
-        e = new Enemy(20, 20, 20, 20, 20, 20);
-        enemiesList.Add(e);
-        enemiesAliveCount = enemiesList.Count;
-        GameObject Hero = Instantiate(Resources.Load("Prefabs/Hero")) as GameObject;
+        GameObject hero = Instantiate(Resources.Load("Prefabs/Hero")) as GameObject;
+        hManager = hero.GetComponent<HeroManager>();
+        GameObject enemies = Instantiate(Resources.Load("Prefabs/EnemiesManager")) as GameObject;
+        eManager = enemies.GetComponent<EnemiesManager>();
+        Debug.Log("hero"+eManager);
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
 
-        //The enemy do Damage to the hero
-        h.TakeDamage(e.DoDamage());
-
-        //Keep the number of alive enemies to 3
-        if (enemiesAliveCount < enemiesMax)
+        //Hero Loop
+        if (hManager.hero.IsReady)
         {
-            enemiesList.Add(e);
+            //[TODO] A lot of stuff
         }
 
-        e.TakeDamage(h.DoDammage(2));
-        Debug.Log(e.Hp);
+        //Monsters Loop
+        foreach(EnemyManager e in eManager.enemyList)
+        {
+            if (e.enemy.IsReady)
+            {
+                //[TODO] A lot of stuff
+            }
+        }
+
 	}
 
     

@@ -5,7 +5,6 @@ public class CharacterBuildManager : MonoBehaviour {
 
     Data.SlotType SelectedSlotType;
 
-
 	// Use this for initialization
 	void Start () {
         SelectedSlotType = Data.SlotType.HEAD;

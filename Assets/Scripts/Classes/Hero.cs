@@ -22,6 +22,7 @@ public class Hero {
     private int level;
 
     private bool isReady;
+    private bool isDead;
 
     public Hero(int hp,int mana,int strenght,int inteligence, int agility, int vitality)
     {
@@ -36,6 +37,7 @@ public class Hero {
         level = 1;
         xpForNextLevel = 50; // [TODO] Maybe we have to search into a list wich amount of xp we need for the next lvl
         isReady = false;
+        isDead = false;
     }
 
     public void TakeDamage(int damage)
@@ -55,7 +57,8 @@ public class Hero {
 
     private void Death()
     {
-
+        isDead = true;
+        //[TODO] if we have to do something when the hero die
     }
 
     public void GetXp(int xp)

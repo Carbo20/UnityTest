@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class CharacterBuildManager : MonoBehaviour {
 
     Data.SlotType SelectedSlotType;
+    int SelectedItem;
 
 	// Use this for initialization
 	void Start () {
         SelectedSlotType = Data.SlotType.HEAD;
+        SelectedItem = 0;
 	}
 	
 	// Update is called once per frame

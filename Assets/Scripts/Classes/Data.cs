@@ -11,4 +11,8 @@ public class Data {
 
     public enum ItemQuality { NORMAL, MAGIC, LEGENDARY };
     public static int ItemQualityCount = 3;
+
+    public static int inventorySlotPerItemType = 49;
+
+    public static Inventory inventory;
 }

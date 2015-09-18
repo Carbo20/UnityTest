@@ -3,5 +3,5 @@ using System.Collections;
 
 public class Data {
 
-    public enum SlotType { head, oneHand, twoHands, feet, chest, legs, hands };
+    public enum SlotType { Head, Chest, Hands, Legs, Feet, OneHand, TwoHands };
 }

@@ -31,7 +31,11 @@ public class LevelManager : MonoBehaviour {
         //Hero Loop
         if (hManager.hero.IsReady)
         {
-            //[TODO] A lot of stuff
+            /*[TODO] A lot of stuff
+            curently a testing stuff*/
+            eManager.enemyList[0].enemy.TakeDamage(hManager.hero.DoDammage(2));
+            Debug.Log("life of the monster : " + eManager.enemyList[0].enemy.Hp);
+            hManager.hero.IsReady = false;
         }
 
         //Monsters Loop

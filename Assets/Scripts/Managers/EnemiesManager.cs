@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class EnemiesManager : MonoBehaviour {
 
     public List<EnemyManager> enemyList;
-    private float deltaTime = 0;
     private EnemyManager eManager;
 
    
@@ -30,7 +29,7 @@ public class EnemiesManager : MonoBehaviour {
         [TODO] Computation of the delta.time with the hero speed in heroActivation */
         foreach(EnemyManager e in enemyList)
         {
-            e.EnemyDeltaTime += deltaTime;
+            e.EnemyDeltaTime += Time.deltaTime;
             if (e.EnemyDeltaTime >= e.EnnemyActivation)
             {
                 e.enemy.IsReady = true;

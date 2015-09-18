@@ -5,9 +5,8 @@ using System.Collections.Generic;
 public class HeroManager : MonoBehaviour {
 
     public Hero hero;
-    private float heroActivation = 0;
+    private float heroActivation = 2;
     private float heroDeltaTime;
-    private float DeltaTime = 0;
 
 	// Use this for initialization
 	void Start ()
@@ -22,10 +21,11 @@ public class HeroManager : MonoBehaviour {
 
         /* Speed computation, wait here the hero is ready to do something
         [TODO] Computation of the delta.time with the hero speed in heroActivation */
-        heroDeltaTime += DeltaTime;
+        heroDeltaTime += Time.deltaTime;
         if(heroDeltaTime >= heroActivation)
         {
             hero.IsReady = true;
+            heroDeltaTime = 0;
         }
 	}
 }

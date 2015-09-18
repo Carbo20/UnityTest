@@ -2,11 +2,11 @@
 
 public class Inventory {
 
-    List<List<Item>> inventory;
+    public List<List<Item>> items;
 
     public Inventory()
     {
-        inventory = new List<List<Item>>();
+        items = new List<List<Item>>();
     }
 
     //TODO

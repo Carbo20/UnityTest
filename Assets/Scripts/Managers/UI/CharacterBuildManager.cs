@@ -119,23 +119,14 @@ public class CharacterBuildManager : MonoBehaviour {
 
         for (i = 0; i < Data.inventorySlotPerItemType; i++)
         {
-            switch (selectedSlotType)
+            if (i < Data.inventory.items[selectedSlotType.GetHashCode()].Count)
             {
-                case Data.SlotType.HEAD: 
-                    break;
-                case Data.SlotType.CHEST: 
-                    break;
-                case Data.SlotType.HANDS: 
-                    break;
-                case Data.SlotType.LEGS: 
-                    break;
-                case Data.SlotType.FEET: 
-                    break;
-                case Data.SlotType.ONEHAND: 
-                    break;
-                case Data.SlotType.TWOHANDS: 
-                    break;
-
+                GameObject.Find("Slot (" + i + ")/Icon").SetActive(true);
+                //GameObject.Find("Slot (" + i + ")/Icon").GetComponent<Image>().sprite = Data.inventory.items[selectedSlotType.GetHashCode()][i];
+            }
+            else
+            {
+                GameObject.Find("Slot (" + i + ")/Icon").SetActive(false);
             }
         }
     }

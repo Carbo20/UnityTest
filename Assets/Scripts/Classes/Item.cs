@@ -8,17 +8,39 @@ public class Item
     private int attackValue;
     private float attackSpeed;
     private int armor;
-    Sprite icon;
+    public Sprite icon;
     private string name;
     private string description;
     private int level;
 
-    private int strenBonus =0, intelBonus=0, agiBonus=0, vitalBonus=0, attackBonus=0, spellBonus=0, manaBonus=0,   healthBonus=0;
-    private float attackSpeedBonus =0, castTimeBonus=0, regenManaBonus = 0, regenHealthBonus = 0, dodgeBonus = 0, critBonus = 0; // for speed : between 0 and 1, it will reduce the delay after an attack or a cast is done
+    private int strenBonus, intelBonus, agiBonus, vitalBonus, attackBonus, spellBonus, manaBonus,   healthBonus;
+    private float attackSpeedBonus, castTimeBonus, regenManaBonus, regenHealthBonus, dodgeBonus, critBonus; // for speed : between 0 and 1, it will reduce the delay after an attack or a cast is done
 
-    Data.SlotType slotType;
-    Data.ItemType itemType;
-    Data.ItemQuality itemQuality;
+    private Data.SlotType slotType;
+    private Data.ItemType itemType;
+    private Data.ItemQuality itemQuality;
+
+    public Item(int _level, int _magicFind)
+    {
+        strenBonus = 0;
+        intelBonus = 0;
+        agiBonus = 0;
+        vitalBonus = 0;
+        attackBonus = 0;
+        spellBonus = 0;
+        manaBonus = 0;
+        healthBonus = 0;
+        attackSpeedBonus = 0;
+        castTimeBonus = 0;
+        regenManaBonus = 0;
+        regenHealthBonus = 0;
+        dodgeBonus = 0;
+        critBonus = 0;
+        name = "placeholderdenomdemerde";
+        level = _level;
+
+        GenerateItem(_level, _magicFind);
+    }
 
     //public enum SlotType { HEAD, CHEST, HANDS, LEGS, FEET, ONEHAND, TWOHANDS };
 
@@ -34,7 +56,6 @@ public class Item
     /// <param name="magicFind">Between 0 and 70, carefull with that one</param>
     void GenerateItem(int _level, int magicFind)
     {
-        level = _level;
         float levelFloat = Level;
         int slotTypeInt, itemTypeInt, itemQualityInt, numberOfBonus=0, randomBonus;
         int NormalRange = 70- magicFind, MagicRange = 90- (magicFind/2); // when random 0-100 more than MagicRange the item is legendary
@@ -42,7 +63,7 @@ public class Item
         //ITEMSLOT
         slotTypeInt = UnityEngine.Random.Range(0, Data.ItemTypeCount); // item slot type : HEAD, CHEST, HANDS, LEGS, FEET, ONEHAND, TWOHANDS  
         Debug.Log("slotTypeInt " + slotTypeInt);
-        slotType = (Data.SlotType)slotTypeInt;
+        SlotType = (Data.SlotType)slotTypeInt;
 
         //itemTypeInt
         if (slotTypeInt == Data.SlotType.ONEHAND.GetHashCode()) // if the item type is 1h we rand between weapon and shield
@@ -57,7 +78,7 @@ public class Item
             itemTypeInt = Data.ItemType.WEAPON.GetHashCode();//weapon
         else
             itemTypeInt = Data.ItemType.ARMOR.GetHashCode();//Armor
-        itemType = (Data.ItemType)itemTypeInt;
+        ItemType = (Data.ItemType)itemTypeInt;
         Debug.Log("itemTypeInt " + itemTypeInt);
 
         // Normal loot : 70% normal 25% magic 5% legendary donc en float : < 0.7 normal, 0.7< magic <0.95, 0.95< legendary
@@ -68,17 +89,17 @@ public class Item
 
         if (itemQualityInt > MagicRange)// the item is legendary
         {
-            itemQuality = Data.ItemQuality.LEGENDARY;
+            ItemQuality = Data.ItemQuality.LEGENDARY;
             numberOfBonus = UnityEngine.Random.Range(3, 5);
             //EFFECT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TODO
         }
         else if (itemQualityInt > NormalRange)// the item is magical
         {
-            itemQuality = Data.ItemQuality.MAGIC;
+            ItemQuality = Data.ItemQuality.MAGIC;
             numberOfBonus = UnityEngine.Random.Range(2, 4);
         }
         else
-            itemQuality = Data.ItemQuality.NORMAL;
+            ItemQuality = Data.ItemQuality.NORMAL;
 
         for(int i=0; i<numberOfBonus; i++)
         {
@@ -160,7 +181,6 @@ public class Item
 
 
 
-
     /////////////////GETTERS AND SETTERS//////////////////////////////
     public int AttackValue
     {
@@ -198,19 +218,6 @@ public class Item
         set
         {
             armor = value;
-        }
-    }
-
-    public Sprite Icon
-    {
-        get
-        {
-            return icon;
-        }
-
-        set
-        {
-            icon = value;
         }
     }
 
@@ -448,4 +455,42 @@ public class Item
         }
     }
 
+    public Data.SlotType SlotType
+    {
+        get
+        {
+            return slotType;
+        }
+
+        set
+        {
+            slotType = value;
+        }
+    }
+
+    public Data.ItemType ItemType
+    {
+        get
+        {
+            return itemType;
+        }
+
+        set
+        {
+            itemType = value;
+        }
+    }
+
+    public Data.ItemQuality ItemQuality
+    {
+        get
+        {
+            return itemQuality;
+        }
+
+        set
+        {
+            itemQuality = value;
+        }
+    }
 }

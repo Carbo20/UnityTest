@@ -30,25 +30,11 @@ public class LevelManager : MonoBehaviour {
         if (eManager) // if a monster is always alive
         {
             //Hero Loop
-            if (hManager.hero.IsReady)
-            {
-                /*[TODO] A lot of stuff
-                curently a testing stuff*/
-                eManager.enemyList[0].enemy.TakeDamage(hManager.hero.DoDammage(2));
-                Debug.Log("life of the monster : " + eManager.enemyList[0].enemy.Hp);
-                hManager.hero.IsReady = false;
-            }
+            HeroLoop();
 
             //Monsters Loop
-
-            foreach (EnemyManager e in eManager.enemyList)
-            {
-                if (e.enemy.IsReady)
-                {
-                    //[TODO] A lot of stuff
-                    e.enemy.IsReady = false;
-                }
-            }
+            EnemiesLoop();
+           
         }
         else // else we have to create a new bunch of enemies
         {
@@ -57,6 +43,27 @@ public class LevelManager : MonoBehaviour {
 
     }
 
-    
+    private void HeroLoop()
+    {
+        if (hManager.hero.IsReady)
+        {
+            /*[TODO] A lot of stuff
+            curently a testing stuff*/
+            eManager.enemyList[0].enemy.TakeDamage(hManager.hero.DoDammage(2));
+            Debug.Log("life of the monster : " + eManager.enemyList[0].enemy.Hp);
+            hManager.hero.IsReady = false;
+        }
+    }
 
+    private void EnemiesLoop()
+    {
+        foreach (EnemyManager e in eManager.enemyList)
+        {
+            if (e.enemy.IsReady)
+            {
+                //[TODO] A lot of stuff
+                e.enemy.IsReady = false;
+            }
+        }
+    }
 }

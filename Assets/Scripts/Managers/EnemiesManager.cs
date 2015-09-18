@@ -17,7 +17,7 @@ public class EnemiesManager : MonoBehaviour {
         eManager = enemy.GetComponent<EnemyManager>();
         enemyList.Add(eManager);
         GameObject enemy2 = Instantiate(Resources.Load("Prefabs/Monsters/Mumy")) as GameObject;
-        eManager = enemy.GetComponent<EnemyManager>();
+        eManager = enemy2.GetComponent<EnemyManager>();
         enemyList.Add(eManager);
         foreach(EnemyManager e in enemyList)
         {
@@ -28,15 +28,16 @@ public class EnemiesManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-
+        /*Debug.Log("Enemy 1 : " + enemyList[0].enemy.Hp);
+        Debug.Log("Enemy 2 : " + enemyList[1].enemy.Hp);*/
         /* Speed computation, wait here the hero is ready to do something
         [TODO] Computation of the delta.time with the hero speed in heroActivation */
-        foreach(EnemyManager e in enemyList)
+        foreach (EnemyManager e in enemyList)
         {
-            Debug.Log("E state :" + e);
             if(e == null)
             {
                 enemyList.Remove(e);
+                enemyList.Sort();
                 break;
             }
 
@@ -50,6 +51,7 @@ public class EnemiesManager : MonoBehaviour {
 
         if(enemyList.Count == 0) // Destroy the EnemiesManager if all enemies are dead
         {
+            Debug.Log("EnemiesManager est détruit");
             Destroy(gameObject);
         }
 

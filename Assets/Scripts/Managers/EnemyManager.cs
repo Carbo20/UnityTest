@@ -11,7 +11,7 @@ public class EnemyManager : MonoBehaviour {
     // Use for the initialization just after the instantiation of the object in the enemiesManager
     void Awake()
     {
-        enemy = new Enemy(20, 20, 4, 4, 4, 4);
+        enemy = new Enemy(6, 6, 4, 4, 4, 4);
     }
 
     // Use this for initialization

@@ -44,6 +44,7 @@ public class LevelManager : MonoBehaviour {
             if (e.enemy.IsReady)
             {
                 //[TODO] A lot of stuff
+                e.enemy.IsReady = false;
             }
         }
 

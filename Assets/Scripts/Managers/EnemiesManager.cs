@@ -29,10 +29,18 @@ public class EnemiesManager : MonoBehaviour {
         [TODO] Computation of the delta.time with the hero speed in heroActivation */
         foreach(EnemyManager e in enemyList)
         {
+            Debug.Log("E state :" + e);
+            if(e == null)
+            {
+                enemyList.Remove(e);
+                break;
+            }
+
             e.EnemyDeltaTime += Time.deltaTime;
             if (e.EnemyDeltaTime >= e.EnnemyActivation)
             {
                 e.enemy.IsReady = true;
+                e.EnemyDeltaTime = 0;
             }
         }
 

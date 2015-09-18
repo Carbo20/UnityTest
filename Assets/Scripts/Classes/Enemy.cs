@@ -20,6 +20,7 @@ public class Enemy
     private int speed;
 
     private bool isReady;
+    private bool isDead;
 
     public Enemy(int hp, int mana, int strenght, int inteligence, int agility, int vitality)
     {
@@ -31,17 +32,28 @@ public class Enemy
         this.vitality = vitality;
 
         isReady = false;
+        isDead = false;
     }
 
     public void TakeDamage(int damage)
     {
         Hp = Hp - damage;
+        if(Hp <= 0)
+        {
+            Death();
+        }
     }
 
     public int DoDamage()
     {
         return damage;
     }
+
+    private void Death()
+    {
+        isDead = true;
+    }
+
 
     /*** Getter and Setter ***/
 
@@ -201,4 +213,16 @@ public class Enemy
         }
     }
 
+    public bool IsDead
+    {
+        get
+        {
+            return isDead;
+        }
+
+        set
+        {
+            isDead = value;
+        }
+    }
 }

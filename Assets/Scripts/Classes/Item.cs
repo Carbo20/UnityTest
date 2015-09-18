@@ -20,9 +20,6 @@ public class Item
     Data.ItemType itemType;
     Data.ItemQuality itemQuality;
 
-    enum BonusType { STREN, INTEL, AGI, VITAL, ATTACK, SPELL, MANA, REGENMANA, DODGE, CRIT, REGENHEALTH, HEALTH, ATTACKSPEED, CASTTIME };
-    int BonusTypeCount = 14;
-
     //public enum SlotType { HEAD, CHEST, HANDS, LEGS, FEET, ONEHAND, TWOHANDS };
 
     /// <summary>
@@ -38,7 +35,7 @@ public class Item
     void GenerateItem(int _level, int magicFind)
     {
         level = _level;
-        float levelFloat = level;
+        float levelFloat = Level;
         int slotTypeInt, itemTypeInt, itemQualityInt, numberOfBonus=0, randomBonus;
         int NormalRange = 70- magicFind, MagicRange = 90- (magicFind/2); // when random 0-100 more than MagicRange the item is legendary
         
@@ -85,78 +82,370 @@ public class Item
 
         for(int i=0; i<numberOfBonus; i++)
         {
-            randomBonus = UnityEngine.Random.Range(0, BonusTypeCount);
+            randomBonus = UnityEngine.Random.Range(0, Data.BonusTypeCount);
 
-            switch ((BonusType)randomBonus)
+            switch ((Data.BonusType)randomBonus)
             {
-                case BonusType.STREN:
-                    strenBonus += UnityEngine.Random.Range((int)0.80 * level, level);
+                case Data.BonusType.STREN:
+                    StrenBonus += UnityEngine.Random.Range((int)0.80 * Level, Level);
                     break;
-                case BonusType.INTEL:
-                    intelBonus += UnityEngine.Random.Range((int)0.80 * level, level);
+                case Data.BonusType.INTEL:
+                    IntelBonus += UnityEngine.Random.Range((int)0.80 * Level, Level);
                     break;
-                case BonusType.AGI:
-                    agiBonus += UnityEngine.Random.Range((int)0.80 * level, level);
+                case Data.BonusType.AGI:
+                    AgiBonus += UnityEngine.Random.Range((int)0.80 * Level, Level);
                     break;
-                 case BonusType.VITAL:
-                    vitalBonus += UnityEngine.Random.Range((int)0.80*level, level);
+                 case Data.BonusType.VITAL:
+                    VitalBonus += UnityEngine.Random.Range((int)0.80*Level, Level);
                     break;
-                case BonusType.ATTACK:
-                    attackBonus += UnityEngine.Random.Range(level, 2 * level);
+                case Data.BonusType.ATTACK:
+                    AttackBonus += UnityEngine.Random.Range(Level, 2 * Level);
                     break;
-                case BonusType.SPELL:
-                    spellBonus += UnityEngine.Random.Range(level, 2 * level);
+                case Data.BonusType.SPELL:
+                    SpellBonus += UnityEngine.Random.Range(Level, 2 * Level);
                     break;
-                case BonusType.MANA:
-                    manaBonus += UnityEngine.Random.Range(8 * level, 10 * level);
+                case Data.BonusType.MANA:
+                    ManaBonus += UnityEngine.Random.Range(8 * Level, 10 * Level);
                     break;
-                case BonusType.REGENMANA:
-                    regenManaBonus += UnityEngine.Random.Range(0.15f * levelFloat, 0.2f * levelFloat); //  at lvl 100 : 20 -> 0.2/lvl max
+                case Data.BonusType.REGENMANA:
+                    RegenManaBonus += UnityEngine.Random.Range(0.15f * levelFloat, 0.2f * levelFloat); //  at lvl 100 : 20 -> 0.2/lvl max
                     break;
-                case BonusType.DODGE:
-                    dodgeBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
+                case Data.BonusType.DODGE:
+                    DodgeBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
                     break;
-                case BonusType.CRIT:
-                    critBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
+                case Data.BonusType.CRIT:
+                    CritBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
                     break;
-                case BonusType.REGENHEALTH:
-                    regenHealthBonus += UnityEngine.Random.Range(0.15f * levelFloat, 0.2f * levelFloat); 
+                case Data.BonusType.REGENHEALTH:
+                    RegenHealthBonus += UnityEngine.Random.Range(0.15f * levelFloat, 0.2f * levelFloat); 
                     break;
-                case BonusType.HEALTH:
-                    healthBonus += UnityEngine.Random.Range(8*level, 10*level);//at lvl 100 : 1000 -> 10/lvl max
+                case Data.BonusType.HEALTH:
+                    HealthBonus += UnityEngine.Random.Range(8*Level, 10*Level);//at lvl 100 : 1000 -> 10/lvl max
                     break;
 
-                case BonusType.ATTACKSPEED:
-                    attackSpeedBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100); // between 0 and 0.07
+                case Data.BonusType.ATTACKSPEED:
+                    AttackSpeedBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100); // between 0 and 0.07
                     break;
-                case BonusType.CASTTIME:
-                    castTimeBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100); // between 0 and 0.07
+                case Data.BonusType.CASTTIME:
+                    CastTimeBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100); // between 0 and 0.07
                     break;
             }
         }
         
         if (itemTypeInt == Data.ItemType.SHIELD.GetHashCode())
         {
-            armor = UnityEngine.Random.Range(8 * level, 10 * level);
-            dodgeBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
+            Armor = UnityEngine.Random.Range(8 * Level, 10 * Level);
+            DodgeBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
         }
         else if (itemTypeInt == Data.ItemType.ARMOR.GetHashCode())
         {
-            armor = UnityEngine.Random.Range(8 * level, 10 * level);
+            Armor = UnityEngine.Random.Range(8 * Level, 10 * Level);
         }
         else if (itemTypeInt == Data.ItemType.WEAPON.GetHashCode())
         {
             if(slotTypeInt == Data.SlotType.ONEHAND.GetHashCode())
             {
-                attackValue = UnityEngine.Random.Range(8 * level, 10 * level);
-                attackSpeed = UnityEngine.Random.Range(0.9f, 1.1f);
+                AttackValue = UnityEngine.Random.Range(8 * Level, 10 * Level);
+                AttackSpeed = UnityEngine.Random.Range(0.9f, 1.1f);
             }
             else
             {
-                attackValue = UnityEngine.Random.Range(40 * level, 50 * level);
-                attackSpeed = UnityEngine.Random.Range(1.9f, 2.1f);
+                AttackValue = UnityEngine.Random.Range(40 * Level, 50 * Level);
+                AttackSpeed = UnityEngine.Random.Range(1.9f, 2.1f);
             }
         }
 
     }
+
+
+
+
+
+    /////////////////GETTERS AND SETTERS//////////////////////////////
+    public int AttackValue
+    {
+        get
+        {
+            return attackValue;
+        }
+
+        set
+        {
+            attackValue = value;
+        }
+    }
+
+    public float AttackSpeed
+    {
+        get
+        {
+            return attackSpeed;
+        }
+
+        set
+        {
+            attackSpeed = value;
+        }
+    }
+
+    public int Armor
+    {
+        get
+        {
+            return armor;
+        }
+
+        set
+        {
+            armor = value;
+        }
+    }
+
+    public Sprite Icon
+    {
+        get
+        {
+            return icon;
+        }
+
+        set
+        {
+            icon = value;
+        }
+    }
+
+    public string Name
+    {
+        get
+        {
+            return name;
+        }
+
+        set
+        {
+            name = value;
+        }
+    }
+
+    public string Description
+    {
+        get
+        {
+            return description;
+        }
+
+        set
+        {
+            description = value;
+        }
+    }
+
+    public int Level
+    {
+        get
+        {
+            return level;
+        }
+
+        set
+        {
+            level = value;
+        }
+    }
+
+    public int StrenBonus
+    {
+        get
+        {
+            return strenBonus;
+        }
+
+        set
+        {
+            strenBonus = value;
+        }
+    }
+
+    public int IntelBonus
+    {
+        get
+        {
+            return intelBonus;
+        }
+
+        set
+        {
+            intelBonus = value;
+        }
+    }
+
+    public int AgiBonus
+    {
+        get
+        {
+            return agiBonus;
+        }
+
+        set
+        {
+            agiBonus = value;
+        }
+    }
+
+    public int VitalBonus
+    {
+        get
+        {
+            return vitalBonus;
+        }
+
+        set
+        {
+            vitalBonus = value;
+        }
+    }
+
+    public int AttackBonus
+    {
+        get
+        {
+            return attackBonus;
+        }
+
+        set
+        {
+            attackBonus = value;
+        }
+    }
+
+    public int SpellBonus
+    {
+        get
+        {
+            return spellBonus;
+        }
+
+        set
+        {
+            spellBonus = value;
+        }
+    }
+
+    public int ManaBonus
+    {
+        get
+        {
+            return manaBonus;
+        }
+
+        set
+        {
+            manaBonus = value;
+        }
+    }
+
+    public int HealthBonus
+    {
+        get
+        {
+            return healthBonus;
+        }
+
+        set
+        {
+            healthBonus = value;
+        }
+    }
+
+    public float AttackSpeedBonus
+    {
+        get
+        {
+            return AttackSpeedBonus1;
+        }
+
+        set
+        {
+            AttackSpeedBonus1 = value;
+        }
+    }
+
+    public float AttackSpeedBonus1
+    {
+        get
+        {
+            return attackSpeedBonus;
+        }
+
+        set
+        {
+            attackSpeedBonus = value;
+        }
+    }
+
+    public float CastTimeBonus
+    {
+        get
+        {
+            return castTimeBonus;
+        }
+
+        set
+        {
+            castTimeBonus = value;
+        }
+    }
+
+    public float RegenManaBonus
+    {
+        get
+        {
+            return regenManaBonus;
+        }
+
+        set
+        {
+            regenManaBonus = value;
+        }
+    }
+
+    public float RegenHealthBonus
+    {
+        get
+        {
+            return regenHealthBonus;
+        }
+
+        set
+        {
+            regenHealthBonus = value;
+        }
+    }
+
+    public float DodgeBonus
+    {
+        get
+        {
+            return dodgeBonus;
+        }
+
+        set
+        {
+            dodgeBonus = value;
+        }
+    }
+
+    public float CritBonus
+    {
+        get
+        {
+            return critBonus;
+        }
+
+        set
+        {
+            critBonus = value;
+        }
+    }
+
 }

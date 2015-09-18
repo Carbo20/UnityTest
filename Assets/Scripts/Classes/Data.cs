@@ -8,4 +8,7 @@ public class Data {
 
     public enum ItemType { WEAPON, SHIELD, ARMOR };
     public static int ItemTypeCount = 3;
+
+    public enum ItemQuality { NORMAL, MAGIC, LEGENDARY };
+    public static int ItemQualityCount = 3;
 }

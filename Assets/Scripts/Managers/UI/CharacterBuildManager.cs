@@ -5,6 +5,7 @@ public class CharacterBuildManager : MonoBehaviour {
 
     Data.SlotType SelectedSlotType;
 
+
 	// Use this for initialization
 	void Start () {
         SelectedSlotType = Data.SlotType.HEAD;
@@ -12,7 +13,7 @@ public class CharacterBuildManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log("type: " + Data.SlotTypeCount);
+
 	}
 
     public void goBack()

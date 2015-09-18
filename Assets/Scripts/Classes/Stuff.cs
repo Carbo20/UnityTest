@@ -12,6 +12,5 @@ public class Stuff
     string description;
     int strenBonus, intelBonus, agiBonus, healthBonus, spellBonus, critBonus, dodgeBonus, regenHealthBonus, regenManaBonus, attackBonus, manaBonus;
     Data.SlotType slotType;
-  
-       
+ 
 }

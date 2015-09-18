@@ -12,7 +12,7 @@ public class CharacterBuildManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log("type: " + SelectedSlotType);
+        Debug.Log("type: " + Data.SlotTypeCount);
 	}
 
     public void goBack()

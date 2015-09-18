@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour {
-    
+
+    private Skill skill; //All the skill usable by the hero are here
+
     private GameObject hero;
     private HeroManager hManager;
     private EnemiesManager eManager;
@@ -22,24 +24,24 @@ public class LevelManager : MonoBehaviour {
         eManager = enemies.GetComponent<EnemiesManager>();
         GameObject textBox = Instantiate(Resources.Load("Prefabs/Text")) as GameObject;
         enemyTextBar1 = textBox.GetComponent<TextMesh>();
-	}
+
+        skill = new Skill(hManager,eManager);
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
         if (eManager) // if a monster is always alive
         {
-            //Hero Loop
+            //Loop
             HeroLoop();
-
-            //Monsters Loop
             EnemiesLoop();
-           
         }
         else // else we have to create a new bunch of enemies
         {
             GameObject enemies = Instantiate(Resources.Load("Prefabs/EnemiesManager")) as GameObject;
             eManager = enemies.GetComponent<EnemiesManager>();
+            skill.UpdateEManager(eManager); //We have to update the new eManager into the skill class
         }
 
     }
@@ -48,12 +50,20 @@ public class LevelManager : MonoBehaviour {
     {
         if (hManager.hero.IsDead)
         {
-
+            /*[TODO] if we have to do something fot the death of the hero*/
         }
         if (hManager.hero.IsReady)
         {
             /*[TODO] A lot of stuff
             curently a testing stuff*/
+
+            skill.FakeBuffTest();
+            Debug.Log(hManager.hero.Agility);
+
+            skill.FakeDebuffTest(0);
+            Debug.Log(eManager.enemyList[0].enemy.Strenght);
+
+            /* End of the testing stuff */
 
             /*Use here the result of the IA computation to do something*/
             eManager.enemyList[0].enemy.TakeDamage(hManager.hero.DoDammage(2));

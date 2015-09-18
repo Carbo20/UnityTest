@@ -27,9 +27,6 @@ public class EnemiesManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        /*Debug.Log("Enemy 1 : " + enemyList[0].enemy.Hp);
-        Debug.Log("Enemy 2 : " + enemyList[1].enemy.Hp);*/
         /* Speed computation, wait here the hero is ready to do something
         [TODO] Computation of the delta.time with the hero speed in heroActivation */
         foreach (EnemyManager e in enemyList)

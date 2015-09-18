@@ -7,7 +7,7 @@ public class HeroManager : MonoBehaviour {
     public Hero hero;
     private float heroActivation = 0;
     private float heroDeltaTime;
-    private float DeltaTime;
+    private float DeltaTime = 0;
 
 	// Use this for initialization
 	void Start ()

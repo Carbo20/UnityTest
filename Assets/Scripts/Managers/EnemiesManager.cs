@@ -8,17 +8,17 @@ public class EnemiesManager : MonoBehaviour {
     private float deltaTime = 0;
     private EnemyManager eManager;
 
+   
+
 	// Use this for initialization
 	void Start () {
         enemyList = new List<EnemyManager>();
         GameObject enemy = Instantiate(Resources.Load("Prefabs/Monsters/MonsterCute")) as GameObject;
         eManager = enemy.GetComponent<EnemyManager>();
         enemyList.Add(eManager);
-        Debug.Log("test");
-        Debug.Log(eManager);
         foreach(EnemyManager e in enemyList)
         {
-            Debug.Log(e);
+            Debug.Log(e.enemy);
         }
     }
 	
@@ -36,6 +36,6 @@ public class EnemiesManager : MonoBehaviour {
                 e.enemy.IsReady = true;
             }
         }
-        
+
     }
 }

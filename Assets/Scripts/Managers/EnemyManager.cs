@@ -8,11 +8,15 @@ public class EnemyManager : MonoBehaviour {
     private float enemyDeltaTime;
     private float ennemyActivation;
 
-   
+    // Use for the initialization just after the instantiation of the object in the enemiesManager
+    void Awake()
+    {
+        enemy = new Enemy(20, 20, 4, 4, 4, 4);
+    }
 
     // Use this for initialization
     void Start () {
-        enemy = new Enemy(20, 20, 4, 4, 4, 4);
+        
 	}
 	
 	// Update is called once per frame

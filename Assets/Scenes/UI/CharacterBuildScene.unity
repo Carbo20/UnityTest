@@ -3898,8 +3898,8 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: 0, y: .217286095}
   m_AnchorMax: {x: 1, y: .812577426}
-  m_AnchoredPosition: {x: -2.56002808, y: 18.9137878}
-  m_SizeDelta: {x: -13.4000244, y: 5.14019775}
+  m_AnchoredPosition: {x: 2.06997681, y: 18.9137878}
+  m_SizeDelta: {x: -4.13999987, y: 5}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &468829012
 MonoBehaviour:
@@ -14103,14 +14103,14 @@ RectTransform:
   m_GameObject: {fileID: 1961535198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: .800000012, y: .800000012, z: 1}
   m_Children: []
   m_Father: {fileID: 1459086763}
   m_RootOrder: 2
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -190.743988, y: -135.892822}
-  m_SizeDelta: {x: 133, y: 22.2000008}
+  m_AnchoredPosition: {x: -45.5, y: -130.179993}
+  m_SizeDelta: {x: 423.600006, y: 33.5999985}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1961535200
 MonoBehaviour:
@@ -14133,7 +14133,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
@@ -14143,7 +14143,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: GDiylme:uz
+  m_Text: 
 --- !u!222 &1961535201
 CanvasRenderer:
   m_ObjectHideFlags: 0

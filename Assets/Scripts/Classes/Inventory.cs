@@ -7,6 +7,8 @@ public class Inventory {
     public Inventory()
     {
         items = new List<List<Item>>();
+        for (int i = 0; i < Data.SlotTypeCount; i++)
+            items.Add(new List<Item>());
     }
 
     //TODO

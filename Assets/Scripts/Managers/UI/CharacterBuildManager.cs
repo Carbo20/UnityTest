@@ -7,11 +7,14 @@ public class CharacterBuildManager : MonoBehaviour {
 
     Data.SlotType selectedSlotType;
     int selectedItem;
-    
+
 	// Use this for initialization
 	void Start () {
         selectedSlotType = Data.SlotType.HEAD;
         selectedItem = 0;
+        Data.inventory.items[0].Add(new Item(1, 0));
+        updateItemList();
+        updateItemDescription();
 	}
 	
 	// Update is called once per frame
@@ -122,12 +125,17 @@ public class CharacterBuildManager : MonoBehaviour {
             if (i < Data.inventory.items[selectedSlotType.GetHashCode()].Count)
             {
                 GameObject.Find("Slot (" + i + ")/Icon").SetActive(true);
-                //GameObject.Find("Slot (" + i + ")/Icon").GetComponent<Image>().sprite = Data.inventory.items[selectedSlotType.GetHashCode()][i];
+                GameObject.Find("Slot (" + i + ")/Icon").GetComponent<Image>().sprite = Data.inventory.items[selectedSlotType.GetHashCode()][i].icon;
             }
             else
             {
                 GameObject.Find("Slot (" + i + ")/Icon").SetActive(false);
             }
         }
+    }
+
+    private void updateItemDescription()
+    {
+        GameObject.Find("ItemNameText").GetComponent<Text>().text = Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Name;
     }
 }

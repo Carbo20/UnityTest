@@ -2,6 +2,8 @@
 using System.Collections;
 using System;
 
+//TODO  : Generate name based on bonus and effect
+//TODO :  Add effects depending on skills
 public class Item
 {
     /* Item's Variables */
@@ -177,9 +179,6 @@ public class Item
         }
 
     }
-
-
-
 
     /////////////////GETTERS AND SETTERS//////////////////////////////
     public int AttackValue

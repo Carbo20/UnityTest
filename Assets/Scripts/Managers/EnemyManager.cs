@@ -21,7 +21,6 @@ public class EnemyManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log("EnemyManger is here");
 
         if (enemy.IsDead)
         {

@@ -44,5 +44,10 @@ public class EnemiesManager : MonoBehaviour {
             }
         }
 
+        if(enemyList.Count == 0) // Destroy the EnemiesManager if all enemies are dead
+        {
+            Destroy(gameObject);
+        }
+
     }
 }

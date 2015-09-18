@@ -7,15 +7,20 @@ public class LevelManager : MonoBehaviour {
     private GameObject hero;
     private HeroManager hManager;
     private EnemiesManager eManager;
-   
-	// Use this for initialization
-	void Start ()
+    private GameObject text;
+
+
+    private TextMesh enemyTextBar1;
+
+    // Use this for initialization
+    void Start ()
     {
         GameObject hero = Instantiate(Resources.Load("Prefabs/Hero")) as GameObject;
         hManager = hero.GetComponent<HeroManager>();
         GameObject enemies = Instantiate(Resources.Load("Prefabs/EnemiesManager")) as GameObject;
         eManager = enemies.GetComponent<EnemiesManager>();
-        Debug.Log("hero"+eManager);
+        GameObject textBox = Instantiate(Resources.Load("Prefabs/Text")) as GameObject;
+        enemyTextBar1 = textBox.GetComponent<TextMesh>();
 	}
 	
 	// Update is called once per frame
@@ -45,7 +50,7 @@ public class LevelManager : MonoBehaviour {
             /*[TODO] A lot of stuff
             curently a testing stuff*/
             eManager.enemyList[0].enemy.TakeDamage(hManager.hero.DoDammage(2));
-            Debug.Log("life of the monster : " + eManager.enemyList[0].enemy.Hp);
+            enemyTextBar1.text = "-"+hManager.hero.DoDammage(2).ToString();
             hManager.hero.IsReady = false;
         }
     }

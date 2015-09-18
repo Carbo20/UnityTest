@@ -63,7 +63,7 @@ public class Item
         int NormalRange = 70- magicFind, MagicRange = 90- (magicFind/2); // when random 0-100 more than MagicRange the item is legendary
         
         //ITEMSLOT
-        slotTypeInt = UnityEngine.Random.Range(0, Data.ItemTypeCount); // item slot type : HEAD, CHEST, HANDS, LEGS, FEET, ONEHAND, TWOHANDS  
+        slotTypeInt = UnityEngine.Random.Range(0, Data.SlotTypeCount); // item slot type : HEAD, CHEST, HANDS, LEGS, FEET, ONEHAND, TWOHANDS  
         Debug.Log("slotTypeInt " + slotTypeInt);
         SlotType = (Data.SlotType)slotTypeInt;
 

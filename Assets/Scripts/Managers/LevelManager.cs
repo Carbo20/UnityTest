@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour {
 
     private TextMesh enemyTextBar1;
 
+
     // Use this for initialization
     void Start ()
     {
@@ -45,10 +46,16 @@ public class LevelManager : MonoBehaviour {
 
     private void HeroLoop()
     {
+        if (hManager.hero.IsDead)
+        {
+
+        }
         if (hManager.hero.IsReady)
         {
             /*[TODO] A lot of stuff
             curently a testing stuff*/
+
+            /*Use here the result of the IA computation to do something*/
             eManager.enemyList[0].enemy.TakeDamage(hManager.hero.DoDammage(2));
             enemyTextBar1.text = "-"+hManager.hero.DoDammage(2).ToString();
             hManager.hero.IsReady = false;
@@ -64,6 +71,21 @@ public class LevelManager : MonoBehaviour {
                 //[TODO] A lot of stuff
                 e.enemy.IsReady = false;
             }
+        }
+    }
+
+
+
+    public EnemiesManager EManager
+    {
+        get
+        {
+            return eManager;
+        }
+
+        set
+        {
+            eManager = value;
         }
     }
 }

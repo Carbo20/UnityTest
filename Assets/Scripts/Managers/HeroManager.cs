@@ -8,17 +8,19 @@ public class HeroManager : MonoBehaviour {
     private float heroActivation = 2;
     private float heroDeltaTime;
 
+    private string heroActionStatus;
+    
+
 	// Use this for initialization
 	void Start ()
     {
         hero = new Hero(10,10,2,2,2,2);
+        heroActionStatus = null;
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        Debug.Log("Hero manager is here");
-
         /* Speed computation, wait here the hero is ready to do something
         [TODO] Computation of the delta.time with the hero speed in heroActivation */
         heroDeltaTime += Time.deltaTime;
@@ -27,5 +29,7 @@ public class HeroManager : MonoBehaviour {
             hero.IsReady = true;
             heroDeltaTime = 0;
         }
+
 	}
+    
 }

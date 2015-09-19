@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class LevelManager : MonoBehaviour {
 
     private Skill skill; //All the skill usable by the hero are here
+    private IA ia; //Here is the IA manager
 
     private GameObject hero;
     private HeroManager hManager;
@@ -26,6 +27,7 @@ public class LevelManager : MonoBehaviour {
         enemyTextBar1 = textBox.GetComponent<TextMesh>();
 
         skill = new Skill(hManager,eManager);
+        ia = new IA(hManager, eManager, skill);
     }
 	
 	// Update is called once per frame
@@ -57,11 +59,7 @@ public class LevelManager : MonoBehaviour {
             /*[TODO] A lot of stuff
             curently a testing stuff*/
 
-            skill.FakeBuffTest();
-            Debug.Log(hManager.hero.Agility);
-
-            skill.FakeDebuffTest(0);
-            Debug.Log(eManager.enemyList[0].enemy.Strenght);
+            ia.ConditionComputation();
 
             /* End of the testing stuff */
 

@@ -1,15 +1,23 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
 
 public class Skill {
 
     private HeroManager hManager; //Reference toward the hero
     private EnemiesManager eManager;
 
-	public Skill(HeroManager _hero,EnemiesManager _enemies)
+    public Action[] testAction;
+
+    public Skill(HeroManager _hero,EnemiesManager _enemies)
     {
         hManager = _hero;
         eManager = _enemies;
+
+        testAction = new Action[10];
+
+        /* Test for put all the method in testAction Array */
+        testAction[0] = FakeBuffTest;
+        testAction[1] = FakeDebuffTest;
     }
 
     public void UpdateEManager(EnemiesManager enemies)
@@ -22,11 +30,12 @@ public class Skill {
     public void FakeBuffTest()
     {
         hManager.hero.Agility += 3;
+        Debug.Log("Si ce message s'affiche c'est que mon tableau de callback marche like a pro !");
     }
 
-    public void FakeDebuffTest(int enemyId)
+    public void FakeDebuffTest()
     {
-        eManager.enemyList[enemyId].enemy.Strenght--;
+        eManager.enemyList[0].enemy.Strenght--;
     }
 
 }

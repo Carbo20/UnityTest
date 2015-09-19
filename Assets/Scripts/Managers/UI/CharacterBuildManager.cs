@@ -12,7 +12,7 @@ public class CharacterBuildManager : MonoBehaviour {
 	void Start () {
         selectedSlotType = Data.SlotType.HEAD;
         selectedItem = 0;
-        Data.inventory.items[0].Add(new Item(1, 0));
+        Data.inventory.items[0].Add(new Item(10, 0));
         updateItemList();
         updateItemDescription();
 	}

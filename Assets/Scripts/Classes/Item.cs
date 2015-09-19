@@ -64,8 +64,8 @@ public class Item
         
         //ITEMSLOT
         slotTypeInt = UnityEngine.Random.Range(0, Data.SlotTypeCount); // item slot type : HEAD, CHEST, HANDS, LEGS, FEET, ONEHAND, TWOHANDS  
-        Debug.Log("slotTypeInt " + slotTypeInt);
         SlotType = (Data.SlotType)slotTypeInt;
+        Debug.Log("slotTypeInt " + slotTypeInt + "   " + SlotType);
 
         //itemTypeInt
         if (slotTypeInt == Data.SlotType.ONEHAND.GetHashCode()) // if the item type is 1h we rand between weapon and shield

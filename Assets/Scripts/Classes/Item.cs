@@ -10,7 +10,7 @@ public class Item
     private int attackValue;
     private float attackSpeed;
     private int armor;
-    public Sprite icon;
+    private int spriteID;
     private string name;
     private string description;
     private int level;
@@ -39,6 +39,8 @@ public class Item
         dodgeBonus = 0;
         critBonus = 0;
         name = "placeholderdenomdemerde";
+        spriteID = 0;
+
         level = _level;
 
         GenerateItem(_level, _magicFind);
@@ -65,7 +67,7 @@ public class Item
         //ITEMSLOT
         slotTypeInt = UnityEngine.Random.Range(0, Data.SlotTypeCount); // item slot type : HEAD, CHEST, HANDS, LEGS, FEET, ONEHAND, TWOHANDS  
         SlotType = (Data.SlotType)slotTypeInt;
-        Debug.Log("slotTypeInt " + slotTypeInt + "   " + SlotType);
+        //Debug.Log("slotTypeInt " + slotTypeInt + "   " + SlotType);
 
         //itemTypeInt
         if (slotTypeInt == Data.SlotType.ONEHAND.GetHashCode()) // if the item type is 1h we rand between weapon and shield
@@ -81,13 +83,13 @@ public class Item
         else
             itemTypeInt = Data.ItemType.ARMOR.GetHashCode();//Armor
         ItemType = (Data.ItemType)itemTypeInt;
-        Debug.Log("itemTypeInt " + itemTypeInt);
+        //Debug.Log("itemTypeInt " + itemTypeInt);
 
         // Normal loot : 70% normal 25% magic 5% legendary donc en float : < 0.7 normal, 0.7< magic <0.95, 0.95< legendary
         // Loot+10% : N 0.6 <M 0.90 <L  : N-10, M-5, L-5
         
         itemQualityInt = UnityEngine.Random.Range(0, 100); // Qualite de l'item : normal, magic, legendaire
-        Debug.Log("itemQualityInt " + itemQualityInt + "   MagicRange " + MagicRange);
+        //Debug.Log("itemQualityInt " + itemQualityInt + "   MagicRange " + MagicRange);
 
         if (itemQualityInt > MagicRange)// the item is legendary
         {
@@ -490,6 +492,20 @@ public class Item
         set
         {
             itemQuality = value;
+        }
+    }
+
+    public int SpriteID
+    {
+
+        get
+        {
+            return spriteID;
+        }
+
+        set
+        {
+            spriteID = value;
         }
     }
 }

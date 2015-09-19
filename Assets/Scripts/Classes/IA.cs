@@ -7,7 +7,7 @@ public class IA
     private int idFocus; // ID of the target (0 for the hero, 1...3 for the monster)
     private int idCondition; // ID of the condition (0 for Hp, 1 for mana ... [TODO] to complete)
     private int idSkill; // ID of the skill
-
+    private int idSigne; // 0 for >, 1 for <
     
 
     private HeroManager hManager;
@@ -23,13 +23,19 @@ public class IA
         value = 50;
         idFocus = 0; //Hero target
         idCondition = 0; // Hp Condition
-        idSkill = 12; // Heal
+        idSkill = 0; // Heal
     }
     
 
     public void ConditionComputation()
     {
-        skill.testAction[0]();
+        if(idSigne == 0) {
+            skill.actionList[idSkill]();
+        }
+        if(idSigne == 1)
+        {
+
+        }
     }
 
 }

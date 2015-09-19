@@ -1,4 +1,5 @@
-﻿using System;
+﻿using UnityEngine;
+using System;
 
 public class Hero {
 
@@ -24,6 +25,9 @@ public class Hero {
     private bool isReady;
     private bool isDead;
 
+    /* For IA */
+    private int[] statList; //List of all stats use into the IA
+
     public Hero(int hp,int mana,int strenght,int inteligence, int agility, int vitality)
     {
         this.hp = hp;
@@ -38,6 +42,19 @@ public class Hero {
         xpForNextLevel = 50; // [TODO] Maybe we have to search into a list wich amount of xp we need for the next lvl
         isReady = false;
         isDead = false;
+
+        statList = new int[10];
+        InitStatList(ref hp);
+
+        hp++;
+
+        Debug.Log("hp : " + hp);
+        Debug.Log("Array : " + statList[0]);
+    }
+
+    private void InitStatList(ref int _hp)
+    {
+        statList[0] = _hp;
     }
 
     public void TakeDamage(int damage)

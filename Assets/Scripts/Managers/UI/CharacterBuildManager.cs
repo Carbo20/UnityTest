@@ -9,14 +9,16 @@ public class CharacterBuildManager : MonoBehaviour {
     Data.SlotType selectedSlotType;
     int selectedItem;
     public List<Sprite> sprites;
+    public Sprite redCrossSprite;
     //just for test
     Item it;
-
+    //
 	// Use this for initialization
 	void Start () {
         selectedSlotType = Data.SlotType.HEAD;
         selectedItem = 0;
 
+        //just for test
         for (int i = 0; i < 60; i++)
         {
             it = new Item(UnityEngine.Random.Range(1, 101), 0);
@@ -24,10 +26,12 @@ public class CharacterBuildManager : MonoBehaviour {
             Data.inventory.items[it.SlotType.GetHashCode()].Add(it);
         }
 
+        //
 
 
         updateItemList();
         updateItemDescription();
+        updateHeroEquipement();
 	}
 	
 	// Update is called once per frame
@@ -156,7 +160,6 @@ public class CharacterBuildManager : MonoBehaviour {
             if (i < Data.inventory.items[selectedSlotType.GetHashCode()].Count)
             {
                 GameObject.Find("Slot (" + i + ")/Icon").GetComponent<Image>().enabled = true;
-               
                 GameObject.Find("Slot (" + i + ")/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].SpriteID];
             }
             else
@@ -186,6 +189,116 @@ public class CharacterBuildManager : MonoBehaviour {
             GameObject.Find("ATKValueText").GetComponent<Text>().text = "";
             GameObject.Find("ATSValueText").GetComponent<Text>().text = "";
             GameObject.Find("DEFValueText").GetComponent<Text>().text = "";
+        }
+    }
+
+    private void updateHeroEquipement()
+    {
+        //update HEAD SLOT
+        if (Data.inventory.HeadItem != null)
+        {
+            GameObject.Find("HeadSlot/Icon").GetComponent<Image>().enabled = true;
+            GameObject.Find("HeadSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.HeadItem.SpriteID];
+        }
+        else
+        {
+            GameObject.Find("HeadSlot/Icon").GetComponent<Image>().enabled = false;
+        }
+
+        //update CHEST SLOT
+        if (Data.inventory.ChestItem != null)
+        {
+            GameObject.Find("ChestSlot/Icon").GetComponent<Image>().enabled = true;
+            GameObject.Find("ChestSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.ChestItem.SpriteID];
+        }
+        else
+        {
+            GameObject.Find("ChestSlot/Icon").GetComponent<Image>().enabled = false;
+        }
+
+        //update HANDS SLOT
+        if (Data.inventory.HandsItem != null)
+        {
+            GameObject.Find("HandsSlot/Icon").GetComponent<Image>().enabled = true;
+            GameObject.Find("HandsSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.HandsItem.SpriteID];
+        }
+        else
+        {
+            GameObject.Find("HandsSlot/Icon").GetComponent<Image>().enabled = false;
+        }
+
+        //update LEGS SLOT
+        if (Data.inventory.LegsItem != null)
+        {
+            GameObject.Find("LegsSlot/Icon").GetComponent<Image>().enabled = true;
+            GameObject.Find("LegsSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.LegsItem.SpriteID];
+        }
+        else
+        {
+            GameObject.Find("LegsSlot/Icon").GetComponent<Image>().enabled = false;
+        }
+
+        //update FEET SLOT
+        if (Data.inventory.FeetItem != null)
+        {
+            GameObject.Find("FeetSlot/Icon").GetComponent<Image>().enabled = true;
+            GameObject.Find("FeetSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.FeetItem.SpriteID];
+        }
+        else
+        {
+            GameObject.Find("FeetSlot/Icon").GetComponent<Image>().enabled = false;
+        }
+
+        //update two hand weapon NOTE: TWO HAND Weapon is always in the LEFT HAND
+        if (Data.inventory.gotTwoHandWeapon)
+        {
+            if (Data.inventory.LeftHandItem != null)
+            {
+                GameObject.Find("RightHandSlot/Icon").GetComponent<Image>().enabled = true;
+                GameObject.Find("RightHandSlot/Icon").GetComponent<Image>().sprite = redCrossSprite;
+
+                GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().enabled = true;
+                GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.LeftHandItem.SpriteID];
+            }
+            else
+            {
+                GameObject.Find("RightHandSlot/Icon").GetComponent<Image>().enabled = false;
+                GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().enabled = false;
+            }
+        }
+        else
+        {
+
+            if (Data.inventory.LeftHandItem != null)
+            {
+                GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().enabled = true;
+                GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.LeftHandItem.SpriteID];
+            }
+            else
+            {
+                GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().enabled = false;
+            }
+
+            if (Data.inventory.RightHandItem != null)
+            {
+                GameObject.Find("RightHandSlot/Icon").GetComponent<Image>().enabled = true;
+                GameObject.Find("RightHandSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.RightHandItem.SpriteID];
+            }
+            else
+            {
+                GameObject.Find("RightHandSlot/Icon").GetComponent<Image>().enabled = false;
+            }
+        }
+
+
+    }
+
+    public void EquipButtonPushed()
+    {
+        if (Data.inventory.items[selectedSlotType.GetHashCode()].Count > selectedItem)
+        {
+            Data.inventory.Equip(Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem]);
+            updateHeroEquipement();
         }
     }
 }

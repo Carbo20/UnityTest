@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Data {
 
@@ -18,4 +19,13 @@ public class Data {
 
     public enum BonusType { STREN, INTEL, AGI, VITAL, ATTACK, SPELL, MANA, REGENMANA, DODGE, CRIT, REGENHEALTH, HEALTH, ATTACKSPEED, CASTTIME };
     public static int BonusTypeCount = 14;
+
+    public int nbBonusMaxPerItem = 5;
+
+    public enum IconType { SHIELD, AXE, SWORD, DAGGER, MACE, WAND, SWORD2H, AXE2H, STAFF, SPEAR, HEAD, CHEST, HANDS, LEGS, FEET };
+    public static int IconTypeCount = 15;
+
+    //TODO liste d'objet
+
+    public List<List<ItemData>> listOfItems; //ordered on IconType
 }

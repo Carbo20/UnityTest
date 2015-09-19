@@ -10,17 +10,15 @@ public class Item
     private int attackValue;
     private float attackSpeed;
     private int armor;
-    private int spriteID;
-    private string name;
-    private string description;
     private int level;
 
     private int strenBonus, intelBonus, agiBonus, vitalBonus, attackBonus, spellBonus, manaBonus,   healthBonus;
     private float attackSpeedBonus, castTimeBonus, regenManaBonus, regenHealthBonus, dodgeBonus, critBonus; // for speed : between 0 and 1, it will reduce the delay after an attack or a cast is done
 
-    private Data.SlotType slotType;
+   // private Data.SlotType slotType;
     private Data.ItemType itemType;
     private Data.ItemQuality itemQuality;
+    private ItemData itemData;
 
     public Item(int _level, int _magicFind)
     {
@@ -38,15 +36,11 @@ public class Item
         regenHealthBonus = 0;
         dodgeBonus = 0;
         critBonus = 0;
-        name = "placeholderdenomdemerde";
-        spriteID = 0;
 
         level = _level;
 
         GenerateItem(_level, _magicFind);
     }
-
-    //public enum SlotType { HEAD, CHEST, HANDS, LEGS, FEET, ONEHAND, TWOHANDS };
 
     /// <summary>
     /// int rand = UnityEngine.Random.Range(0, max); max excluded  // value instead of range for float
@@ -66,7 +60,7 @@ public class Item
         
         //ITEMSLOT
         slotTypeInt = UnityEngine.Random.Range(0, Data.SlotTypeCount); // item slot type : HEAD, CHEST, HANDS, LEGS, FEET, ONEHAND, TWOHANDS  
-        SlotType = (Data.SlotType)slotTypeInt;
+//        slotType = (Data.SlotType)slotTypeInt;
         //Debug.Log("slotTypeInt " + slotTypeInt + "   " + SlotType);
 
         //itemTypeInt
@@ -112,16 +106,16 @@ public class Item
             switch ((Data.BonusType)randomBonus)
             {
                 case Data.BonusType.STREN:
-                    StrenBonus += UnityEngine.Random.Range((int)0.80 * Level, Level);
+                    StrenBonus += UnityEngine.Random.Range((int) (0.80 * Level), Level);
                     break;
                 case Data.BonusType.INTEL:
-                    IntelBonus += UnityEngine.Random.Range((int)0.80 * Level, Level);
+                    IntelBonus += UnityEngine.Random.Range((int)(0.80 * Level), Level);
                     break;
                 case Data.BonusType.AGI:
-                    AgiBonus += UnityEngine.Random.Range((int)0.80 * Level, Level);
+                    AgiBonus += UnityEngine.Random.Range((int)(0.80 * Level), Level);
                     break;
                  case Data.BonusType.VITAL:
-                    VitalBonus += UnityEngine.Random.Range((int)0.80*Level, Level);
+                    VitalBonus += UnityEngine.Random.Range((int)(0.80 * Level), Level);
                     break;
                 case Data.BonusType.ATTACK:
                     AttackBonus += UnityEngine.Random.Range(Level, 2 * Level);

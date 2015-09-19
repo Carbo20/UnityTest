@@ -509,6 +509,8 @@ public class CharacterBuildManager : MonoBehaviour {
                     else
                         DEFTxt.color = equalSTATColor;
 
+                    // TO BE UPGRADE
+
                     break;
             }
             GameObject.Find("ATKValueText").GetComponent<Text>().text = Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackValue.ToString();

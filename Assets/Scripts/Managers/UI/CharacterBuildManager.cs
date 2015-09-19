@@ -10,6 +10,7 @@ public class CharacterBuildManager : MonoBehaviour {
     int selectedItem;
     public List<Sprite> sprites;
     public Sprite redCrossSprite;
+    RectTransform contentRectTransform;
     //just for test
     Item it;
     //
@@ -17,7 +18,7 @@ public class CharacterBuildManager : MonoBehaviour {
 	void Start () {
         selectedSlotType = Data.SlotType.HEAD;
         selectedItem = 0;
-
+        contentRectTransform = GameObject.Find("Content").GetComponent<RectTransform>();
         //just for test
         for (int i = 0; i < 60; i++)
         {
@@ -55,6 +56,8 @@ public class CharacterBuildManager : MonoBehaviour {
         SelectFirstItem();
         updateItemList();
         updateItemDescription();
+        contentRectTransform.offsetMax = new Vector2(contentRectTransform.offsetMax.x, 0);
+        contentRectTransform.offsetMin = new Vector2(contentRectTransform.offsetMin.x, -271);
     }
 
     /// <summary>
@@ -66,6 +69,8 @@ public class CharacterBuildManager : MonoBehaviour {
         SelectFirstItem();
         updateItemList();
         updateItemDescription();
+        contentRectTransform.offsetMax = new Vector2(contentRectTransform.offsetMax.x, 0);
+        contentRectTransform.offsetMin = new Vector2(contentRectTransform.offsetMin.x, -271);
     }
 
     /// <summary>
@@ -77,6 +82,8 @@ public class CharacterBuildManager : MonoBehaviour {
         SelectFirstItem();
         updateItemList();
         updateItemDescription();
+        contentRectTransform.offsetMax = new Vector2(contentRectTransform.offsetMax.x, 0);
+        contentRectTransform.offsetMin = new Vector2(contentRectTransform.offsetMin.x, -271);
     }
 
     /// <summary>
@@ -88,6 +95,8 @@ public class CharacterBuildManager : MonoBehaviour {
         SelectFirstItem();
         updateItemList();
         updateItemDescription();
+        contentRectTransform.offsetMax = new Vector2(contentRectTransform.offsetMax.x, 0);
+        contentRectTransform.offsetMin = new Vector2(contentRectTransform.offsetMin.x, -271);
     }
 
     /// <summary>
@@ -99,6 +108,8 @@ public class CharacterBuildManager : MonoBehaviour {
         SelectFirstItem(); 
         updateItemList();
         updateItemDescription();
+        contentRectTransform.offsetMax = new Vector2(contentRectTransform.offsetMax.x, 0);
+        contentRectTransform.offsetMin = new Vector2(contentRectTransform.offsetMin.x, -271);
     }
 
     /// <summary>
@@ -110,6 +121,8 @@ public class CharacterBuildManager : MonoBehaviour {
         SelectFirstItem();
         updateItemList();
         updateItemDescription();
+        contentRectTransform.offsetMax = new Vector2(contentRectTransform.offsetMax.x, 0);
+        contentRectTransform.offsetMin = new Vector2(contentRectTransform.offsetMin.x, -271);
     }
 
     /// <summary>
@@ -121,6 +134,8 @@ public class CharacterBuildManager : MonoBehaviour {
         SelectFirstItem();
         updateItemList();
         updateItemDescription();
+        contentRectTransform.offsetMax = new Vector2(contentRectTransform.offsetMax.x, 0);
+        contentRectTransform.offsetMin = new Vector2(contentRectTransform.offsetMin.x, -271);
     }
 
     /// <summary>

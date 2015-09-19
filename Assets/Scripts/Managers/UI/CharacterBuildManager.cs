@@ -11,6 +11,8 @@ public class CharacterBuildManager : MonoBehaviour {
     public List<Sprite> sprites;
     public Sprite redCrossSprite;
     RectTransform contentRectTransform;
+    Text LVLTxt, ATKTxt, ATStxt, DEFTxt;
+    Color lowerSTATColor, upperSTATColor, equalSTATColor;
     //just for test
     Item it;
     //
@@ -19,8 +21,16 @@ public class CharacterBuildManager : MonoBehaviour {
         selectedSlotType = Data.SlotType.HEAD;
         selectedItem = 0;
         contentRectTransform = GameObject.Find("Content").GetComponent<RectTransform>();
+        LVLTxt = GameObject.Find("LVLValueText").GetComponent<Text>();
+        ATKTxt = GameObject.Find("ATKValueText").GetComponent<Text>();
+        ATStxt = GameObject.Find("ATSValueText").GetComponent<Text>();
+        DEFTxt = GameObject.Find("DEFValueText").GetComponent<Text>();
+        lowerSTATColor = Color.red;
+        upperSTATColor = Color.green;
+        equalSTATColor = Color.black;
+
         //just for test
-        for (int i = 0; i < 60; i++)
+        for (int i = 0; i < 100; i++)
         {
             it = new Item(UnityEngine.Random.Range(1, 101), 0);
             it.SpriteID = it.SlotType.GetHashCode();
@@ -237,10 +247,270 @@ public class CharacterBuildManager : MonoBehaviour {
     /// </summary>
     private void updateItemDescription()
     {
+        
         if (Data.inventory.items[selectedSlotType.GetHashCode()].Count > selectedItem)
         {
             GameObject.Find("ItemNameText").GetComponent<Text>().text = Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Name;
             GameObject.Find("LVLValueText").GetComponent<Text>().text = Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Level.ToString();
+
+
+            switch (selectedSlotType)
+            {
+                case Data.SlotType.HEAD:
+
+                    if (Data.inventory.HeadItemID == -1)
+                    {
+                        LVLTxt.color = upperSTATColor;
+                        ATKTxt.color = upperSTATColor;
+                        ATStxt.color = upperSTATColor;
+                        DEFTxt.color = upperSTATColor;
+                        break;
+                    }
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Level > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HeadItemID].Level)
+                        LVLTxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Level < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HeadItemID].Level)
+                        LVLTxt.color = lowerSTATColor;
+                    else
+                        LVLTxt.color = equalSTATColor;
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackValue > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HeadItemID].AttackValue)
+                        ATKTxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackValue < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HeadItemID].AttackValue)
+                        ATKTxt.color = lowerSTATColor;
+                    else
+                        ATKTxt.color = equalSTATColor;
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HeadItemID].AttackSpeed)
+                        ATStxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HeadItemID].AttackSpeed)
+                        ATStxt.color = lowerSTATColor;
+                    else
+                        ATStxt.color = equalSTATColor;
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HeadItemID].Armor)
+                        DEFTxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HeadItemID].Armor)
+                        DEFTxt.color = lowerSTATColor;
+                    else
+                        DEFTxt.color = equalSTATColor;
+                    break;
+
+                case Data.SlotType.CHEST:
+
+                    if (Data.inventory.ChestItemID == -1)
+                    {
+                        LVLTxt.color = upperSTATColor;
+                        ATKTxt.color = upperSTATColor;
+                        ATStxt.color = upperSTATColor;
+                        DEFTxt.color = upperSTATColor;
+                        break;
+                    }
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Level > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.ChestItemID].Level)
+                        LVLTxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Level < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.ChestItemID].Level)
+                        LVLTxt.color = lowerSTATColor;
+                    else
+                        LVLTxt.color = equalSTATColor;
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackValue > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.ChestItemID].AttackValue)
+                        ATKTxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackValue < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.ChestItemID].AttackValue)
+                        ATKTxt.color = lowerSTATColor;
+                    else
+                        ATKTxt.color = equalSTATColor;
+                    
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.ChestItemID].AttackSpeed)
+                        ATStxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.ChestItemID].AttackSpeed)
+                        ATStxt.color = lowerSTATColor;
+                    else
+                        ATStxt.color = equalSTATColor;
+                                        
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.ChestItemID].Armor)
+                        DEFTxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.ChestItemID].Armor)
+                        DEFTxt.color = lowerSTATColor;
+                    else
+                        DEFTxt.color = equalSTATColor;
+                    break;
+
+                case Data.SlotType.HANDS:
+
+                    if (Data.inventory.HandsItemID == -1)
+                    {
+                        LVLTxt.color = upperSTATColor;
+                        ATKTxt.color = upperSTATColor;
+                        ATStxt.color = upperSTATColor;
+                        DEFTxt.color = upperSTATColor;
+                        break;
+                    }
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Level > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HandsItemID].Level)
+                        LVLTxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Level < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HandsItemID].Level)
+                        LVLTxt.color = lowerSTATColor;
+                    else
+                        LVLTxt.color = equalSTATColor;
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackValue > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HandsItemID].AttackValue)
+                        ATKTxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackValue < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HandsItemID].AttackValue)
+                        ATKTxt.color = lowerSTATColor;
+                    else
+                        ATKTxt.color = equalSTATColor;
+                    
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HandsItemID].AttackSpeed)
+                        ATStxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HandsItemID].AttackSpeed)
+                        ATStxt.color = lowerSTATColor;
+                    else
+                        ATStxt.color = equalSTATColor;
+                    
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HandsItemID].Armor)
+                        DEFTxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HandsItemID].Armor)
+                        DEFTxt.color = lowerSTATColor;
+                    else
+                        DEFTxt.color = equalSTATColor;
+                    break;
+
+                case Data.SlotType.LEGS:
+
+                    if (Data.inventory.LegsItemID == -1)
+                    {
+                        LVLTxt.color = upperSTATColor;
+                        ATKTxt.color = upperSTATColor;
+                        ATStxt.color = upperSTATColor;
+                        DEFTxt.color = upperSTATColor;
+                        break;
+                    }
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Level > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LegsItemID].Level)
+                        LVLTxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Level < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LegsItemID].Level)
+                        LVLTxt.color = lowerSTATColor;
+                    else
+                        LVLTxt.color = equalSTATColor;
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackValue > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LegsItemID].AttackValue)
+                        ATKTxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackValue < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LegsItemID].AttackValue)
+                        ATKTxt.color = lowerSTATColor;
+                    else
+                        ATKTxt.color = equalSTATColor;
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LegsItemID].AttackSpeed)
+                        ATStxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LegsItemID].AttackSpeed)
+                        ATStxt.color = lowerSTATColor;
+                    else
+                        ATStxt.color = equalSTATColor;
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LegsItemID].Armor)
+                        DEFTxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LegsItemID].Armor)
+                        DEFTxt.color = lowerSTATColor;
+                    else
+                        DEFTxt.color = equalSTATColor;
+                    break;
+
+                case Data.SlotType.FEET:
+
+                    if (Data.inventory.FeetItemID == -1)
+                    {
+                        LVLTxt.color = upperSTATColor;
+                        ATKTxt.color = upperSTATColor;
+                        ATStxt.color = upperSTATColor;
+                        DEFTxt.color = upperSTATColor;
+                        break;
+                    }
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Level > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.FeetItemID].Level)
+                        LVLTxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Level < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.FeetItemID].Level)
+                        LVLTxt.color = lowerSTATColor;
+                    else
+                        LVLTxt.color = equalSTATColor;
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackValue > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.FeetItemID].AttackValue)
+                        ATKTxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackValue < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.FeetItemID].AttackValue)
+                        ATKTxt.color = lowerSTATColor;
+                    else
+                        ATKTxt.color = equalSTATColor;
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.FeetItemID].AttackSpeed)
+                        ATStxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.FeetItemID].AttackSpeed)
+                        ATStxt.color = lowerSTATColor;
+                    else
+                        ATStxt.color = equalSTATColor;
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.FeetItemID].Armor)
+                        DEFTxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.FeetItemID].Armor)
+                        DEFTxt.color = lowerSTATColor;
+                    else
+                        DEFTxt.color = equalSTATColor;
+                    break;
+
+                case Data.SlotType.ONEHAND:
+
+                    if (Data.inventory.RightHandItemID == -1 || Data.inventory.LeftHandItemID == -1)
+                    {
+                        LVLTxt.color = upperSTATColor;
+                        ATKTxt.color = upperSTATColor;
+                        ATStxt.color = upperSTATColor;
+                        DEFTxt.color = upperSTATColor;
+                        break;
+                    }
+
+                    // TODO
+
+                    break;
+                case Data.SlotType.TWOHANDS:
+
+                    if (Data.inventory.LeftHandItemID == -1)
+                    {
+                        LVLTxt.color = upperSTATColor;
+                        ATKTxt.color = upperSTATColor;
+                        ATStxt.color = upperSTATColor;
+                        DEFTxt.color = upperSTATColor;
+                        break;
+                    }
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Level > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LeftHandItemID].Level)
+                        LVLTxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Level < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LeftHandItemID].Level)
+                        LVLTxt.color = lowerSTATColor;
+                    else
+                        LVLTxt.color = equalSTATColor;
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackValue > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LeftHandItemID].AttackValue)
+                        ATKTxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackValue < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LeftHandItemID].AttackValue)
+                        ATKTxt.color = lowerSTATColor;
+                    else
+                        ATKTxt.color = equalSTATColor;
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LeftHandItemID].AttackSpeed)
+                        ATStxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LeftHandItemID].AttackSpeed)
+                        ATStxt.color = lowerSTATColor;
+                    else
+                        ATStxt.color = equalSTATColor;
+
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LeftHandItemID].Armor)
+                        DEFTxt.color = upperSTATColor;
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LeftHandItemID].Armor)
+                        DEFTxt.color = lowerSTATColor;
+                    else
+                        DEFTxt.color = equalSTATColor;
+
+                    break;
+            }
             GameObject.Find("ATKValueText").GetComponent<Text>().text = Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackValue.ToString();
             GameObject.Find("ATSValueText").GetComponent<Text>().text = Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed.ToString();
             GameObject.Find("DEFValueText").GetComponent<Text>().text = Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor.ToString();
@@ -366,6 +636,7 @@ public class CharacterBuildManager : MonoBehaviour {
             Data.inventory.Equip(selectedSlotType, selectedItem);
             updateHeroEquipement();
             updateItemList();
+            updateItemDescription();
         }
     }
 }

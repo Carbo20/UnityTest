@@ -3,16 +3,16 @@
 public class Inventory {
 
     public List<List<Item>> items;
-    public Item HeadItem;
-    public Item ChestItem;
-    public Item HandsItem;
-    public Item LegsItem;
-    public Item FeetItem;
-    public Item RightHandItem;
-    public Item LeftHandItem;
+
     public bool gotTwoHandWeapon;
     public bool fillRightHand;
-
+    public int HeadItemID;
+    public int ChestItemID;
+    public int HandsItemID;
+    public int LegsItemID;
+    public int FeetItemID;
+    public int RightHandItemID;
+    public int LeftHandItemID;
     public Inventory()
     {
         items = new List<List<Item>>();
@@ -21,35 +21,45 @@ public class Inventory {
 
         gotTwoHandWeapon = false;
         fillRightHand = true;
+
+        HeadItemID      = -1;
+        ChestItemID     = -1;
+        HandsItemID     = -1;
+        LegsItemID      = -1;
+        FeetItemID      = -1;
+        RightHandItemID = -1;
+        LeftHandItemID  = -1;
+        
     }
 
-    public void Equip(Item it)
+    public void Equip(Data.SlotType st, int it)
     {
-        switch (it.SlotType)
+        switch (st)
         {
 
-            case Data.SlotType.HEAD: HeadItem = it; break;
-            case Data.SlotType.CHEST: ChestItem = it; break;
-            case Data.SlotType.HANDS: HandsItem = it; break;
-            case Data.SlotType.LEGS: LegsItem = it; break;
-            case Data.SlotType.FEET: FeetItem = it; break;
-            case Data.SlotType.TWOHANDS :
+            case Data.SlotType.HEAD: HeadItemID = it; break;
+            case Data.SlotType.CHEST: ChestItemID = it; break;
+            case Data.SlotType.HANDS: HandsItemID = it; break;
+            case Data.SlotType.LEGS: LegsItemID = it; break;
+            case Data.SlotType.FEET: FeetItemID = it; break;
+            case Data.SlotType.TWOHANDS:
                 gotTwoHandWeapon = true;
-                RightHandItem = null;
-                LeftHandItem = it;
+                RightHandItemID = -1;
+                LeftHandItemID = it;
                 break;
-            case Data.SlotType.ONEHAND :
+            case Data.SlotType.ONEHAND:
                 if (gotTwoHandWeapon)
                 {
-                    LeftHandItem = null;
-                    RightHandItem = it;
+                    LeftHandItemID = -1;
+                    RightHandItemID = it;
                 }
                 else
                 {
-                    if (RightHandItem == null) RightHandItem = it;
-                    else if (LeftHandItem == null) LeftHandItem = it;
-                    else if (fillRightHand) { RightHandItem = it; fillRightHand = false; }
-                    else { LeftHandItem = it; fillRightHand = true; }
+                    if (RightHandItemID == it || LeftHandItemID == it) break;
+                    if (RightHandItemID == -1) RightHandItemID = it;
+                    else if (LeftHandItemID == -1) LeftHandItemID = it;
+                    else if (fillRightHand) { RightHandItemID = it; fillRightHand = false; }
+                    else { LeftHandItemID = it; fillRightHand = true; }
                 }
                 gotTwoHandWeapon = false;
                 break;

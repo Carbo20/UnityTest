@@ -195,10 +195,10 @@ public class CharacterBuildManager : MonoBehaviour {
     private void updateHeroEquipement()
     {
         //update HEAD SLOT
-        if (Data.inventory.HeadItem != null)
+        if (Data.inventory.HeadItemID != -1)
         {
             GameObject.Find("HeadSlot/Icon").GetComponent<Image>().enabled = true;
-            GameObject.Find("HeadSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.HeadItem.SpriteID];
+            GameObject.Find("HeadSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[Data.SlotType.HEAD.GetHashCode()][Data.inventory.HeadItemID].SpriteID];
         }
         else
         {
@@ -206,10 +206,10 @@ public class CharacterBuildManager : MonoBehaviour {
         }
 
         //update CHEST SLOT
-        if (Data.inventory.ChestItem != null)
+        if (Data.inventory.ChestItemID != -1)
         {
             GameObject.Find("ChestSlot/Icon").GetComponent<Image>().enabled = true;
-            GameObject.Find("ChestSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.ChestItem.SpriteID];
+            GameObject.Find("ChestSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[Data.SlotType.CHEST.GetHashCode()][Data.inventory.ChestItemID].SpriteID];
         }
         else
         {
@@ -217,10 +217,10 @@ public class CharacterBuildManager : MonoBehaviour {
         }
 
         //update HANDS SLOT
-        if (Data.inventory.HandsItem != null)
+        if (Data.inventory.HandsItemID != -1)
         {
             GameObject.Find("HandsSlot/Icon").GetComponent<Image>().enabled = true;
-            GameObject.Find("HandsSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.HandsItem.SpriteID];
+            GameObject.Find("HandsSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[Data.SlotType.HANDS.GetHashCode()][Data.inventory.HandsItemID].SpriteID];
         }
         else
         {
@@ -228,10 +228,10 @@ public class CharacterBuildManager : MonoBehaviour {
         }
 
         //update LEGS SLOT
-        if (Data.inventory.LegsItem != null)
+        if (Data.inventory.LegsItemID != -1)
         {
             GameObject.Find("LegsSlot/Icon").GetComponent<Image>().enabled = true;
-            GameObject.Find("LegsSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.LegsItem.SpriteID];
+            GameObject.Find("LegsSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[Data.SlotType.LEGS.GetHashCode()][Data.inventory.LegsItemID].SpriteID];
         }
         else
         {
@@ -239,10 +239,10 @@ public class CharacterBuildManager : MonoBehaviour {
         }
 
         //update FEET SLOT
-        if (Data.inventory.FeetItem != null)
+        if (Data.inventory.FeetItemID != -1)
         {
             GameObject.Find("FeetSlot/Icon").GetComponent<Image>().enabled = true;
-            GameObject.Find("FeetSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.FeetItem.SpriteID];
+            GameObject.Find("FeetSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[Data.SlotType.FEET.GetHashCode()][Data.inventory.FeetItemID].SpriteID];
         }
         else
         {
@@ -252,13 +252,13 @@ public class CharacterBuildManager : MonoBehaviour {
         //update two hand weapon NOTE: TWO HAND Weapon is always in the LEFT HAND
         if (Data.inventory.gotTwoHandWeapon)
         {
-            if (Data.inventory.LeftHandItem != null)
+            if (Data.inventory.LeftHandItemID != -1)
             {
                 GameObject.Find("RightHandSlot/Icon").GetComponent<Image>().enabled = true;
                 GameObject.Find("RightHandSlot/Icon").GetComponent<Image>().sprite = redCrossSprite;
 
                 GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().enabled = true;
-                GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.LeftHandItem.SpriteID];
+                GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[Data.SlotType.TWOHANDS.GetHashCode()][Data.inventory.LeftHandItemID].SpriteID];
             }
             else
             {
@@ -269,20 +269,20 @@ public class CharacterBuildManager : MonoBehaviour {
         else
         {
 
-            if (Data.inventory.LeftHandItem != null)
+            if (Data.inventory.LeftHandItemID != -1)
             {
                 GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().enabled = true;
-                GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.LeftHandItem.SpriteID];
+                GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[Data.SlotType.ONEHAND.GetHashCode()][Data.inventory.LeftHandItemID].SpriteID];
             }
             else
             {
                 GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().enabled = false;
             }
 
-            if (Data.inventory.RightHandItem != null)
+            if (Data.inventory.RightHandItemID != -1)
             {
                 GameObject.Find("RightHandSlot/Icon").GetComponent<Image>().enabled = true;
-                GameObject.Find("RightHandSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.RightHandItem.SpriteID];
+                GameObject.Find("RightHandSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[Data.SlotType.ONEHAND.GetHashCode()][Data.inventory.RightHandItemID].SpriteID];
             }
             else
             {
@@ -297,7 +297,7 @@ public class CharacterBuildManager : MonoBehaviour {
     {
         if (Data.inventory.items[selectedSlotType.GetHashCode()].Count > selectedItem)
         {
-            Data.inventory.Equip(Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem]);
+            Data.inventory.Equip(selectedSlotType, selectedItem);
             updateHeroEquipement();
         }
     }

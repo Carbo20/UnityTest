@@ -13,6 +13,7 @@ public class Inventory {
     public int FeetItemID;
     public int RightHandItemID;
     public int LeftHandItemID;
+
     public Inventory()
     {
         items = new List<List<Item>>();
@@ -22,6 +23,7 @@ public class Inventory {
         gotTwoHandWeapon = false;
         fillRightHand = true;
 
+        //un emplacement vide est symbolisé par -1
         HeadItemID      = -1;
         ChestItemID     = -1;
         HandsItemID     = -1;
@@ -32,6 +34,11 @@ public class Inventory {
         
     }
 
+    /// <summary>
+    /// Equip d'item it de type st
+    /// </summary>
+    /// <param name="st">Type de l'item</param>
+    /// <param name="it">index de l'item</param>
     public void Equip(Data.SlotType st, int it)
     {
         switch (st)

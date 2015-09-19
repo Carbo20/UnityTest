@@ -27,8 +27,7 @@ public class CharacterBuildManager : MonoBehaviour {
         }
 
         //
-
-
+        
         updateItemList();
         updateItemDescription();
         updateHeroEquipement();
@@ -161,10 +160,59 @@ public class CharacterBuildManager : MonoBehaviour {
             {
                 GameObject.Find("Slot (" + i + ")/Icon").GetComponent<Image>().enabled = true;
                 GameObject.Find("Slot (" + i + ")/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].SpriteID];
+
+                switch (selectedSlotType)
+                {
+                    case Data.SlotType.HEAD :
+                        if (i == Data.inventory.HeadItemID) 
+                            GameObject.Find("Slot (" + i + ")/EquipedIcon").GetComponent<Image>().enabled = true;
+                        else 
+                            GameObject.Find("Slot (" + i + ")/EquipedIcon").GetComponent<Image>().enabled = false;
+                        break;
+                    case Data.SlotType.CHEST:
+                        if (i == Data.inventory.ChestItemID) 
+                            GameObject.Find("Slot (" + i + ")/EquipedIcon").GetComponent<Image>().enabled = true;
+                        else
+                            GameObject.Find("Slot (" + i + ")/EquipedIcon").GetComponent<Image>().enabled = false;
+                        break;
+                    case Data.SlotType.HANDS:
+                        if (i == Data.inventory.HandsItemID) 
+                            GameObject.Find("Slot (" + i + ")/EquipedIcon").GetComponent<Image>().enabled = true;
+                        else 
+                            GameObject.Find("Slot (" + i + ")/EquipedIcon").GetComponent<Image>().enabled = false;
+                        break;
+                    case Data.SlotType.LEGS:
+                        if (i == Data.inventory.LegsItemID) 
+                            GameObject.Find("Slot (" + i + ")/EquipedIcon").GetComponent<Image>().enabled = true;
+                        else 
+                            GameObject.Find("Slot (" + i + ")/EquipedIcon").GetComponent<Image>().enabled = false;
+                        break;
+                    case Data.SlotType.FEET:
+                        if (i == Data.inventory.FeetItemID)
+                            GameObject.Find("Slot (" + i + ")/EquipedIcon").GetComponent<Image>().enabled = true;
+                        else 
+                            GameObject.Find("Slot (" + i + ")/EquipedIcon").GetComponent<Image>().enabled = false;
+                        break;
+                    case Data.SlotType.ONEHAND:
+                        if (!Data.inventory.gotTwoHandWeapon && (i == Data.inventory.RightHandItemID || i == Data.inventory.LeftHandItemID))
+                            GameObject.Find("Slot (" + i + ")/EquipedIcon").GetComponent<Image>().enabled = true;
+                        else 
+                            GameObject.Find("Slot (" + i + ")/EquipedIcon").GetComponent<Image>().enabled = false;
+                        break;
+                    case Data.SlotType.TWOHANDS:
+                        if (Data.inventory.gotTwoHandWeapon && i == Data.inventory.LeftHandItemID) 
+                            GameObject.Find("Slot (" + i + ")/EquipedIcon").GetComponent<Image>().enabled = true;
+                        else 
+                            GameObject.Find("Slot (" + i + ")/EquipedIcon").GetComponent<Image>().enabled = false;
+                        break;
+
+                }
+
             }
             else
             {
                 GameObject.Find("Slot (" + i + ")/Icon").GetComponent<Image>().enabled = false;
+                GameObject.Find("Slot (" + i + ")/EquipedIcon").GetComponent<Image>().enabled = false;
             }
         }
     }
@@ -293,12 +341,16 @@ public class CharacterBuildManager : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Callback du bouton Equip
+    /// </summary>
     public void EquipButtonPushed()
     {
         if (Data.inventory.items[selectedSlotType.GetHashCode()].Count > selectedItem)
         {
             Data.inventory.Equip(selectedSlotType, selectedItem);
             updateHeroEquipement();
+            updateItemList();
         }
     }
 }

@@ -17,9 +17,9 @@ public class CharacterBuildManager : MonoBehaviour {
         selectedSlotType = Data.SlotType.HEAD;
         selectedItem = 0;
 
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 60; i++)
         {
-            it = new Item(UnityEngine.Random.Range(0, 101), 0);
+            it = new Item(UnityEngine.Random.Range(1, 101), 0);
             it.SpriteID = it.SlotType.GetHashCode();
             Data.inventory.items[it.SlotType.GetHashCode()].Add(it);
         }
@@ -51,6 +51,7 @@ public class CharacterBuildManager : MonoBehaviour {
         selectedSlotType = Data.SlotType.HEAD;
         SelectFirstItem();
         updateItemList();
+        updateItemDescription();
     }
 
     /// <summary>
@@ -61,6 +62,7 @@ public class CharacterBuildManager : MonoBehaviour {
         selectedSlotType = Data.SlotType.CHEST;
         SelectFirstItem();
         updateItemList();
+        updateItemDescription();
     }
 
     /// <summary>
@@ -71,6 +73,7 @@ public class CharacterBuildManager : MonoBehaviour {
         selectedSlotType = Data.SlotType.HANDS;
         SelectFirstItem();
         updateItemList();
+        updateItemDescription();
     }
 
     /// <summary>
@@ -81,6 +84,7 @@ public class CharacterBuildManager : MonoBehaviour {
         selectedSlotType = Data.SlotType.LEGS;
         SelectFirstItem();
         updateItemList();
+        updateItemDescription();
     }
 
     /// <summary>
@@ -91,6 +95,7 @@ public class CharacterBuildManager : MonoBehaviour {
         selectedSlotType = Data.SlotType.FEET;
         SelectFirstItem(); 
         updateItemList();
+        updateItemDescription();
     }
 
     /// <summary>
@@ -101,6 +106,7 @@ public class CharacterBuildManager : MonoBehaviour {
         selectedSlotType = Data.SlotType.ONEHAND;
         SelectFirstItem();
         updateItemList();
+        updateItemDescription();
     }
 
     /// <summary>
@@ -111,6 +117,7 @@ public class CharacterBuildManager : MonoBehaviour {
         selectedSlotType = Data.SlotType.TWOHANDS;
         SelectFirstItem();
         updateItemList();
+        updateItemDescription();
     }
 
     /// <summary>

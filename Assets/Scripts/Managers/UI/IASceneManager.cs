@@ -19,20 +19,13 @@ public class IASceneManager : MonoBehaviour
     private GameObject[] gObjEnemiesNb = new GameObject[8];
     private GameObject[] gObjEnemyClass = new GameObject[8];
     private GameObject[] gObjHealthClone = new GameObject[8];
-    //private float deltaPosY;
+
     private float switchCatCount;
-    //private float originPosY;
-    //private float gObjHealthOriginX;
-    //private float gObjHealthBisOriginX;
-  //  private float gObjManaOriginX;
-   // private float gObjManaBisOriginX;
-   // private float gObjCastOriginX;
-    //private float gObjEnemiesNbOriginX;
-   // private float gObjEnemyClassOriginX;
+ 
 
     //Text textToChoose = "You have to choose one or more conditions and actions";
 
-    void init()
+    void initAll()
     {
         indexCatMax = 8;
         unchosenCount = 0;
@@ -47,6 +40,18 @@ public class IASceneManager : MonoBehaviour
             gObjEnemiesNb[ind].SetActive(false);
             gObjEnemyClass[ind].SetActive(false);
         }
+    }
+
+    void initLine(int ind)
+    {
+        gObjHealth[ind].SetActive(false);
+        gObjHealthBis[ind].SetActive(false);
+        gObjMana[ind].SetActive(false);
+        gObjManaBis[ind].SetActive(false);
+        gObjCast[ind].SetActive(false);
+        gObjEnemiesNb[ind].SetActive(false);
+        gObjEnemyClass[ind].SetActive(false);
+
     }
 
     // Use this for initialization
@@ -66,23 +71,9 @@ public class IASceneManager : MonoBehaviour
 
 
         
-        init();
+        initAll();
 
-        //Get delta position between two conditions lines
-        //deltaPosY = GameObject.Find("categoryDropdown(" + 1 + ")").GetComponent<Transform>().localPosition.y
-        //            - GameObject.Find("categoryDropdown(" + 2 + ")").GetComponent<Transform>().localPosition.y;
-       // originPosY = GameObject.Find("categoryDropdown(" + 1 + ")").GetComponent<Transform>().localPosition.y;
-
-        //gObjHealthOriginX = gObjHealth.GetComponent<Transform>().localPosition.y;
-        //gObjHealthBisOriginX = gObjHealthBis.GetComponent<Transform>().localPosition.y;
-        //gObjManaOriginX = gObjMana.GetComponent<Transform>().localPosition.y;
-        //gObjManaBisOriginX = gObjManaBis.GetComponent<Transform>().localPosition.y;
-        //gObjCastOriginX = gObjCast.GetComponent<Transform>().localPosition.y;
-        //gObjEnemiesNbOriginX = gObjEnemiesNb.GetComponent<Transform>().localPosition.y;
-        //gObjEnemyClassOriginX = gObjEnemyClass.GetComponent<Transform>().localPosition.y;
-
-        //Debug.Log("origin y: " + originPosY);
-       // Debug.Log("Delta y: " + deltaPosY);
+        
     }
 
     // Update is called once per frame
@@ -100,43 +91,32 @@ public class IASceneManager : MonoBehaviour
             //Player's Health
             if (categoryDropdown.value == 1)
             {
-                //Debug.Log("switchCatCount: " + switchCatCount);
+               
+                initLine(indexButtonCat-1);
 
-                //init();
                 switchCatCount++;
                 gObjHealth[indexButtonCat-1].SetActive(true);
                 gObjHealthBis[indexButtonCat - 1].SetActive(true);
-                //Pos y = Pos y + indexButtonCat*(Pos ybutton1 - Pos ybutton2)
-
-                //currentPosY = gObjMana.GetComponent<Transform>().position.y;
-                // gObjMana.GetComponent<Transform>().Translate(0, currentPosY + ((indexButtonCat - 1) * deltaPosY), 0);
-                // currentPosY = gObjMana.GetComponent<Transform>().position.y;
-                
-                //gObjHealthClone.GetComponent<Transform>().Translate(gObjHealthOriginX, originPosY - ((indexButtonCat - 1) * deltaPosY), 0);
-                //Debug.Log("gObjHealthClone pos: " +(originPosY - ((indexButtonCat - 1) * deltaPosY) ));
+               
             }
 
             //Player's Mana
             if (categoryDropdown.value == 2)
             {
-                //Debug.Log("switchCatCount: " + switchCatCount);
-
                 
+                initLine(indexButtonCat - 1);
+
                 switchCatCount++;
                 gObjMana[indexButtonCat - 1].SetActive(true);
                 gObjManaBis[indexButtonCat - 1].SetActive(true);
-                //Pos y = Pos y + indexButtonCat*(Pos ybutton1 - Pos ybutton2)
-
-               // currentPosY = gObjMana.GetComponent<Transform>().localPosition.y;
-               // gObjMana.GetComponent<Transform>().Translate(0,currentPosY + ((indexButtonCat-1) * deltaPosY),0);
-               // gObjMana.GetComponent<Transform>().Translate(0, currentPosY + ((indexButtonCat - 1) * deltaPosY), 0);
-
+               
             }
 
             //Enemy's Health
             if (categoryDropdown.value == 3)
             {
                 
+
                 switchCatCount++;
             }
 
@@ -150,7 +130,7 @@ public class IASceneManager : MonoBehaviour
             //Enemy casting
             if (categoryDropdown.value == 5)
             {
-                
+                initLine(indexButtonCat - 1);
                 switchCatCount++;
                 gObjCast[indexButtonCat - 1].SetActive(true);
             }
@@ -158,15 +138,15 @@ public class IASceneManager : MonoBehaviour
             //Enemies Nb
             if (categoryDropdown.value == 6)
             {
-                
+                initLine(indexButtonCat - 1);
                 switchCatCount++;
                 gObjEnemiesNb[indexButtonCat - 1].SetActive(true);
             }
 
             //Enemy's Class       
             if (categoryDropdown.value == 7)
-            {               
-                
+            {
+                initLine(indexButtonCat - 1);
                 switchCatCount++;
                 gObjEnemyClass[indexButtonCat - 1].SetActive(true);
             }
@@ -174,10 +154,8 @@ public class IASceneManager : MonoBehaviour
             //Default Category
             if (categoryDropdown.value == 0)
             {
-                if (switchCatCount != 0)
-                {
-                    init();
-                }
+                initLine(indexButtonCat - 1);
+                
                 switchCatCount++;
                 
             }

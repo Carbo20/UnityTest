@@ -35,6 +35,7 @@ public class CharacterBuildManager : MonoBehaviour {
             it = new Item(UnityEngine.Random.Range(1, 101), 0);
             it.SpriteID = it.SlotType.GetHashCode();
             Data.inventory.items[it.SlotType.GetHashCode()].Add(it);
+            Debug.Log("item created : " + Data.inventory.items[it.SlotType.GetHashCode()][Data.inventory.items[it.SlotType.GetHashCode()].Count-1]);
         }
 
         //

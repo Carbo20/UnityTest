@@ -34,6 +34,12 @@ public class ItemData : MonoBehaviour {
         {
             return spriteId;
         }
+
+        set
+        {
+            spriteId = value;
+
+        }
     }
 
     public string Description

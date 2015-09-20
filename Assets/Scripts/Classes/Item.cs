@@ -22,6 +22,8 @@ public class Item
 
     public Item(int _level, int _magicFind)
     {
+
+        itemData = new ItemData("placeholder", 0, "", Data.SlotType.HANDS);
         strenBonus = 0;
         intelBonus = 0;
         agiBonus = 0;
@@ -220,26 +222,18 @@ public class Item
     {
         get
         {
-            return name;
+            return itemData.ItemName;
         }
 
-        set
-        {
-            name = value;
-        }
     }
 
     public string Description
     {
         get
         {
-            return description;
+            return itemData.Description;
         }
 
-        set
-        {
-            description = value;
-        }
     }
 
     public int Level
@@ -454,12 +448,12 @@ public class Item
     {
         get
         {
-            return slotType;
+            return itemData.slotType;
         }
 
         set
         {
-            slotType = value;
+            itemData.slotType = value;
         }
     }
 
@@ -494,12 +488,13 @@ public class Item
 
         get
         {
-            return spriteID;
+            return itemData.SpriteId;
         }
 
         set
         {
-            spriteID = value;
+            itemData.SpriteId = value;
         }
+
     }
 }

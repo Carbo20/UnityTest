@@ -18,5 +18,8 @@ public class MainMenuManager : MonoBehaviour {
         Application.LoadLevel("CharacterBuildScene");
     }
 
-    
+    public void goToIAScene()
+    {
+        Application.LoadLevel("IAProgScene");
+    }
 }

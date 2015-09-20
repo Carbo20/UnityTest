@@ -8,7 +8,7 @@ public class HeroData {
     public int manaMax;
 
     public int strenght;
-    public int inteligence;
+    public int intelligence;
     public int agility;
     public int vitality;
 

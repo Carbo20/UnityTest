@@ -17,7 +17,7 @@ public class Hero {
         Data.heroData.hpMax = _hp;
         mana = _mana;
         Data.heroData.strenght = _strenght;
-        Data.heroData.inteligence = _inteligence;
+        Data.heroData.intelligence = _inteligence;
         Data.heroData.agility = _agility;
         Data.heroData.vitality = _vitality;
 
@@ -111,12 +111,12 @@ public class Hero {
     {
         get
         {
-            return Data.heroData.inteligence;
+            return Data.heroData.intelligence;
         }
 
         set
         {
-            Data.heroData.inteligence = value;
+            Data.heroData.intelligence = value;
         }
     }
 

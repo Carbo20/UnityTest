@@ -13,37 +13,70 @@ public class CharacterBuildManager : MonoBehaviour {
     RectTransform contentRectTransform;
     Text LVLTxt, ATKTxt, ATStxt, DEFTxt;
     Color lowerSTATColor, upperSTATColor, equalSTATColor;
+    public GameObject heroStat, heroEquip;
+    public Text LVLStat, XPStat, HPStat, MANAStat, STRStat, INTStat, AGIStat, VITStat, DMGStat, SPDMGStat, DODStat, CRITStat, SPEStat;
+    bool heroStatTextLoad;
     //just for test
     Item it;
+    bool heroStatsDraws;
     //
 	// Use this for initialization
 	void Start () {
+        heroStatTextLoad = false;
         selectedSlotType = Data.SlotType.HEAD;
         selectedItem = 0;
         contentRectTransform = GameObject.Find("Content").GetComponent<RectTransform>();
-        LVLTxt = GameObject.Find("LVLValueText").GetComponent<Text>();
-        ATKTxt = GameObject.Find("ATKValueText").GetComponent<Text>();
-        ATStxt = GameObject.Find("ATSValueText").GetComponent<Text>();
-        DEFTxt = GameObject.Find("DEFValueText").GetComponent<Text>();
+        initTextGameObject();
+        heroStat = GameObject.Find("Canvas/Canvas/HeroStats");
+        
+        heroEquip = GameObject.Find("Hero");
         lowerSTATColor = Color.red;
         upperSTATColor = Color.green;
         equalSTATColor = Color.black;
-
+        heroStatsDraws = false;
         //just for test
         for (int i = 0; i < 100; i++)
         {
             it = new Item(UnityEngine.Random.Range(1, 101), 0);
             it.SpriteID = it.SlotType.GetHashCode();
             Data.inventory.items[it.SlotType.GetHashCode()].Add(it);
-            Debug.Log("item created : " + Data.inventory.items[it.SlotType.GetHashCode()][Data.inventory.items[it.SlotType.GetHashCode()].Count-1].Name);
         }
 
         //
-        
+
+
         updateItemList();
         updateItemDescription();
         updateHeroEquipement();
+        updateHeroStats();
 	}
+
+    void initTextGameObject()
+    {
+        LVLTxt = GameObject.Find("LVLValueText").GetComponent<Text>();
+        ATKTxt = GameObject.Find("ATKValueText").GetComponent<Text>();
+        ATStxt = GameObject.Find("ATSValueText").GetComponent<Text>();
+        DEFTxt = GameObject.Find("DEFValueText").GetComponent<Text>();
+
+        if (!heroStatTextLoad && heroStatsDraws)
+        {
+            LVLStat = GameObject.Find("LevelValue").GetComponent<Text>();
+            XPStat = GameObject.Find("XPValue").GetComponent<Text>();
+            HPStat = GameObject.Find("HPValue").GetComponent<Text>();
+            MANAStat = GameObject.Find("MANAValue").GetComponent<Text>();
+            STRStat = GameObject.Find("STRENGHTValue").GetComponent<Text>();
+            INTStat = GameObject.Find("INTELValue").GetComponent<Text>();
+            AGIStat = GameObject.Find("AGILITYValue").GetComponent<Text>();
+            VITStat = GameObject.Find("VITALITYValue").GetComponent<Text>();
+            DMGStat = GameObject.Find("DAMAGEValue").GetComponent<Text>();
+            SPDMGStat = GameObject.Find("SPELLDMGValue").GetComponent<Text>();
+            DODStat = GameObject.Find("DODGEValue").GetComponent<Text>();
+            CRITStat = GameObject.Find("CRITValue").GetComponent<Text>();
+            SPEStat = GameObject.Find("SPEEDValue").GetComponent<Text>();
+
+            heroStatTextLoad = true;
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -438,8 +471,12 @@ public class CharacterBuildManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Function that update the hero equipement area
+    /// </summary>
     private void updateHeroEquipement()
     {
+        if (heroStatsDraws) return;
         //update HEAD SLOT
         if (Data.inventory.HeadItemID != -1)
         {
@@ -537,6 +574,54 @@ public class CharacterBuildManager : MonoBehaviour {
         }
 
 
+    }
+
+    /// <summary>
+    /// Function that update the hero stats area
+    /// </summary>
+    private void updateHeroStats()
+    {
+        if (!heroStatsDraws) return;
+        
+        if(!heroStatTextLoad)   
+            initTextGameObject();
+
+        LVLStat.text = Data.heroData.level.ToString();
+        XPStat.text = Data.heroData.xp + " / " + Data.heroData.xpForNextLevel;
+        HPStat.text = Data.heroData.hpMax.ToString();
+        MANAStat.text = Data.heroData.manaMax.ToString();
+        STRStat.text = Data.heroData.strenght.ToString();
+        INTStat.text = Data.heroData.intelligence.ToString();
+        AGIStat.text = Data.heroData.agility.ToString();
+        VITStat.text = Data.heroData.vitality.ToString();
+        DMGStat.text = Data.heroData.damage.ToString();
+        SPDMGStat.text = Data.heroData.spellDamage.ToString();
+        DODStat.text = Data.heroData.dodge.ToString();
+        CRITStat.text = Data.heroData.critical.ToString();
+        SPEStat.text = Data.heroData.speed.ToString();
+
+
+    }
+
+    /// <summary>
+    /// Callback called when the user touche the left part of the screen for draws the stats of the hero or show his equipement
+    /// </summary>
+    public void changeLeftPartOfTheScreen()
+    {
+        if (heroStatsDraws)
+        {
+            heroStat.SetActive(false);
+            heroEquip.SetActive(true);
+            heroStatsDraws = false;
+        }
+        else
+        {
+            heroStat.SetActive(true);
+            heroEquip.SetActive(false);
+            heroStatsDraws = true;
+        }
+        updateHeroEquipement();
+        updateHeroStats();
     }
 
     /// <summary>

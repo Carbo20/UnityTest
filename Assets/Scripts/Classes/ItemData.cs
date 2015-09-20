@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ItemData : MonoBehaviour {
+public class ItemData {
 
     private string itemName;
     private int spriteId;
@@ -25,8 +25,6 @@ public class ItemData : MonoBehaviour {
 	void Update () {
 	
 	}
-
-
 
     public int SpriteId
     {

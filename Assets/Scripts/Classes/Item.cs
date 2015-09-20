@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 //TODO  : Generate name based on bonus and effect
 //TODO :  Add effects depending on skills
@@ -22,8 +23,6 @@ public class Item
 
     public Item(int _level, int _magicFind)
     {
-
-        
         strenBonus = 0;
         intelBonus = 0;
         agiBonus = 0;
@@ -49,7 +48,7 @@ public class Item
     /// rand to determine wich item type  is gonna drop
     /// rand to determine wich  quality  the item will be : Normal : 0 bonus, magic : 2 to 3 bonus, legendary 3 to 4 bonus + an effect
     /// rands to determine wich BONUS will be presents
-    /// if legendary add an effect
+    /// if legendary -> add an effect
     /// name is generated automaticaly
     /// </summary>
     /// <param name="level"></param>
@@ -128,22 +127,23 @@ public class Item
                 case Data.BonusType.MANA:
                     ManaBonus += UnityEngine.Random.Range(8 * Level, 10 * Level);
                     break;
-                case Data.BonusType.REGENMANA:
-                    RegenManaBonus += UnityEngine.Random.Range(0.15f * levelFloat, 0.2f * levelFloat); //  at lvl 100 : 20 -> 0.2/lvl max
+                case Data.BonusType.HEALTH:
+                    HealthBonus += UnityEngine.Random.Range(8*Level, 10*Level);//at lvl 100 : 1000 -> 10/lvl max
                     break;
+
                 case Data.BonusType.DODGE:
                     DodgeBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
                     break;
                 case Data.BonusType.CRIT:
                     CritBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
                     break;
-                case Data.BonusType.REGENHEALTH:
-                    RegenHealthBonus += UnityEngine.Random.Range(0.15f * levelFloat, 0.2f * levelFloat); 
-                    break;
-                case Data.BonusType.HEALTH:
-                    HealthBonus += UnityEngine.Random.Range(8*Level, 10*Level);//at lvl 100 : 1000 -> 10/lvl max
-                    break;
 
+                case Data.BonusType.REGENMANA:
+                    RegenManaBonus += UnityEngine.Random.Range(0.15f * levelFloat, 0.2f * levelFloat); //  at lvl 100 : 20 -> 0.2/lvl max
+                    break;
+                case Data.BonusType.REGENHEALTH:
+                    RegenHealthBonus += UnityEngine.Random.Range(0.15f * levelFloat, 0.2f * levelFloat);
+                    break;
                 case Data.BonusType.ATTACKSPEED:
                     AttackSpeedBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100); // between 0 and 0.07
                     break;
@@ -176,8 +176,65 @@ public class Item
             }
         }
 
+        //SlotType { HEAD, CHEST, HANDS, LEGS, FEET, ONEHAND, TWOHANDS };
+        //ItemType { WEAPON, SHIELD, ARMOR };
+        //IconType { SHIELD, AXE, SWORD, DAGGER, MACE, WAND, SWORD2H, AXE2H, STAFF, SPEAR, HEAD, CHEST, HANDS, LEGS, FEET };
 
-        itemData = new ItemData("placeholder", slotTypeInt, "", (Data.SlotType)slotTypeInt);
+        ///////////////////////////////////////////////////////Remplissage de la liste d'item, ceci est un test voué a disparaitre/////////////////////////////////////////////////////////////////////
+        //pour tester DEBUT
+        if (Data.test)
+        {
+            Debug.Log("here!!   A" + Data.IconTypeCount);
+            for (int i = 0; i < Data.IconTypeCount; i++)
+                Data.listOfItems.Add(new List<ItemData>());
+
+            for (int i = 0; i < 5; i++)
+                for (int j = 0; j < 6; j++)
+                    Data.listOfItems[i].Add(new ItemData("placeholder", 3, "", (Data.SlotType)i));
+            for (int i = 5; i < 11; i++)
+                for (int j = 0; j < 6; j++)
+                    Data.listOfItems[i].Add(new ItemData("placeholder", 3, "", Data.SlotType.ONEHAND));
+            for (int i = 11; i < Data.IconTypeCount; i++)
+                for (int j = 0; j < 6; j++)
+                    Data.listOfItems[i].Add(new ItemData("placeholder", 3, "", Data.SlotType.TWOHANDS));
+            Data.test = false;
+            Debug.Log("here!!   B");
+        }
+        //pour tester FIN
+
+        int iconTypeId =-1;
+        switch ((Data.SlotType)slotTypeInt)
+        {
+            case Data.SlotType.HEAD:
+                iconTypeId = Data.IconType.HEAD.GetHashCode();
+                break;
+            case Data.SlotType.CHEST:
+                iconTypeId = Data.IconType.CHEST.GetHashCode();
+                break;
+            case Data.SlotType.HANDS:
+                iconTypeId = Data.IconType.HANDS.GetHashCode();
+                break;
+            case Data.SlotType.LEGS:
+                iconTypeId = Data.IconType.LEGS.GetHashCode();
+                break;
+            case Data.SlotType.FEET:
+                iconTypeId = Data.IconType.FEET.GetHashCode();
+                break;
+            case Data.SlotType.ONEHAND:
+                if((Data.ItemType)ItemType == Data.ItemType.SHIELD)
+                    iconTypeId = Data.IconType.SHIELD.GetHashCode();
+                else
+                    iconTypeId = UnityEngine.Random.Range(Data.IconType.AXE.GetHashCode(), Data.IconType.WAND.GetHashCode() + 1);
+                break;
+            case Data.SlotType.TWOHANDS:
+                iconTypeId = UnityEngine.Random.Range(Data.IconType.SWORD2H.GetHashCode(), Data.IconType.SPEAR.GetHashCode() + 1);
+                break;
+        }
+
+        int randomItemDataId;
+        randomItemDataId = UnityEngine.Random.Range(0,Data.listOfItems[iconTypeId].Count);
+
+        itemData = Data.listOfItems[iconTypeId][randomItemDataId];   
     }
 
     /////////////////GETTERS AND SETTERS//////////////////////////////

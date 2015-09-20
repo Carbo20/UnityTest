@@ -21,6 +21,7 @@ public class Enemy
 
     private bool isReady;
     private bool isDead;
+    private bool isCasting;
 
     public Enemy(int hp, int mana, int strenght, int inteligence, int agility, int vitality)
     {
@@ -33,6 +34,7 @@ public class Enemy
 
         isReady = false;
         isDead = false;
+        isCasting = false;
     }
 
     public void TakeDamage(int damage)
@@ -223,6 +225,19 @@ public class Enemy
         set
         {
             isDead = value;
+        }
+    }
+
+    public bool IsCasting
+    {
+        get
+        {
+            return isCasting;
+        }
+
+        set
+        {
+            isCasting = value;
         }
     }
 }

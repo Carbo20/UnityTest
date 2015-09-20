@@ -31,7 +31,7 @@ public class Data {
 
     public static HeroData heroData = new HeroData();
 
-    public enum IaCondition { STREN, INTEL, AGI, VITAL, HEALTH, MANA};
+    public enum IaCondition { STREN, INTEL, AGI, VITAL, HEALTH, MANA,NBENEMY,ISCASTING};
 
     public static int HeroStatsCount = 6;
     

@@ -7,6 +7,10 @@ public class Skill {
     private EnemiesManager eManager;
 
     public Action[] actionList;
+    
+    /*We can't use parameters with action, so i decide to stock them here*/
+    private int idTarget;
+
 
     public Skill(HeroManager _hero,EnemiesManager _enemies)
     {
@@ -37,4 +41,21 @@ public class Skill {
         eManager.enemyList[0].enemy.Strenght--;
     }
 
+
+
+    /* Getter and Setter*/
+
+
+    public int IdTarget
+    {
+        get
+        {
+            return idTarget;
+        }
+
+        set
+        {
+            idTarget = value;
+        }
+    }
 }

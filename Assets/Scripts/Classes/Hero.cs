@@ -4,7 +4,9 @@ using System;
 public class Hero {
 
     /* Principal Hero variable*/
+    private int hpMax;
     private int hp;
+    private int manaMax;
     private int mana;
     private int strenght;
     private int inteligence;
@@ -24,18 +26,17 @@ public class Hero {
 
     private bool isReady;
     private bool isDead;
+    
 
-    /* For IA */
-    private int[] statList; //List of all stats use into the IA
-
-    public Hero(int hp,int mana,int strenght,int inteligence, int agility, int vitality)
+    public Hero(int _hp,int _mana,int _strenght,int _inteligence, int _agility, int _vitality)
     {
-        this.hp = hp;
-        this.mana = mana;
-        this.strenght = strenght;
-        this.inteligence = inteligence;
-        this.agility = agility;
-        this.vitality = vitality;
+        hp = _hp;
+        hpMax = _hp;
+        mana = _mana;
+        strenght = _strenght;
+        inteligence = _inteligence;
+        agility = _agility;
+        vitality = _vitality;
 
         xp = 0;
         level = 1;
@@ -43,18 +44,7 @@ public class Hero {
         isReady = false;
         isDead = false;
 
-        statList = new int[10];
-        InitStatList(ref hp);
-
-        hp++;
-
-        Debug.Log("hp : " + hp);
-        Debug.Log("Array : " + statList[0]);
-    }
-
-    private void InitStatList(ref int _hp)
-    {
-        statList[0] = _hp;
+        hp = (hp / 2) - 1;
     }
 
     public void TakeDamage(int damage)
@@ -261,6 +251,32 @@ public class Hero {
         set
         {
             isDead = value;
+        }
+    }
+
+    public int HpMax
+    {
+        get
+        {
+            return hpMax;
+        }
+
+        set
+        {
+            hpMax = value;
+        }
+    }
+
+    public int ManaMax
+    {
+        get
+        {
+            return manaMax;
+        }
+
+        set
+        {
+            manaMax = value;
         }
     }
 }

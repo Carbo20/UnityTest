@@ -23,7 +23,7 @@ public class Item
     public Item(int _level, int _magicFind)
     {
 
-        itemData = new ItemData("placeholder", 0, "", Data.SlotType.HANDS);
+        
         strenBonus = 0;
         intelBonus = 0;
         agiBonus = 0;
@@ -62,7 +62,7 @@ public class Item
         
         //ITEMSLOT
         slotTypeInt = UnityEngine.Random.Range(0, Data.SlotTypeCount); // item slot type : HEAD, CHEST, HANDS, LEGS, FEET, ONEHAND, TWOHANDS  
-//        slotType = (Data.SlotType)slotTypeInt;
+        //slotType = (Data.SlotType)slotTypeInt;
         //Debug.Log("slotTypeInt " + slotTypeInt + "   " + SlotType);
 
         //itemTypeInt
@@ -176,6 +176,8 @@ public class Item
             }
         }
 
+
+        itemData = new ItemData("placeholder", slotTypeInt, "", (Data.SlotType)slotTypeInt);
     }
 
     /////////////////GETTERS AND SETTERS//////////////////////////////

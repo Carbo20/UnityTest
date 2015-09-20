@@ -381,19 +381,6 @@ public class CharacterBuildManager : MonoBehaviour {
                     break;
 
                 case Data.SlotType.ONEHAND:
-
-                    if (Data.inventory.RightHandItemID == -1 || Data.inventory.LeftHandItemID == -1)
-                    {
-                        LVLTxt.color = upperSTATColor;
-                        ATKTxt.color = upperSTATColor;
-                        ATStxt.color = upperSTATColor;
-                        DEFTxt.color = upperSTATColor;
-                        break;
-                    }
-
-                    // TODO
-
-                    break;
                 case Data.SlotType.TWOHANDS:
 
                     if (Data.inventory.LeftHandItemID == -1)

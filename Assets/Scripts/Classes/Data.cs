@@ -29,7 +29,10 @@ public class Data {
 
     public List<List<ItemData>> listOfItems; //ordered on IconType
 
-    public enum IaCondition { STREN, INTEL, AGI, VITAL, HEALTH, MANA, NBENEMIES};
+    public static HeroData heroData = new HeroData();
+
+    public enum IaCondition { STREN, INTEL, AGI, VITAL, HEALTH, MANA};
+
     public static int HeroStatsCount = 6;
     
 }

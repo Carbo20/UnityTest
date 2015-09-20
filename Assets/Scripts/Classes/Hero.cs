@@ -4,25 +4,8 @@ using System;
 public class Hero {
 
     /* Principal Hero variable*/
-    private int hpMax;
     private int hp;
-    private int manaMax;
     private int mana;
-    private int strenght;
-    private int inteligence;
-    private int agility;
-    private int vitality;
-
-    /* Secondary Hero variable*/
-    private int damage;
-    private int spellDamage;
-    private int dodge;
-    private int critical;
-    private int speed;
-
-    private int xp;
-    private int xpForNextLevel;
-    private int level;
 
     private bool isReady;
     private bool isDead;
@@ -31,16 +14,16 @@ public class Hero {
     public Hero(int _hp,int _mana,int _strenght,int _inteligence, int _agility, int _vitality)
     {
         hp = _hp;
-        hpMax = _hp;
+        Data.heroData.hpMax = _hp;
         mana = _mana;
-        strenght = _strenght;
-        inteligence = _inteligence;
-        agility = _agility;
-        vitality = _vitality;
+        Data.heroData.strenght = _strenght;
+        Data.heroData.inteligence = _inteligence;
+        Data.heroData.agility = _agility;
+        Data.heroData.vitality = _vitality;
 
-        xp = 0;
-        level = 1;
-        xpForNextLevel = 50; // [TODO] Maybe we have to search into a list wich amount of xp we need for the next lvl
+        Data.heroData.xp = 0;
+        Data.heroData.level = 1;
+        Data.heroData.xpForNextLevel = 50; // [TODO] Maybe we have to search into a list wich amount of xp we need for the next lvl
         isReady = false;
         isDead = false;
 
@@ -70,8 +53,8 @@ public class Hero {
 
     public void GetXp(int xp)
     {
-        this.xp = this.xp + xp;
-        if(xp >= xpForNextLevel)
+        Data.heroData.xp = Data.heroData.xp + xp;
+        if (xp >= Data.heroData.xpForNextLevel)
         {
             GetLevel();
         }
@@ -79,7 +62,7 @@ public class Hero {
 
     public void GetLevel()
     {
-        level++;
+        Data.heroData.level++;
         //[TODO] Do some stuff after a lvl up, stats up or something like this
     }
 
@@ -115,12 +98,12 @@ public class Hero {
     {
         get
         {
-            return strenght;
+            return Data.heroData.strenght;
         }
 
         set
         {
-            strenght = value;
+            Data.heroData.strenght = value;
         }
     }
 
@@ -128,12 +111,12 @@ public class Hero {
     {
         get
         {
-            return inteligence;
+            return Data.heroData.inteligence;
         }
 
         set
         {
-            inteligence = value;
+            Data.heroData.inteligence = value;
         }
     }
 
@@ -141,12 +124,12 @@ public class Hero {
     {
         get
         {
-            return agility;
+            return Data.heroData.agility;
         }
 
         set
         {
-            agility = value;
+            Data.heroData.agility = value;
         }
     }
 
@@ -154,12 +137,12 @@ public class Hero {
     {
         get
         {
-            return vitality;
+            return Data.heroData.vitality;
         }
 
         set
         {
-            vitality = value;
+            Data.heroData.vitality = value;
         }
     }
 
@@ -167,12 +150,12 @@ public class Hero {
     {
         get
         {
-            return damage;
+            return Data.heroData.damage;
         }
 
         set
         {
-            damage = value;
+            Data.heroData.damage = value;
         }
     }
 
@@ -180,12 +163,12 @@ public class Hero {
     {
         get
         {
-            return spellDamage;
+            return Data.heroData.spellDamage;
         }
 
         set
         {
-            spellDamage = value;
+            Data.heroData.spellDamage = value;
         }
     }
 
@@ -193,12 +176,12 @@ public class Hero {
     {
         get
         {
-            return dodge;
+            return Data.heroData.dodge;
         }
 
         set
         {
-            dodge = value;
+            Data.heroData.dodge = value;
         }
     }
 
@@ -206,12 +189,12 @@ public class Hero {
     {
         get
         {
-            return critical;
+            return Data.heroData.critical;
         }
 
         set
         {
-            critical = value;
+            Data.heroData.critical = value;
         }
     }
 
@@ -219,12 +202,12 @@ public class Hero {
     {
         get
         {
-            return speed;
+            return Data.heroData.speed;
         }
 
         set
         {
-            speed = value;
+            Data.heroData.speed = value;
         }
     }
 
@@ -258,12 +241,12 @@ public class Hero {
     {
         get
         {
-            return hpMax;
+            return Data.heroData.hpMax;
         }
 
         set
         {
-            hpMax = value;
+            Data.heroData.hpMax = value;
         }
     }
 
@@ -271,12 +254,12 @@ public class Hero {
     {
         get
         {
-            return manaMax;
+            return Data.heroData.manaMax;
         }
 
         set
         {
-            manaMax = value;
+            Data.heroData.manaMax = value;
         }
     }
 }

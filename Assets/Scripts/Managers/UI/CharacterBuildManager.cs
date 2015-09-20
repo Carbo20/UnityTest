@@ -35,7 +35,7 @@ public class CharacterBuildManager : MonoBehaviour {
             it = new Item(UnityEngine.Random.Range(1, 101), 0);
             it.SpriteID = it.SlotType.GetHashCode();
             Data.inventory.items[it.SlotType.GetHashCode()].Add(it);
-            Debug.Log("item created : " + Data.inventory.items[it.SlotType.GetHashCode()][Data.inventory.items[it.SlotType.GetHashCode()].Count-1]);
+            Debug.Log("item created : " + Data.inventory.items[it.SlotType.GetHashCode()][Data.inventory.items[it.SlotType.GetHashCode()].Count-1].Name);
         }
 
         //
@@ -59,89 +59,12 @@ public class CharacterBuildManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Function call when the user select the head item type
+    /// Callback that change the type of the items draw in the scroll view
     /// </summary>
-    public void HeadTypeSelected()
+    /// <param name="i">SlotType ID</param>
+    public void ChangeSelectedType(int i)
     {
-        selectedSlotType = Data.SlotType.HEAD;
-        SelectFirstItem();
-        updateItemList();
-        updateItemDescription();
-        contentRectTransform.offsetMax = new Vector2(contentRectTransform.offsetMax.x, 0);
-        contentRectTransform.offsetMin = new Vector2(contentRectTransform.offsetMin.x, -271);
-    }
-
-    /// <summary>
-    /// Function call when the user select the chest item type
-    /// </summary>
-    public void ChestTypeSelected()
-    {
-        selectedSlotType = Data.SlotType.CHEST;
-        SelectFirstItem();
-        updateItemList();
-        updateItemDescription();
-        contentRectTransform.offsetMax = new Vector2(contentRectTransform.offsetMax.x, 0);
-        contentRectTransform.offsetMin = new Vector2(contentRectTransform.offsetMin.x, -271);
-    }
-
-    /// <summary>
-    /// Function call when the user select the hands item type
-    /// </summary>
-    public void HandsTypeSelected()
-    {
-        selectedSlotType = Data.SlotType.HANDS;
-        SelectFirstItem();
-        updateItemList();
-        updateItemDescription();
-        contentRectTransform.offsetMax = new Vector2(contentRectTransform.offsetMax.x, 0);
-        contentRectTransform.offsetMin = new Vector2(contentRectTransform.offsetMin.x, -271);
-    }
-
-    /// <summary>
-    /// Function call when the user select the legs item type
-    /// </summary>
-    public void LegsTypeSelected()
-    {
-        selectedSlotType = Data.SlotType.LEGS;
-        SelectFirstItem();
-        updateItemList();
-        updateItemDescription();
-        contentRectTransform.offsetMax = new Vector2(contentRectTransform.offsetMax.x, 0);
-        contentRectTransform.offsetMin = new Vector2(contentRectTransform.offsetMin.x, -271);
-    }
-
-    /// <summary>
-    /// Function call when the user select the feet item type
-    /// </summary>
-    public void FeetTypeSelected()
-    {
-        selectedSlotType = Data.SlotType.FEET;
-        SelectFirstItem(); 
-        updateItemList();
-        updateItemDescription();
-        contentRectTransform.offsetMax = new Vector2(contentRectTransform.offsetMax.x, 0);
-        contentRectTransform.offsetMin = new Vector2(contentRectTransform.offsetMin.x, -271);
-    }
-
-    /// <summary>
-    /// Function call when the user select the one hand item type
-    /// </summary>
-    public void OneHandTypeSelected()
-    {
-        selectedSlotType = Data.SlotType.ONEHAND;
-        SelectFirstItem();
-        updateItemList();
-        updateItemDescription();
-        contentRectTransform.offsetMax = new Vector2(contentRectTransform.offsetMax.x, 0);
-        contentRectTransform.offsetMin = new Vector2(contentRectTransform.offsetMin.x, -271);
-    }
-
-    /// <summary>
-    /// Function call when the user select the two hands item type
-    /// </summary>
-    public void TwoHandsTypeSelected()
-    {
-        selectedSlotType = Data.SlotType.TWOHANDS;
+        selectedSlotType = (Data.SlotType) i;
         SelectFirstItem();
         updateItemList();
         updateItemDescription();

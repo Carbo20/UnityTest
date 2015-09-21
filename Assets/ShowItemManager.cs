@@ -15,7 +15,6 @@ public class ShowItemManager : MonoBehaviour {
         goRight = true;
         timeSpendInTheMiddle = 0;
         timeInTheMiddle = .3f;
-        Debug.Log(Screen.height);
     }
 	
 	// Update is called once per frame

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ShowItemManager : MonoBehaviour {
 
@@ -9,8 +10,12 @@ public class ShowItemManager : MonoBehaviour {
     private float timeInTheMiddle;
     private float timeOfRotate, timeRotating;
     private float rotateSpeed;
+
+    public List<Sprite> sprites;
+
 	// Use this for initialization
 	void Start () {
+        GetComponent<SpriteRenderer>().sprite = sprites[Data.showItemId];
         transform.position = new Vector3(-10.5f, 0, 0);
         speed = 15f;
         goRight = true;

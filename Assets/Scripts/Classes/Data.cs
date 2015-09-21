@@ -38,5 +38,6 @@ public class Data {
     public enum IaCondition { STREN, INTEL, AGI, VITAL, HEALTH, MANA, NBENEMY, ISCASTING };
 
     public static int HeroStatsCount = 6;
-    
+
+    public static int showItemId = SlotType.TWOHANDS.GetHashCode();
 }

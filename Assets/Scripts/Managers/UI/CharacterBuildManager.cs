@@ -14,12 +14,13 @@ public class CharacterBuildManager : MonoBehaviour {
     Text LVLTxt, ATKTxt, ATStxt, DEFTxt;
     Color lowerSTATColor, upperSTATColor, equalSTATColor;
     public GameObject heroStat, heroEquip;
-    public Text LVLStat, XPStat, HPStat, MANAStat, STRStat, INTStat, AGIStat, VITStat, DMGStat, SPDMGStat, DODStat, CRITStat, SPEStat;
+    private Text LVLStat, XPStat, HPStat, MANAStat, STRStat, INTStat, AGIStat, VITStat, DMGStat, SPDMGStat, DODStat, CRITStat, SPEStat;
     bool heroStatTextLoad;
     //just for test
     Item it;
     bool heroStatsDraws;
     //
+
 	// Use this for initialization
 	void Start () {
         heroStatTextLoad = false;
@@ -452,8 +453,6 @@ public class CharacterBuildManager : MonoBehaviour {
                         DEFTxt.color = lowerSTATColor;
                     else
                         DEFTxt.color = equalSTATColor;
-
-                    // TO BE UPGRADE
 
                     break;
             }

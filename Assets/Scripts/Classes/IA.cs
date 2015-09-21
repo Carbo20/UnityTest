@@ -3,7 +3,7 @@ using System;
 
 public class IA
 {
-    private int[] value; // The value of the condition
+    private int[] value; // The value of the condition in percent
     private int[] idTarget; // ID of the target (0 for the hero, 1...3 for the monster)
     private Data.IaCondition[] idCondition; // ID of the condition (0 for Hp, 1 for mana ... [TODO] to complete)
     private int[] idSkill; // ID of the skill

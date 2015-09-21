@@ -7,7 +7,8 @@ public class ShowItemManager : MonoBehaviour {
     private bool goRight;
     private float timeSpendInTheMiddle;
     private float timeInTheMiddle;
-
+    private float timeOfRotate, timeRotating;
+    private float rotateSpeed;
 	// Use this for initialization
 	void Start () {
         transform.position = new Vector3(-10.5f, 0, 0);
@@ -15,6 +16,9 @@ public class ShowItemManager : MonoBehaviour {
         goRight = true;
         timeSpendInTheMiddle = 0;
         timeInTheMiddle = .3f;
+        rotateSpeed = 1500f;
+        timeRotating = 0;
+        timeOfRotate = .3f;
     }
 	
 	// Update is called once per frame
@@ -23,17 +27,32 @@ public class ShowItemManager : MonoBehaviour {
             transform.Translate(speed * Time.deltaTime, 0, 0);
         if (goRight && transform.position.x >= 0)
         {
-            if (timeSpendInTheMiddle < timeInTheMiddle)
+            if (timeRotating < timeOfRotate)
             {
+                timeRotating += Time.deltaTime;
+                transform.Rotate(Vector3.forward, rotateSpeed * Time.deltaTime);
+            }
+            else if (timeSpendInTheMiddle < timeInTheMiddle)
+            {
+                if(timeRotating >= timeOfRotate && transform.rotation.z != 0)
+                    transform.rotation = new Quaternion(0, 0, 0, 0);
                 timeSpendInTheMiddle += Time.deltaTime;
             }
             else
             {
+                
                 goRight = false;
             }
         }
-       
-        if(!goRight )
+
+        if (!goRight && transform.position.y < 15)
             transform.Translate(0, speed * Time.deltaTime, 0);
+        if (!goRight && transform.position.y >= 15) 
+        {
+            transform.position = new Vector3(-10.5f, 0, 0);
+            goRight = true;
+            timeSpendInTheMiddle = 0;
+            timeRotating = 0;
+        }
 	}
 }

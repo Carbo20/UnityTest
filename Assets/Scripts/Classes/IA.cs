@@ -3,14 +3,6 @@ using System;
 
 public class IA
 {
-    private int[] value; // The value of the condition in percent
-    private int[] idTarget; // ID of the target (0 for the hero, 1...3 for the monster)
-    private Data.IaCondition[] idCondition; // ID of the condition (0 for Hp, 1 for mana ... [TODO] to complete)
-    private int[] idSkill; // ID of the skill
-    private int[] idSigne; // 0 for <, 1 for > and -1 for nothing;
-    private int nbOrder; // Number of Order line into the IA 
-    private bool isValid; // Trigger to know if ConditionComputation() found a valid condition
-
     private HeroManager hManager;
     private EnemiesManager eManager;
     private Skill skill;
@@ -22,72 +14,72 @@ public class IA
         eManager = _eManager;
         this.skill = _skill;
 
-        nbOrder = 1;
+        Data.iaData.nbOrder = 1;
 
-        value = new int[nbOrder];
-        idTarget = new int [nbOrder]; 
-        idCondition = new Data.IaCondition[nbOrder]; 
-        idSkill = new int[nbOrder]; 
-        idSigne = new int[nbOrder];
+        Data.iaData.value = new int[Data.iaData.nbOrder];
+        Data.iaData.idTarget = new int [Data.iaData.nbOrder];
+        Data.iaData.idCondition = new Data.IaCondition[Data.iaData.nbOrder];
+        Data.iaData.idSkill = new int[Data.iaData.nbOrder];
+        Data.iaData.idSigne = new int[Data.iaData.nbOrder];
 
-        isValid = false;
+        Data.iaData.isValid = false;
 
 
         /* Testing value for the moment */
-        value[0] = 50;
-        idTarget[0] = 0;
-        idCondition[0] = Data.IaCondition.HEALTH;
-        idSkill[0] = 0;
-        idSigne[0] = 0;
+        Data.iaData.value[0] = 50;
+        Data.iaData.idTarget[0] = 0;
+        Data.iaData.idCondition[0] = Data.IaCondition.HEALTH;
+        Data.iaData.idSkill[0] = 0;
+        Data.iaData.idSigne[0] = 0;
     }
 
 
     public void ConditionComputation()
     {
-        for (int i = 0; i < nbOrder; i++)
+        for (int i = 0; i < Data.iaData.nbOrder; i++)
         {
-            if (idSigne[i] == 0)
+            if (Data.iaData.idSigne[i] == 0)
             {
-                switch (idCondition[i])
+                switch (Data.iaData.idCondition[i])
                 {
                     case Data.IaCondition.HEALTH:
-                        if (hManager.hero.Hp * 100 / hManager.hero.HpMax <= value[i]) // If Current HP < X%
+                        if (hManager.hero.Hp * 100 / hManager.hero.HpMax <= Data.iaData.value[i]) // If Current HP < X%
                         {
                             DoAnAction(i);
                         }
                         break;
                     case Data.IaCondition.MANA:
-                        if (hManager.hero.Mana * 100 / hManager.hero.ManaMax <= value[i]) // If Current Mana < X%
+                        if (hManager.hero.Mana * 100 / hManager.hero.ManaMax <= Data.iaData.value[i]) // If Current Mana < X%
                         {
                             DoAnAction(i);
                         }
                         break;
                 }
             }
-            if (idSigne[i] == 1)
+            if (Data.iaData.idSigne[i] == 1)
             {
-                switch (idCondition[i])
+                switch (Data.iaData.idCondition[i])
                 {
                     case Data.IaCondition.HEALTH:
-                        if (hManager.hero.Hp * 100 / hManager.hero.HpMax >= value[i]) // If Current HP > X%
+                        if (hManager.hero.Hp * 100 / hManager.hero.HpMax >= Data.iaData.value[i]) // If Current HP > X%
                         {
                             DoAnAction(i);
                         }
                         break;
                     case Data.IaCondition.MANA:
-                        if (hManager.hero.Mana * 100 / hManager.hero.ManaMax >= value[i]) // If Current Mana > X%
+                        if (hManager.hero.Mana * 100 / hManager.hero.ManaMax >= Data.iaData.value[i]) // If Current Mana > X%
                         {
                             DoAnAction(i);
                         }
                         break;
                 }
             }
-            if(idSigne[i] == -1) //Here the stuff who don't need to know < or >
+            if(Data.iaData.idSigne[i] == -1) //Here the stuff who don't need to know < or >
             {
-                switch (idCondition[i])
+                switch (Data.iaData.idCondition[i])
                 {
                     case Data.IaCondition.NBENEMY:
-                        if(eManager.enemyList.Count == value[i])
+                        if(eManager.enemyList.Count == Data.iaData.value[i])
                         {
                             DoAnAction(i);
                         }
@@ -98,7 +90,7 @@ public class IA
                         {
                             if (e.enemy.IsCasting)
                             {
-                                idTarget[i] = enemyId;
+                                Data.iaData.idTarget[i] = enemyId;
                                 DoAnAction(i);
                             }
                             enemyId++;
@@ -108,16 +100,16 @@ public class IA
             }
 
 
-            if (isValid) break; // We stop the loop if we found a valid condition
+            if (Data.iaData.isValid) break; // We stop the loop if we found a valid condition
         }
-        isValid = false;
+        Data.iaData.isValid = false;
     }
 
     public void DoAnAction(int i)
     {
-        skill.IdTarget = idTarget[i];
-        skill.actionList[idSkill[i]]();
-        isValid = true;
+        skill.IdTarget = Data.iaData.idTarget[i];
+        skill.actionList[Data.iaData.idSkill[i]]();
+        Data.iaData.isValid = true;
         Debug.Log("Do an action");
     }
 

@@ -8,6 +8,7 @@ public class IA
     private EnemiesManager eManager;
     private Skill skill;
 
+    private bool isValid = false;
 
     public IA(HeroManager _hManager, EnemiesManager _eManager, Skill _skill)
     {
@@ -16,14 +17,8 @@ public class IA
         this.skill = _skill;
         
         Data.iaData.nbOrder = 1;
-
-        Data.iaData.value = new int[Data.iaData.nbOrder];
-        Data.iaData.idTarget = new int [Data.iaData.nbOrder];
-        Data.iaData.idCondition = new IaData.IaCondition[Data.iaData.nbOrder];
-        Data.iaData.idSkill = new int[Data.iaData.nbOrder];
-        Data.iaData.idSigne = new int[Data.iaData.nbOrder];
-
-        Data.iaData.isValid = false;
+        
+        isValid = false;
 
 
         /* Testing value for the moment */
@@ -101,16 +96,16 @@ public class IA
             }
 
 
-            if (Data.iaData.isValid) break; // We stop the loop if we found a valid condition
+            if (isValid) break; // We stop the loop if we found a valid condition
         }
-        Data.iaData.isValid = false;
+        isValid = false;
     }
 
     public void DoAnAction(int i)
     {
         skill.IdTarget = Data.iaData.idTarget[i];
         skill.actionList[Data.iaData.idSkill[i]]();
-        Data.iaData.isValid = true;
+        isValid = true;
         Debug.Log("Do an action");
     }
     /*

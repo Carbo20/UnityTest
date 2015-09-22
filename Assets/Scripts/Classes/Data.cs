@@ -42,6 +42,5 @@ public class Data {
     public static int HeroStatsCount = 6;
     public static int nbOrder;
     
-    public static int showItemId = 6;
     
 }

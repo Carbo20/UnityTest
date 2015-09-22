@@ -24,8 +24,6 @@ public class Item
     private Data.ItemQuality itemQuality;
     private ItemData itemData;
 
-
-
     public Item(int _level, int _magicFind)
     {
         strenBonus = 0;
@@ -67,75 +65,107 @@ public class Item
         int slotTypeInt=-1, itemTypeInt=-1, itemQualityInt, numberOfBonus = 0, randomBonus;
         int NormalRange = 70 - magicFind, MagicRange = 90 - (magicFind / 2); // when random 0-100 more than MagicRange the item is legendary
 
-        ////ITEMSLOT
-        //slotTypeInt = UnityEngine.Random.Range(0, Data.SlotTypeCount); // item slot type : HEAD, CHEST, HANDS, LEGS, FEET, ONEHAND, TWOHANDS  
-        ////slotType = (Data.SlotType)slotTypeInt;
-        //Debug.Log("slotTypeInt " + slotTypeInt + "   " + SlotType);
+        //Normal stats for items
+        int armorPerLevelMin = 8, armorPerLevelMax = 10;
+        int attack1HPerLevelMin = 8, attack1HPerLevelMax = 10;
+        float attackSpeed1HMin = 1.75f, attackSpeed1HMax = 2.25f;
+        int attack2HPerLevelMin = 40, attack2HPerLevelMax = 50;
+        float attackSpeed2HMin = 2.625f, attackSpeed2HMax = 3.375f;
 
-        itemDrop = UnityEngine.Random.Range(0, 100); // 0-50 : armor & 50-75 : weapon 1h & 75-99 : weapon 2h
+        // Semi-random number of bonuses and semi-random amout of bonus
+        float strPerLevelMin = 0.80f, strPerLevelMax = 1;
+        float intPerLevelMin = 0.80f, intPerLevelMax = 1;
+        float agiPerLevelMin = 0.80f, agiPerLevelMax = 1;
+        float vitalPerLevelMin = 0.80f, vitalPerLevelMax = 1;
+        int attackPerLevelMin = 1, attackPerLevelMax = 2;
+        int spellPerLevelMin = 1, spellPerLevelMax = 2;
+        int manaPerLevelMin = 8, manaPerLevelMax = 10;
+        int healthPerLevelMin = 8, healthPerLevelMax = 10;
+        //float dodgePerLevelMin, dodgePerLevelMax;                 // CF BELOW
+        //float critPerLevelMin, critPerLevelMax;                   // CF BELOW
+        float regenManaPerLevelMin = 0.15f, regenManaPerLevelMax = 0.2f;
+        float regenHealthPerLevelMin = 0.15f, regenHealthPerLevelMax = 0.2f;
+        //float attackSpeedPerLevelMin, attackSpeedPerLevelMax;     // CF BELOW
+        //float castTimePerLevelMin, castTimePerLevelMax;           // CF BELOW
 
-        if (itemDrop >= 0 && itemDrop < 50)////////ARMOR
+        // Peculiar restrictions
+        float maxDodgePerItem = 0.07f;
+
+        // Drop rates 0-50 : armor & 50-75 : weapon 1h & 75-99 : weapon 2h
+        int dropArmor = 50;
+        int dropRangeArmor = dropArmor / 5;
+        int dropHead = dropRangeArmor;
+        int dropChest = dropHead + dropRangeArmor;
+        int dropHands = dropChest + dropRangeArmor;
+        int dropLegs = dropHands + dropRangeArmor;
+        int dropFeet = dropLegs + dropRangeArmor;
+
+        int drop1HWeapon = 75;
+        int dropShield = 54;
+        itemDrop = UnityEngine.Random.Range(0, 100); 
+
+        if (itemDrop < dropArmor)////////ARMOR
         {
             itemTypeInt = Data.ItemType.ARMOR.GetHashCode();
 
             //0-10 HEAD, 10-20 CHEST, 20-30 HANDS, 30-40 LEGS, 40-50 FEET 
-            if (itemDrop < 10)
+            if (itemDrop < dropHead)
             {
                 slotTypeInt = Data.SlotType.HEAD.GetHashCode();
                 iconTypeId = Data.IconType.HEAD.GetHashCode();
             }
-            else if (itemDrop < 20)
+            else if (itemDrop < dropChest)
             {
                 slotTypeInt = Data.SlotType.CHEST.GetHashCode();
                 iconTypeId = Data.IconType.CHEST.GetHashCode();
             }
-            else if (itemDrop < 30)
+            else if (itemDrop < dropHands)
             {
                 slotTypeInt = Data.SlotType.HANDS.GetHashCode();
                 iconTypeId = Data.IconType.HANDS.GetHashCode();
             }
-            else if (itemDrop < 40)
+            else if (itemDrop < dropLegs)
             {
                 slotTypeInt = Data.SlotType.LEGS.GetHashCode();
                 iconTypeId = Data.IconType.LEGS.GetHashCode();
             }
-            else if (itemDrop < 50)
+            else if (itemDrop < dropFeet)
             {
                 slotTypeInt = Data.SlotType.FEET.GetHashCode();
                 iconTypeId = Data.IconType.FEET.GetHashCode();
             }
 
-            Armor = UnityEngine.Random.Range(8 * Level, 10 * Level);
+            Armor = UnityEngine.Random.Range(Level * armorPerLevelMin, Level * armorPerLevelMax);
         }
-        else if (itemDrop >= 50 && itemDrop < 75)//1H
+        else if (itemDrop >= dropArmor && itemDrop < drop1HWeapon)//1H
         {
             slotTypeInt = Data.SlotType.ONEHAND.GetHashCode();
 
-            if (itemDrop < 54)      // SHIELD
+            if (itemDrop < dropShield)      // SHIELD
             {
                 itemTypeInt = Data.ItemType.SHIELD.GetHashCode();
 
-                Armor = UnityEngine.Random.Range(8 * Level, 10 * Level);
-                DodgeBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
+                Armor = UnityEngine.Random.Range(Level * armorPerLevelMin, Level * armorPerLevelMax);
+                DodgeBonus += Math.Min(maxDodgePerItem, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
                 iconTypeId = Data.IconType.SHIELD.GetHashCode();
             }
-            else if (itemDrop < 75)     // OTHER 1H
+            else if (itemDrop < drop1HWeapon)     // OTHER 1H
             {
                 itemTypeInt = Data.ItemType.WEAPON.GetHashCode();
 
-                AttackValue = UnityEngine.Random.Range(8 * Level, 10 * Level);
-                AttackSpeed = UnityEngine.Random.Range(0.9f, 1.1f);
-                iconTypeId = UnityEngine.Random.Range(Data.IconType.AXE.GetHashCode(), Data.IconType.WAND.GetHashCode() + 1);
+                AttackValue = UnityEngine.Random.Range(Level * attack1HPerLevelMin, Level * attack1HPerLevelMax);
+                AttackSpeed = UnityEngine.Random.Range(attackSpeed1HMin, attackSpeed1HMax);
+                iconTypeId = UnityEngine.Random.Range(Data.IconType.AXE.GetHashCode(), Data.IconType.WAND.GetHashCode() + 1); // Random among all 1hweapons from iconType 
             }
         }
-        else if (itemDrop >= 75)    /////////////////// 2H
+        else if (itemDrop >= drop1HWeapon)    /////////////////// 2H
         {
             itemTypeInt = Data.ItemType.WEAPON.GetHashCode();
             slotTypeInt = Data.SlotType.TWOHANDS.GetHashCode();
 
-            AttackValue = UnityEngine.Random.Range(40 * Level, 50 * Level);
-            AttackSpeed = UnityEngine.Random.Range(1.9f, 2.1f);
-            iconTypeId = UnityEngine.Random.Range(Data.IconType.SWORD2H.GetHashCode(), Data.IconType.SPEAR.GetHashCode() + 1);
+            AttackValue = UnityEngine.Random.Range(Level * attack2HPerLevelMin, Level * attack2HPerLevelMax);
+            AttackSpeed = UnityEngine.Random.Range(attackSpeed2HMin, attackSpeed2HMax);
+            iconTypeId = UnityEngine.Random.Range(Data.IconType.SWORD2H.GetHashCode(), Data.IconType.SPEAR.GetHashCode() + 1); // Random among all 2hweapons from iconType 
         }
         ItemType = (Data.ItemType)itemTypeInt;
 
@@ -154,23 +184,6 @@ public class Item
         }
         else
             ItemQuality = Data.ItemQuality.NORMAL;
-
-
-        // Semi-random number of bonuses and semi-random amout of bonus
-        float strPerLevelMin = 0.80f, strPerLevelMax = 1;
-        float intPerLevelMin = 0.80f, intPerLevelMax = 1;
-        float agiPerLevelMin = 0.80f, agiPerLevelMax = 1;
-        float vitalPerLevelMin = 0.80f, vitalPerLevelMax = 1;
-        int attackPerLevelMin = 1, attackPerLevelMax = 2;
-        int spellPerLevelMin = 1, spellPerLevelMax = 2;
-        int manaPerLevelMin = 8, manaPerLevelMax = 10;
-        int healthPerLevelMin = 8, healthPerLevelMax = 10;
-        //float dodgePerLevelMin, dodgePerLevelMax;                 // CF BELOW
-        //float critPerLevelMin, critPerLevelMax;                   // CF BELOW
-        float regenManaPerLevelMin = 0.15f, regenManaPerLevelMax = 0.2f;
-        float regenHealthPerLevelMin = 0.15f, regenHealthPerLevelMax = 0.2f;
-        //float attackSpeedPerLevelMin, attackSpeedPerLevelMax;     // CF BELOW
-        //float castTimePerLevelMin, castTimePerLevelMax;           // CF BELOW
 
         for (int i = 0; i < numberOfBonus; i++)
         {
@@ -225,53 +238,11 @@ public class Item
             }
         }
 
-        //SlotType { HEAD, CHEST, HANDS, LEGS, FEET, ONEHAND, TWOHANDS };
-        //ItemType { WEAPON, SHIELD, ARMOR };
-        //IconType { SHIELD, AXE, SWORD, DAGGER, MACE, WAND, SWORD2H, AXE2H, STAFF, SPEAR, HEAD, CHEST, HANDS, LEGS, FEET };
-
-        ///////////////////////////////////////////////////////Remplissage de la liste d'item, ceci est un test voué a disparaitre/////////////////////////////////////////////////////////////////////
-        //pour tester DEBUT
-        /*if (Data.test)
-        {
-            Debug.Log("here!!   A" + Data.IconTypeCount);
-            for (int i = 0; i < Data.IconTypeCount; i++)
-                Data.listOfItems.Add(new List<ItemData>());
-
-            for (int i = 0; i < 5; i++)
-                for (int j = 0; j < 6; j++)
-                    Data.listOfItems[i].Add(new ItemData("placeholder", 3, "", (Data.SlotType)i));
-            for (int i = 5; i < 11; i++)
-                for (int j = 0; j < 6; j++)
-                    Data.listOfItems[i].Add(new ItemData("placeholder", 3, "", Data.SlotType.ONEHAND));
-            for (int i = 11; i < Data.IconTypeCount; i++)
-                for (int j = 0; j < 6; j++)
-                    Data.listOfItems[i].Add(new ItemData("placeholder", 3, "", Data.SlotType.TWOHANDS));
-            Data.test = false;
-            Debug.Log("here!!   B");
-        }*/
-        //pour tester FIN
-
         int randomItemDataId;
         randomItemDataId = UnityEngine.Random.Range(0, Data.listOfItems[iconTypeId].Count);
 
         itemData = Data.listOfItems[iconTypeId][randomItemDataId];
     }
-
-   
-   ///////////////////////////////////////////////FIN TEST
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /////////////////GETTERS AND SETTERS//////////////////////////////
     public int AttackValue

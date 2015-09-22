@@ -14,7 +14,7 @@ public class CharacterBuildManager : MonoBehaviour {
     Text LVLTxt, ATKTxt, ATStxt, DEFTxt;
     Color lowerSTATColor, upperSTATColor, equalSTATColor;
     private GameObject heroStat, heroEquip;
-    private Text LVLStat, XPStat, HPStat, MANAStat, STRStat, INTStat, AGIStat, VITStat, DMGStat, SPDMGStat, DODStat, CRITStat, SPEStat;
+    private Text LVLStat, XPStat, HPStat, MANAStat, STRStat, INTStat, AGIStat, VITStat, DMGStat, SPDMGStat, DODStat, CRITStat, SPEStat, ARMORStat;
     bool heroStatTextLoad;
     bool heroStatsDraws;
     //just for test
@@ -74,6 +74,7 @@ public class CharacterBuildManager : MonoBehaviour {
             DODStat = GameObject.Find("DODGEValue").GetComponent<Text>();
             CRITStat = GameObject.Find("CRITValue").GetComponent<Text>();
             SPEStat = GameObject.Find("SPEEDValue").GetComponent<Text>();
+            ARMORStat = GameObject.Find("ARMORValue").GetComponent<Text>();
 
             heroStatTextLoad = true;
         }
@@ -239,9 +240,9 @@ public class CharacterBuildManager : MonoBehaviour {
                     else
                         ATKTxt.color = equalSTATColor;
 
-                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HeadItemID].AttackSpeed)
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HeadItemID].AttackSpeed)
                         ATStxt.color = upperSTATColor;
-                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HeadItemID].AttackSpeed)
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HeadItemID].AttackSpeed)
                         ATStxt.color = lowerSTATColor;
                     else
                         ATStxt.color = equalSTATColor;
@@ -279,9 +280,9 @@ public class CharacterBuildManager : MonoBehaviour {
                     else
                         ATKTxt.color = equalSTATColor;
                     
-                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.ChestItemID].AttackSpeed)
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.ChestItemID].AttackSpeed)
                         ATStxt.color = upperSTATColor;
-                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.ChestItemID].AttackSpeed)
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.ChestItemID].AttackSpeed)
                         ATStxt.color = lowerSTATColor;
                     else
                         ATStxt.color = equalSTATColor;
@@ -319,9 +320,9 @@ public class CharacterBuildManager : MonoBehaviour {
                     else
                         ATKTxt.color = equalSTATColor;
                     
-                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HandsItemID].AttackSpeed)
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HandsItemID].AttackSpeed)
                         ATStxt.color = upperSTATColor;
-                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HandsItemID].AttackSpeed)
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HandsItemID].AttackSpeed)
                         ATStxt.color = lowerSTATColor;
                     else
                         ATStxt.color = equalSTATColor;
@@ -359,9 +360,9 @@ public class CharacterBuildManager : MonoBehaviour {
                     else
                         ATKTxt.color = equalSTATColor;
 
-                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LegsItemID].AttackSpeed)
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LegsItemID].AttackSpeed)
                         ATStxt.color = upperSTATColor;
-                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LegsItemID].AttackSpeed)
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LegsItemID].AttackSpeed)
                         ATStxt.color = lowerSTATColor;
                     else
                         ATStxt.color = equalSTATColor;
@@ -399,9 +400,9 @@ public class CharacterBuildManager : MonoBehaviour {
                     else
                         ATKTxt.color = equalSTATColor;
 
-                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.FeetItemID].AttackSpeed)
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.FeetItemID].AttackSpeed)
                         ATStxt.color = upperSTATColor;
-                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.FeetItemID].AttackSpeed)
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.FeetItemID].AttackSpeed)
                         ATStxt.color = lowerSTATColor;
                     else
                         ATStxt.color = equalSTATColor;
@@ -440,9 +441,9 @@ public class CharacterBuildManager : MonoBehaviour {
                     else
                         ATKTxt.color = equalSTATColor;
 
-                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LeftHandItemID].AttackSpeed)
+                    if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LeftHandItemID].AttackSpeed)
                         ATStxt.color = upperSTATColor;
-                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LeftHandItemID].AttackSpeed)
+                    else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackSpeed > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LeftHandItemID].AttackSpeed)
                         ATStxt.color = lowerSTATColor;
                     else
                         ATStxt.color = equalSTATColor;
@@ -597,8 +598,8 @@ public class CharacterBuildManager : MonoBehaviour {
         SPDMGStat.text = Data.heroData.spellDamage.ToString();
         DODStat.text = Data.heroData.dodge.ToString();
         CRITStat.text = Data.heroData.critical.ToString();
-        SPEStat.text = Data.heroData.speed.ToString();
-
+        SPEStat.text = Data.heroData.cdAttack.ToString();
+        ARMORStat.text = Data.heroData.armor.ToString();
 
     }
 
@@ -623,6 +624,7 @@ public class CharacterBuildManager : MonoBehaviour {
         updateHeroStats();
     }
 
+
     /// <summary>
     /// Callback du bouton Equip
     /// </summary>
@@ -634,6 +636,7 @@ public class CharacterBuildManager : MonoBehaviour {
             updateHeroEquipement();
             updateItemList();
             updateItemDescription();
+            updateHeroStats();
         }
     }
 }

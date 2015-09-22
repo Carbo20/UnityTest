@@ -12,7 +12,6 @@ public class Item
 {
     /* Item's Variables */
     private int attackValue;
-    private float attackSpeed;
     private int armor;
     private int level;
 
@@ -262,12 +261,12 @@ public class Item
     {
         get
         {
-            return attackSpeed;
+            return castTimeBonus;
         }
 
         set
         {
-            attackSpeed = value;
+            castTimeBonus = value;
         }
     }
 

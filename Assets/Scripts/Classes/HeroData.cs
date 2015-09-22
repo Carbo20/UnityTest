@@ -7,6 +7,11 @@ public class HeroData {
     public int hpMax;
     public int manaMax;
 
+    public int regenHp;
+    public int regenMana;
+
+    public int armor;
+
     public int strenght;
     public int intelligence;
     public int agility;
@@ -15,9 +20,9 @@ public class HeroData {
     /* Secondary Hero variable*/
     public int damage;
     public int spellDamage;
-    public int dodge;
-    public int critical;
-    public float speed;
+    public float dodge;
+    public float critical;
+
     public float cdAttack;
 
     public int xp;

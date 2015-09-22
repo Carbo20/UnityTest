@@ -63,12 +63,12 @@ public class LoadingSceneManager : MonoBehaviour {
                     case "VITALITY"      : Data.heroData.vitality       = Int32.Parse(stat.InnerText); break;
                     case "DAMAGE"        : Data.heroData.damage         = Int32.Parse(stat.InnerText); break;
                     case "SPELLDAMAGE"   : Data.heroData.spellDamage    = Int32.Parse(stat.InnerText); break;
-                    case "DODGE"         : Data.heroData.dodge          = Int32.Parse(stat.InnerText); break;
-                    case "CRITICAL"      : Data.heroData.critical       = Int32.Parse(stat.InnerText); break;
-                    case "SPEED"         : Data.heroData.speed          = Int32.Parse(stat.InnerText); break;
+                    case "DODGE"         : Data.heroData.dodge          = float.Parse(stat.InnerText); break;
+                    case "CRITICAL"      : Data.heroData.critical       = float.Parse(stat.InnerText); break;
                     case "XP"            : Data.heroData.xp             = Int32.Parse(stat.InnerText); break;
                     case "XPFORNEXTLEVEL": Data.heroData.xpForNextLevel = Int32.Parse(stat.InnerText); break;
                     case "LEVEL"         : Data.heroData.level          = Int32.Parse(stat.InnerText); break;
+
                 }
             }
         }

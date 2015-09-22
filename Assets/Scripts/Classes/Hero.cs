@@ -20,7 +20,6 @@ public class Hero {
         Data.heroData.intelligence = _inteligence;
         Data.heroData.agility = _agility;
         Data.heroData.vitality = _vitality;
-        Data.heroData.speed = 3;
         Data.heroData.cdAttack = 3;
 
         Data.heroData.xp = 0;
@@ -190,7 +189,7 @@ public class Hero {
         }
     }
 
-    public int Dodge
+    public float Dodge
     {
         get
         {
@@ -203,7 +202,7 @@ public class Hero {
         }
     }
 
-    public int Critical
+    public float Critical
     {
         get
         {
@@ -213,19 +212,6 @@ public class Hero {
         set
         {
             Data.heroData.critical = value;
-        }
-    }
-
-    public float Speed
-    {
-        get
-        {
-            return Data.heroData.speed;
-        }
-
-        set
-        {
-            Data.heroData.speed = value;
         }
     }
 

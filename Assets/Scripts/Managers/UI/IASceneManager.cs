@@ -10,7 +10,7 @@ public class IASceneManager : MonoBehaviour
     private int indexButtonCatMax;
     private int indexCatMax;
     private int unchosenCount;
-
+    private int valueInputfield = -1;
     private Button button;
 
     private GameObject[] gObjHealth = new GameObject[8];
@@ -111,7 +111,9 @@ public class IASceneManager : MonoBehaviour
         
     }
 
- 
+    public void CallbackInputfield(int text) {
+         valueInputfield = text;
+    }
 
     public void CallbackDropdownChanged(int line)
     {
@@ -120,20 +122,23 @@ public class IASceneManager : MonoBehaviour
             categoryDropdown = GameObject.Find("categoryDropdown(" + line + ")").GetComponent<Dropdown>();
             Debug.Log("categoryDropdown(" + line + ")");
 
-            
+            line = line - 1;
 
             //Player's Health
             if (categoryDropdown.value == 1)
             {
 
-                initLine(line - 1);
+                initLine(line);
                 Data.iaData.idCondition[line] = IaData.IaCondition.HEALTH;
                 switchCatCount++;
-                gObjHealth[line - 1].SetActive(true);
-                gObjHealthBis[line - 1].SetActive(true);
+                gObjHealth[line].SetActive(true);
+                gObjHealthBis[line].SetActive(true);
 
+                //Get value of %
+                Data.iaData.value[line] = valueInputfield;
+                
                 //Test which sign has been chosen
-                if (gObjHealth[line - 1].GetComponent<Dropdown>().value == 0)
+                if (gObjHealth[line].GetComponent<Dropdown>().value == 0)
                 {
                     Data.iaData.idSigne[line] = 0;
                 }
@@ -147,14 +152,14 @@ public class IASceneManager : MonoBehaviour
             if (categoryDropdown.value == 2)
             {
 
-                initLine(line - 1);
+                initLine(line);
                 Data.iaData.idCondition[line] = IaData.IaCondition.MANA;
                 switchCatCount++;
-                gObjMana[line - 1].SetActive(true);
-                gObjManaBis[line - 1].SetActive(true);
+                gObjMana[line].SetActive(true);
+                gObjManaBis[line].SetActive(true);
 
                 //Test which sign has been chosen
-                if (gObjHealth[line - 1].GetComponent<Dropdown>().value == 0)
+                if (gObjHealth[line].GetComponent<Dropdown>().value == 0)
                 {
                     Data.iaData.idSigne[line] = 0;
                 }
@@ -168,12 +173,12 @@ public class IASceneManager : MonoBehaviour
             if (categoryDropdown.value == 3)
             {
                 Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYHEALTH;
-                gObjHealthEn[line - 1].SetActive(true);
-                gObjHealthBisEn[line - 1].SetActive(true);
+                gObjHealthEn[line].SetActive(true);
+                gObjHealthBisEn[line].SetActive(true);
                 switchCatCount++;
 
                 //Test which sign has been chosen
-                if (gObjHealth[line - 1].GetComponent<Dropdown>().value == 0)
+                if (gObjHealth[line].GetComponent<Dropdown>().value == 0)
                 {
                     Data.iaData.idSigne[line] = 0;
                 }
@@ -187,12 +192,12 @@ public class IASceneManager : MonoBehaviour
             if (categoryDropdown.value == 4)
             {
                 Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYMANA;
-                gObjManaEn[line - 1].SetActive(true);
-                gObjManaBisEn[line - 1].SetActive(true);
+                gObjManaEn[line].SetActive(true);
+                gObjManaBisEn[line].SetActive(true);
                 switchCatCount++;
 
                 //Test which sign has been chosen
-                if (gObjHealth[line - 1].GetComponent<Dropdown>().value == 0)
+                if (gObjHealth[line].GetComponent<Dropdown>().value == 0)
                 {
                     Data.iaData.idSigne[line] = 0;
                 }
@@ -206,9 +211,9 @@ public class IASceneManager : MonoBehaviour
             if (categoryDropdown.value == 5)
             {
                 Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYCAST;
-                initLine(line - 1);
+                initLine(line);
                 switchCatCount++;
-                gObjCast[line - 1].SetActive(true);
+                gObjCast[line].SetActive(true);
 
                 //Set none sign
                 Data.iaData.idSigne[line] = -1;
@@ -218,9 +223,9 @@ public class IASceneManager : MonoBehaviour
             if (categoryDropdown.value == 6)
             {
                 Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYNB;
-                initLine(line - 1);
+                initLine(line);
                 switchCatCount++;
-                gObjEnemiesNb[line - 1].SetActive(true);
+                gObjEnemiesNb[line].SetActive(true);
                 
                 //Set none sign
                 Data.iaData.idSigne[line] = -1;
@@ -230,9 +235,9 @@ public class IASceneManager : MonoBehaviour
             if (categoryDropdown.value == 7)
             {
                 Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYCLASS;
-                initLine(line - 1);
+                initLine(line);
                 switchCatCount++;
-                gObjEnemyClass[line - 1].SetActive(true);
+                gObjEnemyClass[line].SetActive(true);
 
                 //Set none sign
                 Data.iaData.idSigne[line] = -1;
@@ -243,7 +248,7 @@ public class IASceneManager : MonoBehaviour
             if (categoryDropdown.value == 0)
             {
                 Data.iaData.idCondition[line] = IaData.IaCondition.NULL;
-                initLine(line - 1);
+                initLine(line);
 
                 unchosenCount++;
 

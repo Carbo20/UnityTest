@@ -214,7 +214,7 @@ public class Hero {
         }
     }
 
-    public int Speed
+    public float Speed
     {
         get
         {

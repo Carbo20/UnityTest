@@ -11,12 +11,16 @@ public class IaData
     public Data.SkillType[] idSkill; // ID of the skill
     public int[] idSigne; // 0 for >, 1 for < and -1 for nothing;
     public int nbOrder; // Number of Order line into the IA 
-    public bool isValid; // Trigger to know if ConditionComputation() found a valid condition
 
     public IaData()
     {
+        nbOrder = 8; //Testing Value
+
         value = new int[nbOrder];
         idTarget = new int[nbOrder];
+        idCondition = new IaCondition[nbOrder];
+        idSkill = new Data.SkillType[nbOrder];
+        idSigne = new int[nbOrder];
     }
 
 }

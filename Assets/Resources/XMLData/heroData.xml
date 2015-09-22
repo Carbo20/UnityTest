@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ooo_calc_export scriptVersion="2.2.0" scriptUpdate="2010-12-19"
+                 scriptURL="http://www.digitalimprint.com/misc/oooexport/"
+                 scriptAuthor="vjl">
+   <ooo_sheet num="1" name="Feuille1">
+      <ooo_row><HPMAX>30</HPMAX><MANAMAX>30</MANAMAX><STRENGHT>1</STRENGHT><INTELLIGENCE>1</INTELLIGENCE><AGILITY>1</AGILITY><VITALITY>1</VITALITY><DAMAGE>2</DAMAGE><SPELLDAMAGE>2</SPELLDAMAGE><DODGE>10</DODGE><CRITICAL>1</CRITICAL><SPEED>1</SPEED><XP>0</XP><XPFORNEXTLEVEL>100</XPFORNEXTLEVEL><LEVEL>1</LEVEL></ooo_row>
+   </ooo_sheet>
+</ooo_calc_export>

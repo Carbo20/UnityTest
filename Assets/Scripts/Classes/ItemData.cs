@@ -7,24 +7,15 @@ public class ItemData {
     private int spriteId;
     private string description;
     public Data.SlotType slotType;
+   // public Data.IconType iconType;
 
-    public ItemData(string _itemName, int _spriteId, string _description, Data.SlotType _slotType)
+    public ItemData(string _itemName, int _spriteId, string _description, Data.SlotType _slotType/*,Data.IconType _iconType*/)
     {
         itemName = _itemName;
         spriteId = _spriteId;
         description = _description;
         slotType = _slotType;
     }
-
-    // Use this for initialization
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     public int SpriteId
     {

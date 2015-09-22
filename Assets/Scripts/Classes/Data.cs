@@ -34,11 +34,12 @@ public class Data {
     public static List<List<ItemData>> listOfItems = new List<List<ItemData>>(); //ordered on IconType 
 
     public static HeroData heroData = new HeroData();
-    public static IaData iaData = new IaData();
 
-    public enum IaCondition { STREN, INTEL, AGI, VITAL, HEALTH, MANA, NBENEMY, ISCASTING };
+    public static IAData iaData = new IAData();
 
     public static int HeroStatsCount = 6;
-
-    public static int showItemId = SlotType.TWOHANDS.GetHashCode();
+    public static int nbOrder;
+  
+    
+    
 }

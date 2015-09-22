@@ -3,6 +3,7 @@ using System;
 
 public class IA
 {
+
     private HeroManager hManager;
     private EnemiesManager eManager;
     private Skill skill;
@@ -14,6 +15,7 @@ public class IA
         eManager = _eManager;
         this.skill = _skill;
 
+<<<<<<< 0211c79a28bf1b1d812230133014c26a15ff94a4
         Data.iaData.nbOrder = 1;
 
         Data.iaData.value = new int[Data.iaData.nbOrder];
@@ -112,5 +114,19 @@ public class IA
         Data.iaData.isValid = true;
         Debug.Log("Do an action");
     }
+    /*
+    public int NbOrder
+    {
+        get
+        {
+            return nbOrder;
+        }
+
+        set
+        {
+            nbOrder = value;
+        }
+    }
+    */
 
 }

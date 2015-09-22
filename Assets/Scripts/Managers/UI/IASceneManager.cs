@@ -6,10 +6,11 @@ public class IASceneManager : MonoBehaviour
 {
 
     private Dropdown categoryDropdown, categoryDropdown1, categoryDropdown2;
-    private int indexButtonCat;
+    private int line;
     private int indexButtonCatMax;
     private int indexCatMax;
     private int unchosenCount;
+
     private Button button;
 
     private GameObject[] gObjHealth = new GameObject[8];
@@ -25,18 +26,21 @@ public class IASceneManager : MonoBehaviour
     private GameObject[] gObjCast = new GameObject[8];
     private GameObject[] gObjEnemiesNb = new GameObject[8];
     private GameObject[] gObjEnemyClass = new GameObject[8];
-    private GameObject[] gObjHealthClone = new GameObject[8];
+
 
     private float switchCatCount;
- 
+    private int conditionNb;
+    private int signe;
+    private int nbOrder;
+
 
     //Text textToChoose = "You have to choose one or more conditions and actions";
 
     void initAll()
     {
         indexButtonCatMax = 8;
-        indexCatMax = 12;
         unchosenCount = 0;
+        nbOrder = 0;
 
         for (int ind = 0; ind < indexButtonCatMax; ind++)
         {
@@ -102,25 +106,35 @@ public class IASceneManager : MonoBehaviour
 
         
     }
-
-    public void CallbackDropdownChanged(bool isChanged)
+    public void CallbackApplyAndFarm()
     {
-        for (indexButtonCat = 1; indexButtonCat < indexButtonCatMax + 1; indexButtonCat++)
-        {
-            categoryDropdown = GameObject.Find("categoryDropdown(" + indexButtonCat + ")").GetComponent<Dropdown>();
-            Debug.Log("categoryDropdown(" + indexButtonCat + ")");
+        Data.nbOrder = nbOrder;
+        Data.IdCondition = conditionNb;
+        Data.idSigne[line] = signe;
 
-            switchCatCount = 0;
+    }
+
+ 
+
+    public void CallbackDropdownChanged(int line)
+    {
+            nbOrder++;
+
+            categoryDropdown = GameObject.Find("categoryDropdown(" + line + ")").GetComponent<Dropdown>();
+            Debug.Log("categoryDropdown(" + line + ")");
+
+            
 
             //Player's Health
             if (categoryDropdown.value == 1)
             {
 
-                initLine(indexButtonCat - 1);
-
+                initLine(line - 1);
+                conditionNb = 1;
                 switchCatCount++;
-                gObjHealth[indexButtonCat - 1].SetActive(true);
-                gObjHealthBis[indexButtonCat - 1].SetActive(true);
+                gObjHealth[line - 1].SetActive(true);
+                gObjHealthBis[line - 1].SetActive(true);
+                
 
             }
 
@@ -128,71 +142,76 @@ public class IASceneManager : MonoBehaviour
             if (categoryDropdown.value == 2)
             {
 
-                initLine(indexButtonCat - 1);
-
+                initLine(line - 1);
+                conditionNb = 2;
                 switchCatCount++;
-                gObjMana[indexButtonCat - 1].SetActive(true);
-                gObjManaBis[indexButtonCat - 1].SetActive(true);
+                gObjMana[line - 1].SetActive(true);
+                gObjManaBis[line - 1].SetActive(true);
 
             }
 
             //Enemy's Health
             if (categoryDropdown.value == 3)
             {
-
-                gObjHealthEn[indexButtonCat - 1].SetActive(true);
-                gObjHealthBisEn[indexButtonCat - 1].SetActive(true);
+                conditionNb = 3;
+                gObjHealthEn[line - 1].SetActive(true);
+                gObjHealthBisEn[line - 1].SetActive(true);
                 switchCatCount++;
             }
 
             //Enemy's Mana
             if (categoryDropdown.value == 4)
             {
-                gObjManaEn[indexButtonCat - 1].SetActive(true);
-                gObjManaBisEn[indexButtonCat - 1].SetActive(true);
+                conditionNb = 4;
+                gObjManaEn[line - 1].SetActive(true);
+                gObjManaBisEn[line - 1].SetActive(true);
                 switchCatCount++;
             }
 
             //Enemy casting
             if (categoryDropdown.value == 5)
             {
-                initLine(indexButtonCat - 1);
+                conditionNb = 5;
+                initLine(line - 1);
                 switchCatCount++;
-                gObjCast[indexButtonCat - 1].SetActive(true);
+                gObjCast[line - 1].SetActive(true);
             }
 
             //Enemies Nb
             if (categoryDropdown.value == 6)
             {
-                initLine(indexButtonCat - 1);
+                conditionNb = 6;
+                initLine(line - 1);
                 switchCatCount++;
-                gObjEnemiesNb[indexButtonCat - 1].SetActive(true);
+                gObjEnemiesNb[line - 1].SetActive(true);
             }
 
             //Enemy's Class       
             if (categoryDropdown.value == 7)
             {
-                initLine(indexButtonCat - 1);
+                conditionNb = 7;
+                initLine(line - 1);
                 switchCatCount++;
-                gObjEnemyClass[indexButtonCat - 1].SetActive(true);
+                gObjEnemyClass[line - 1].SetActive(true);
             }
 
             //Default Category
             if (categoryDropdown.value == 0)
             {
-                initLine(indexButtonCat - 1);
+                conditionNb = 0;
+                initLine(line - 1);
 
-                switchCatCount++;
+                unchosenCount++;
 
             }
 
 
 
-            if (unchosenCount == indexCatMax)
+            if (unchosenCount == indexButtonCatMax)
             {
                 //TODO print textToChoose to the screen
             }
-        }
+        
     
 }
 
@@ -203,6 +222,4 @@ public class IASceneManager : MonoBehaviour
 
     }   
 
-
-    
 }

@@ -124,7 +124,7 @@ public class IASceneManager : MonoBehaviour
                 }
 
                 //Stock which spell has been chosen
-                Data.iaData.idSkill[line] = gObjHealthBis[line].GetComponent<Dropdown>().value;
+                Data.idSkill[line] = gObjHealthBis[line].GetComponent<Dropdown>().value;
 
             }
 

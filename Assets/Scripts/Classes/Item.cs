@@ -3,8 +3,11 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-//TODO  : Generate name based on bonus and effect
-//TODO :  Add effects depending on skills
+/// <summary>
+/// AUTHOR : Lucky
+///                     TODO :  Add effects depending on skills
+///                             Check for 
+/// </summary>
 public class Item
 {
     /* Item's Variables */
@@ -20,6 +23,8 @@ public class Item
     private Data.ItemType itemType;
     private Data.ItemQuality itemQuality;
     private ItemData itemData;
+
+
 
     public Item(int _level, int _magicFind)
     {
@@ -49,48 +54,98 @@ public class Item
     /// rand to determine wich  quality  the item will be : Normal : 0 bonus, magic : 2 to 3 bonus, legendary 3 to 4 bonus + an effect
     /// rands to determine wich BONUS will be presents
     /// if legendary -> add an effect
-    /// name is generated automaticaly
+    /// 
+    /// // Normal loot : 70% normal 25% magic 5% legendary donc en float : normal < 0.7 , 0.7< magic <0.95, 0.95< legendary  ||| magicFind+10% : N 0.6 <M 0.90 <L  : N-10, M-5, L-5
     /// </summary>
     /// <param name="level"></param>
     /// <param name="magicFind">Between 0 and 70, carefull with that one</param>
     void GenerateItem(int _level, int magicFind)
     {
-        float levelFloat = Level;
-        int slotTypeInt, itemTypeInt, itemQualityInt, numberOfBonus=0, randomBonus;
-        int NormalRange = 70- magicFind, MagicRange = 90- (magicFind/2); // when random 0-100 more than MagicRange the item is legendary
-        
-        //ITEMSLOT
-        slotTypeInt = UnityEngine.Random.Range(0, Data.SlotTypeCount); // item slot type : HEAD, CHEST, HANDS, LEGS, FEET, ONEHAND, TWOHANDS  
-        //slotType = (Data.SlotType)slotTypeInt;
+        int itemDrop;
+        int iconTypeId = -1;
+        float levelFloat = _level;
+        int slotTypeInt=-1, itemTypeInt=-1, itemQualityInt, numberOfBonus = 0, randomBonus;
+        int NormalRange = 70 - magicFind, MagicRange = 90 - (magicFind / 2); // when random 0-100 more than MagicRange the item is legendary
+
+        ////ITEMSLOT
+        //slotTypeInt = UnityEngine.Random.Range(0, Data.SlotTypeCount); // item slot type : HEAD, CHEST, HANDS, LEGS, FEET, ONEHAND, TWOHANDS  
+        ////slotType = (Data.SlotType)slotTypeInt;
         //Debug.Log("slotTypeInt " + slotTypeInt + "   " + SlotType);
 
-        //itemTypeInt
-        if (slotTypeInt == Data.SlotType.ONEHAND.GetHashCode()) // if the item type is 1h we rand between weapon and shield
-        {
-            int temp = UnityEngine.Random.Range(0, 2);
-            if (temp == 0)
-                itemTypeInt = Data.ItemType.WEAPON.GetHashCode();//weapon
-            else
-                itemTypeInt = Data.ItemType.SHIELD.GetHashCode();//shield
-        }
-        else if (slotTypeInt == Data.SlotType.TWOHANDS.GetHashCode())
-            itemTypeInt = Data.ItemType.WEAPON.GetHashCode();//weapon
-        else
-            itemTypeInt = Data.ItemType.ARMOR.GetHashCode();//Armor
-        ItemType = (Data.ItemType)itemTypeInt;
-        //Debug.Log("itemTypeInt " + itemTypeInt);
+        itemDrop = UnityEngine.Random.Range(0, 100); // 0-50 : armor & 50-75 : weapon 1h & 75-99 : weapon 2h
 
-        // Normal loot : 70% normal 25% magic 5% legendary donc en float : < 0.7 normal, 0.7< magic <0.95, 0.95< legendary
-        // Loot+10% : N 0.6 <M 0.90 <L  : N-10, M-5, L-5
-        
+        if (itemDrop >= 0 && itemDrop < 50)////////ARMOR
+        {
+            itemTypeInt = Data.ItemType.ARMOR.GetHashCode();
+
+            //0-10 HEAD, 10-20 CHEST, 20-30 HANDS, 30-40 LEGS, 40-50 FEET 
+            if (itemDrop < 10)
+            {
+                slotTypeInt = Data.SlotType.HEAD.GetHashCode();
+                iconTypeId = Data.IconType.HEAD.GetHashCode();
+            }
+            else if (itemDrop < 20)
+            {
+                slotTypeInt = Data.SlotType.CHEST.GetHashCode();
+                iconTypeId = Data.IconType.CHEST.GetHashCode();
+            }
+            else if (itemDrop < 30)
+            {
+                slotTypeInt = Data.SlotType.HANDS.GetHashCode();
+                iconTypeId = Data.IconType.HANDS.GetHashCode();
+            }
+            else if (itemDrop < 40)
+            {
+                slotTypeInt = Data.SlotType.LEGS.GetHashCode();
+                iconTypeId = Data.IconType.LEGS.GetHashCode();
+            }
+            else if (itemDrop < 50)
+            {
+                slotTypeInt = Data.SlotType.FEET.GetHashCode();
+                iconTypeId = Data.IconType.FEET.GetHashCode();
+            }
+
+            Armor = UnityEngine.Random.Range(8 * Level, 10 * Level);
+        }
+        else if (itemDrop >= 50 && itemDrop < 75)//1H
+        {
+            slotTypeInt = Data.SlotType.ONEHAND.GetHashCode();
+
+            if (itemDrop < 54)      // SHIELD
+            {
+                itemTypeInt = Data.ItemType.SHIELD.GetHashCode();
+
+                Armor = UnityEngine.Random.Range(8 * Level, 10 * Level);
+                DodgeBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
+                iconTypeId = Data.IconType.SHIELD.GetHashCode();
+            }
+            else if (itemDrop < 75)     // OTHER 1H
+            {
+                itemTypeInt = Data.ItemType.WEAPON.GetHashCode();
+
+                AttackValue = UnityEngine.Random.Range(8 * Level, 10 * Level);
+                AttackSpeed = UnityEngine.Random.Range(0.9f, 1.1f);
+                iconTypeId = UnityEngine.Random.Range(Data.IconType.AXE.GetHashCode(), Data.IconType.WAND.GetHashCode() + 1);
+            }
+        }
+        else if (itemDrop >= 75)    /////////////////// 2H
+        {
+            itemTypeInt = Data.ItemType.WEAPON.GetHashCode();
+            slotTypeInt = Data.SlotType.TWOHANDS.GetHashCode();
+
+            AttackValue = UnityEngine.Random.Range(40 * Level, 50 * Level);
+            AttackSpeed = UnityEngine.Random.Range(1.9f, 2.1f);
+            iconTypeId = UnityEngine.Random.Range(Data.IconType.SWORD2H.GetHashCode(), Data.IconType.SPEAR.GetHashCode() + 1);
+        }
+        ItemType = (Data.ItemType)itemTypeInt;
+
         itemQualityInt = UnityEngine.Random.Range(0, 100); // Qualite de l'item : normal, magic, legendaire
-        //Debug.Log("itemQualityInt " + itemQualityInt + "   MagicRange " + MagicRange);
 
         if (itemQualityInt > MagicRange)// the item is legendary
         {
             ItemQuality = Data.ItemQuality.LEGENDARY;
             numberOfBonus = UnityEngine.Random.Range(3, 5);
-            //EFFECT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TODO
+            //EFFECT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
         else if (itemQualityInt > NormalRange)// the item is magical
         {
@@ -100,35 +155,52 @@ public class Item
         else
             ItemQuality = Data.ItemQuality.NORMAL;
 
-        for(int i=0; i<numberOfBonus; i++)
+
+        // Semi-random number of bonuses and semi-random amout of bonus
+        float strPerLevelMin = 0.80f, strPerLevelMax = 1;
+        float intPerLevelMin = 0.80f, intPerLevelMax = 1;
+        float agiPerLevelMin = 0.80f, agiPerLevelMax = 1;
+        float vitalPerLevelMin = 0.80f, vitalPerLevelMax = 1;
+        int attackPerLevelMin = 1, attackPerLevelMax = 2;
+        int spellPerLevelMin = 1, spellPerLevelMax = 2;
+        int manaPerLevelMin = 8, manaPerLevelMax = 10;
+        int healthPerLevelMin = 8, healthPerLevelMax = 10;
+        //float dodgePerLevelMin, dodgePerLevelMax;                 // CF BELOW
+        //float critPerLevelMin, critPerLevelMax;                   // CF BELOW
+        float regenManaPerLevelMin = 0.15f, regenManaPerLevelMax = 0.2f;
+        float regenHealthPerLevelMin = 0.15f, regenHealthPerLevelMax = 0.2f;
+        //float attackSpeedPerLevelMin, attackSpeedPerLevelMax;     // CF BELOW
+        //float castTimePerLevelMin, castTimePerLevelMax;           // CF BELOW
+
+        for (int i = 0; i < numberOfBonus; i++)
         {
             randomBonus = UnityEngine.Random.Range(0, Data.BonusTypeCount);
 
             switch ((Data.BonusType)randomBonus)
             {
                 case Data.BonusType.STREN:
-                    StrenBonus += UnityEngine.Random.Range((int) (0.80 * Level), Level);
+                    StrenBonus += UnityEngine.Random.Range((int)(strPerLevelMin * Level), (int)(Level* strPerLevelMax));
                     break;
                 case Data.BonusType.INTEL:
-                    IntelBonus += UnityEngine.Random.Range((int)(0.80 * Level), Level);
+                    IntelBonus += UnityEngine.Random.Range((int)(intPerLevelMin * Level), (int)(Level * intPerLevelMax));
                     break;
                 case Data.BonusType.AGI:
-                    AgiBonus += UnityEngine.Random.Range((int)(0.80 * Level), Level);
+                    AgiBonus += UnityEngine.Random.Range((int)(agiPerLevelMin * Level), (int)(Level * agiPerLevelMax));
                     break;
-                 case Data.BonusType.VITAL:
-                    VitalBonus += UnityEngine.Random.Range((int)(0.80 * Level), Level);
+                case Data.BonusType.VITAL:
+                    VitalBonus += UnityEngine.Random.Range((int)(vitalPerLevelMin * Level), (int)(Level * vitalPerLevelMax));
                     break;
                 case Data.BonusType.ATTACK:
-                    AttackBonus += UnityEngine.Random.Range(Level, 2 * Level);
+                    AttackBonus += UnityEngine.Random.Range(Level* attackPerLevelMin, Level * attackPerLevelMax);
                     break;
                 case Data.BonusType.SPELL:
-                    SpellBonus += UnityEngine.Random.Range(Level, 2 * Level);
+                    SpellBonus += UnityEngine.Random.Range(Level * spellPerLevelMin, Level * spellPerLevelMax);
                     break;
                 case Data.BonusType.MANA:
-                    ManaBonus += UnityEngine.Random.Range(8 * Level, 10 * Level);
+                    ManaBonus += UnityEngine.Random.Range(Level * manaPerLevelMin, Level * manaPerLevelMax);
                     break;
                 case Data.BonusType.HEALTH:
-                    HealthBonus += UnityEngine.Random.Range(8*Level, 10*Level);//at lvl 100 : 1000 -> 10/lvl max
+                    HealthBonus += UnityEngine.Random.Range(Level * healthPerLevelMin, Level * healthPerLevelMax);//at lvl 100 : 1000 -> 10/lvl max
                     break;
 
                 case Data.BonusType.DODGE:
@@ -139,10 +211,10 @@ public class Item
                     break;
 
                 case Data.BonusType.REGENMANA:
-                    RegenManaBonus += UnityEngine.Random.Range(0.15f * levelFloat, 0.2f * levelFloat); //  at lvl 100 : 20 -> 0.2/lvl max
+                    RegenManaBonus += UnityEngine.Random.Range(levelFloat* regenManaPerLevelMin, levelFloat* regenManaPerLevelMax); //  at lvl 100 : 20 -> 0.2/lvl max
                     break;
                 case Data.BonusType.REGENHEALTH:
-                    RegenHealthBonus += UnityEngine.Random.Range(0.15f * levelFloat, 0.2f * levelFloat);
+                    RegenHealthBonus += UnityEngine.Random.Range(regenHealthPerLevelMin * levelFloat, regenHealthPerLevelMax * levelFloat);
                     break;
                 case Data.BonusType.ATTACKSPEED:
                     AttackSpeedBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100); // between 0 and 0.07
@@ -150,29 +222,6 @@ public class Item
                 case Data.BonusType.CASTTIME:
                     CastTimeBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100); // between 0 and 0.07
                     break;
-            }
-        }
-        
-        if (itemTypeInt == Data.ItemType.SHIELD.GetHashCode())
-        {
-            Armor = UnityEngine.Random.Range(8 * Level, 10 * Level);
-            DodgeBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
-        }
-        else if (itemTypeInt == Data.ItemType.ARMOR.GetHashCode())
-        {
-            Armor = UnityEngine.Random.Range(8 * Level, 10 * Level);
-        }
-        else if (itemTypeInt == Data.ItemType.WEAPON.GetHashCode())
-        {
-            if(slotTypeInt == Data.SlotType.ONEHAND.GetHashCode())
-            {
-                AttackValue = UnityEngine.Random.Range(8 * Level, 10 * Level);
-                AttackSpeed = UnityEngine.Random.Range(0.9f, 1.1f);
-            }
-            else
-            {
-                AttackValue = UnityEngine.Random.Range(40 * Level, 50 * Level);
-                AttackSpeed = UnityEngine.Random.Range(1.9f, 2.1f);
             }
         }
 
@@ -202,40 +251,27 @@ public class Item
         }*/
         //pour tester FIN
 
-        int iconTypeId =-1;
-        switch ((Data.SlotType)slotTypeInt)
-        {
-            case Data.SlotType.HEAD:
-                iconTypeId = Data.IconType.HEAD.GetHashCode();
-                break;
-            case Data.SlotType.CHEST:
-                iconTypeId = Data.IconType.CHEST.GetHashCode();
-                break;
-            case Data.SlotType.HANDS:
-                iconTypeId = Data.IconType.HANDS.GetHashCode();
-                break;
-            case Data.SlotType.LEGS:
-                iconTypeId = Data.IconType.LEGS.GetHashCode();
-                break;
-            case Data.SlotType.FEET:
-                iconTypeId = Data.IconType.FEET.GetHashCode();
-                break;
-            case Data.SlotType.ONEHAND:
-                if((Data.ItemType)ItemType == Data.ItemType.SHIELD)
-                    iconTypeId = Data.IconType.SHIELD.GetHashCode();
-                else
-                    iconTypeId = UnityEngine.Random.Range(Data.IconType.AXE.GetHashCode(), Data.IconType.WAND.GetHashCode() + 1);
-                break;
-            case Data.SlotType.TWOHANDS:
-                iconTypeId = UnityEngine.Random.Range(Data.IconType.SWORD2H.GetHashCode(), Data.IconType.SPEAR.GetHashCode() + 1);
-                break;
-        }
-
         int randomItemDataId;
-        randomItemDataId = UnityEngine.Random.Range(0,Data.listOfItems[iconTypeId].Count);
+        randomItemDataId = UnityEngine.Random.Range(0, Data.listOfItems[iconTypeId].Count);
 
         itemData = Data.listOfItems[iconTypeId][randomItemDataId];
     }
+
+   
+   ///////////////////////////////////////////////FIN TEST
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /////////////////GETTERS AND SETTERS//////////////////////////////
     public int AttackValue

@@ -25,7 +25,7 @@ public class IA
         Data.iaData.value[0] = 50;
         Data.iaData.idTarget[0] = 0;
         Data.iaData.idCondition[0] = IaData.IaCondition.HEALTH;
-        Data.iaData.idSkill[0] = 0;
+        Data.iaData.idSkill[0] = Data.SkillType.ATTACK;
         Data.iaData.idSigne[0] = 0;
     }
 

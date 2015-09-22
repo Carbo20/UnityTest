@@ -28,6 +28,9 @@ public class Data {
     public static int numberOf2H = 4;
     public static bool test=true;
 
+    //[TODO] To complete enum of action
+
+    public enum SkillType {ATTACK, USEITEM, TESTSKILL } //Complete with all the skill
 
     //TODO liste d'objet
 

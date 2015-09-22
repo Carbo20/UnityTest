@@ -32,6 +32,7 @@ public class Hero {
 
     public void TakeDamage(int damage)
     {
+        /*[TODO] Put TakeDamage Animation here*/
         Hp = Hp - damage;
         if(Hp < 0)
         {
@@ -45,6 +46,18 @@ public class Hero {
         return value;
     }
 
+    public void UseMana(int manaAmount)
+    {
+        /*[TODO]Put LostMana animation here*/
+        mana = mana - manaAmount;
+    }
+
+    public void RegainMana(int manaAmount)
+    {
+        /*[TODO]Put RegainMana animation here*/
+        mana = mana + manaAmount;
+    }
+
     private void Death()
     {
         isDead = true;
@@ -53,6 +66,7 @@ public class Hero {
 
     public void GetXp(int xp)
     {
+        /*[TODO] Put GetXp animation here*/
         Data.heroData.xp = Data.heroData.xp + xp;
         if (xp >= Data.heroData.xpForNextLevel)
         {

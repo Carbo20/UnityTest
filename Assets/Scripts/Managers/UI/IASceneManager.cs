@@ -124,7 +124,7 @@ public class IASceneManager : MonoBehaviour
                 }
 
                 //Stock which spell has been chosen
-                Data.idSkill[line] = gObjHealthBis[line].GetComponent<Dropdown>().value;
+                Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjHealthBis[line].GetComponent<Dropdown>().value];
 
             }
 
@@ -147,7 +147,7 @@ public class IASceneManager : MonoBehaviour
                 }
 
                 //Stock which spell has been chosen
-                Data.iaData.idSkill[line] = gObjManaBis[line].GetComponent<Dropdown>().value;
+                Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjHealthBis[line].GetComponent<Dropdown>().value];
             }
 
             if (categoryDropdown.value == 3)
@@ -168,7 +168,7 @@ public class IASceneManager : MonoBehaviour
                 }
 
                 //Stock which spell has been chosen
-                Data.iaData.idSkill[line] = gObjHealthBisEn[line].GetComponent<Dropdown>().value;
+                Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjHealthBis[line].GetComponent<Dropdown>().value];
             }
 
 
@@ -190,7 +190,7 @@ public class IASceneManager : MonoBehaviour
                 }
 
                 //Stock which spell has been chosen
-                Data.iaData.idSkill[line] = gObjManaBisEn[line].GetComponent<Dropdown>().value;
+                Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjHealthBis[line].GetComponent<Dropdown>().value];
             }
 
             if (categoryDropdown.value == 5)
@@ -201,7 +201,7 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.value[line] = -1;
 
                 //Stock which spell has been chosen
-                Data.iaData.idSkill[line] = gObjCast[line].GetComponent<Dropdown>().value;
+                Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjHealthBis[line].GetComponent<Dropdown>().value];
 
             }
 
@@ -213,7 +213,7 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.value[line] = GameObject.Find("CondEnemiesNb" + line + "/enemyNb").GetComponent<Dropdown>().value;
 
                 //Stock which spell the player will use
-                Data.iaData.idSkill[line] = GameObject.Find("CondEnemiesNb" + line + "/playerSpells").GetComponent<Dropdown>().value;
+                Data.iaData.idSkill[line] = Data.heroData.skillAvailable[GameObject.Find("CondEnemiesNb" + line + "/playerSpells").GetComponent<Dropdown>().value];
 
             }
 
@@ -225,7 +225,7 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.value[line] = GameObject.Find("CondEnemyClass" + line + "/enemyClass").GetComponent<Dropdown>().value;
 
                 //Stock which spell the player will use
-                Data.iaData.idSkill[line] = GameObject.Find("CondEnemyClass" + line + "/playerSpells").GetComponent<Dropdown>().value;
+                Data.iaData.idSkill[line] = Data.heroData.skillAvailable[GameObject.Find("CondEnemyClass" + line + "/playerSpells").GetComponent<Dropdown>().value];
 
             }
 

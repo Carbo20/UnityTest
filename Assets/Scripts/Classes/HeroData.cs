@@ -17,7 +17,8 @@ public class HeroData {
     public int spellDamage;
     public int dodge;
     public int critical;
-    public int speed;
+    public float speed;
+    public float cdAttack;
 
     public int xp;
     public int xpForNextLevel;

@@ -104,7 +104,7 @@ public class IA
     public void DoAnAction(int i)
     {
         skill.IdTarget = Data.iaData.idTarget[i];
-        skill.actionList[Data.iaData.idSkill[i]]();
+        skill.actionList[(int)Data.iaData.idSkill[i]]();
         isValid = true;
         Debug.Log("Do an action");
     }

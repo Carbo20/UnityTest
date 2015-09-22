@@ -182,7 +182,7 @@ public class Item
 
         ///////////////////////////////////////////////////////Remplissage de la liste d'item, ceci est un test voué a disparaitre/////////////////////////////////////////////////////////////////////
         //pour tester DEBUT
-        if (Data.test)
+        /*if (Data.test)
         {
             Debug.Log("here!!   A" + Data.IconTypeCount);
             for (int i = 0; i < Data.IconTypeCount; i++)
@@ -199,7 +199,7 @@ public class Item
                     Data.listOfItems[i].Add(new ItemData("placeholder", 3, "", Data.SlotType.TWOHANDS));
             Data.test = false;
             Debug.Log("here!!   B");
-        }
+        }*/
         //pour tester FIN
 
         int iconTypeId =-1;
@@ -234,7 +234,7 @@ public class Item
         int randomItemDataId;
         randomItemDataId = UnityEngine.Random.Range(0,Data.listOfItems[iconTypeId].Count);
 
-        itemData = Data.listOfItems[iconTypeId][randomItemDataId];   
+        itemData = Data.listOfItems[iconTypeId][randomItemDataId];
     }
 
     /////////////////GETTERS AND SETTERS//////////////////////////////

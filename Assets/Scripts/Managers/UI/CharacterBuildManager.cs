@@ -8,17 +8,18 @@ public class CharacterBuildManager : MonoBehaviour {
 
     Data.SlotType selectedSlotType;
     int selectedItem;
-    public List<Sprite> sprites;
+    //public List<Sprite> sprites;
     public Sprite redCrossSprite;
     RectTransform contentRectTransform;
     Text LVLTxt, ATKTxt, ATStxt, DEFTxt;
     Color lowerSTATColor, upperSTATColor, equalSTATColor;
-    public GameObject heroStat, heroEquip;
+    private GameObject heroStat, heroEquip;
     private Text LVLStat, XPStat, HPStat, MANAStat, STRStat, INTStat, AGIStat, VITStat, DMGStat, SPDMGStat, DODStat, CRITStat, SPEStat;
     bool heroStatTextLoad;
+    bool heroStatsDraws;
     //just for test
     Item it;
-    bool heroStatsDraws;
+    
     //
 
 	// Use this for initialization
@@ -39,7 +40,6 @@ public class CharacterBuildManager : MonoBehaviour {
         for (int i = 0; i < 100; i++)
         {
             it = new Item(UnityEngine.Random.Range(1, 101), 0);
-            it.SpriteID = it.SlotType.GetHashCode();
             Data.inventory.items[it.SlotType.GetHashCode()].Add(it);
         }
 
@@ -142,7 +142,7 @@ public class CharacterBuildManager : MonoBehaviour {
             if (i < Data.inventory.items[selectedSlotType.GetHashCode()].Count)
             {
                 GameObject.Find("Slot (" + i + ")/Icon").GetComponent<Image>().enabled = true;
-                GameObject.Find("Slot (" + i + ")/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].SpriteID];
+                GameObject.Find("Slot (" + i + ")/Icon").GetComponent<Image>().sprite = Data.sprites[Data.inventory.items[selectedSlotType.GetHashCode()][i].SpriteID];
 
                 switch (selectedSlotType)
                 {
@@ -480,7 +480,7 @@ public class CharacterBuildManager : MonoBehaviour {
         if (Data.inventory.HeadItemID != -1)
         {
             GameObject.Find("HeadSlot/Icon").GetComponent<Image>().enabled = true;
-            GameObject.Find("HeadSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[Data.SlotType.HEAD.GetHashCode()][Data.inventory.HeadItemID].SpriteID];
+            GameObject.Find("HeadSlot/Icon").GetComponent<Image>().sprite = Data.sprites[Data.inventory.items[Data.SlotType.HEAD.GetHashCode()][Data.inventory.HeadItemID].SpriteID];
         }
         else
         {
@@ -491,7 +491,7 @@ public class CharacterBuildManager : MonoBehaviour {
         if (Data.inventory.ChestItemID != -1)
         {
             GameObject.Find("ChestSlot/Icon").GetComponent<Image>().enabled = true;
-            GameObject.Find("ChestSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[Data.SlotType.CHEST.GetHashCode()][Data.inventory.ChestItemID].SpriteID];
+            GameObject.Find("ChestSlot/Icon").GetComponent<Image>().sprite = Data.sprites[Data.inventory.items[Data.SlotType.CHEST.GetHashCode()][Data.inventory.ChestItemID].SpriteID];
         }
         else
         {
@@ -502,7 +502,7 @@ public class CharacterBuildManager : MonoBehaviour {
         if (Data.inventory.HandsItemID != -1)
         {
             GameObject.Find("HandsSlot/Icon").GetComponent<Image>().enabled = true;
-            GameObject.Find("HandsSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[Data.SlotType.HANDS.GetHashCode()][Data.inventory.HandsItemID].SpriteID];
+            GameObject.Find("HandsSlot/Icon").GetComponent<Image>().sprite = Data.sprites[Data.inventory.items[Data.SlotType.HANDS.GetHashCode()][Data.inventory.HandsItemID].SpriteID];
         }
         else
         {
@@ -513,7 +513,7 @@ public class CharacterBuildManager : MonoBehaviour {
         if (Data.inventory.LegsItemID != -1)
         {
             GameObject.Find("LegsSlot/Icon").GetComponent<Image>().enabled = true;
-            GameObject.Find("LegsSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[Data.SlotType.LEGS.GetHashCode()][Data.inventory.LegsItemID].SpriteID];
+            GameObject.Find("LegsSlot/Icon").GetComponent<Image>().sprite = Data.sprites[Data.inventory.items[Data.SlotType.LEGS.GetHashCode()][Data.inventory.LegsItemID].SpriteID];
         }
         else
         {
@@ -524,7 +524,7 @@ public class CharacterBuildManager : MonoBehaviour {
         if (Data.inventory.FeetItemID != -1)
         {
             GameObject.Find("FeetSlot/Icon").GetComponent<Image>().enabled = true;
-            GameObject.Find("FeetSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[Data.SlotType.FEET.GetHashCode()][Data.inventory.FeetItemID].SpriteID];
+            GameObject.Find("FeetSlot/Icon").GetComponent<Image>().sprite = Data.sprites[Data.inventory.items[Data.SlotType.FEET.GetHashCode()][Data.inventory.FeetItemID].SpriteID];
         }
         else
         {
@@ -540,7 +540,7 @@ public class CharacterBuildManager : MonoBehaviour {
                 GameObject.Find("RightHandSlot/Icon").GetComponent<Image>().sprite = redCrossSprite;
 
                 GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().enabled = true;
-                GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[Data.SlotType.TWOHANDS.GetHashCode()][Data.inventory.LeftHandItemID].SpriteID];
+                GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().sprite = Data.sprites[Data.inventory.items[Data.SlotType.TWOHANDS.GetHashCode()][Data.inventory.LeftHandItemID].SpriteID];
             }
             else
             {
@@ -554,7 +554,7 @@ public class CharacterBuildManager : MonoBehaviour {
             if (Data.inventory.LeftHandItemID != -1)
             {
                 GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().enabled = true;
-                GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[Data.SlotType.ONEHAND.GetHashCode()][Data.inventory.LeftHandItemID].SpriteID];
+                GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().sprite = Data.sprites[Data.inventory.items[Data.SlotType.ONEHAND.GetHashCode()][Data.inventory.LeftHandItemID].SpriteID];
             }
             else
             {
@@ -564,7 +564,7 @@ public class CharacterBuildManager : MonoBehaviour {
             if (Data.inventory.RightHandItemID != -1)
             {
                 GameObject.Find("RightHandSlot/Icon").GetComponent<Image>().enabled = true;
-                GameObject.Find("RightHandSlot/Icon").GetComponent<Image>().sprite = sprites[Data.inventory.items[Data.SlotType.ONEHAND.GetHashCode()][Data.inventory.RightHandItemID].SpriteID];
+                GameObject.Find("RightHandSlot/Icon").GetComponent<Image>().sprite = Data.sprites[Data.inventory.items[Data.SlotType.ONEHAND.GetHashCode()][Data.inventory.RightHandItemID].SpriteID];
             }
             else
             {

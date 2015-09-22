@@ -7,13 +7,17 @@ using System.Collections.Generic;
 
 public class LoadingSceneManager : MonoBehaviour {
 
+    //edit in inspector
     public string heroDataXMLFilename;
     public string itemsDataXMLFilename;
-    public float ready;
+    public List<Sprite> sprites;
+
+    private float ready;
 	// Use this for initialization
 	void Start () {
         LoadHeroData();
-       // LoadItemsData();
+        LoadSprites();
+        LoadItemsData();
         ready = 0;
        // Debug.Log(Data.listOfItems);
 	}
@@ -25,6 +29,17 @@ public class LoadingSceneManager : MonoBehaviour {
         else
             Application.LoadLevel("MainMenu");
 	}
+
+    void LoadSprites()
+    {
+        Data.sprites = new List<Sprite>();
+
+        foreach(Sprite s in sprites)
+        {
+            Data.sprites.Add(s);
+        }
+
+    }
 
     void LoadHeroData()
     {
@@ -62,7 +77,7 @@ public class LoadingSceneManager : MonoBehaviour {
     void LoadItemsData()
     {
         Data.listOfItems = new List<List<ItemData>>();
-        for (int i = 0; i < Data.SlotTypeCount; i++)
+        for (int i = 0; i < Data.IconTypeCount; i++)
         {
             Data.listOfItems.Add(new List<ItemData>());
         }
@@ -73,23 +88,26 @@ public class LoadingSceneManager : MonoBehaviour {
         string name="fail loading name", desc = "fail loading desc";
         int id = -1;
         Data.SlotType st = Data.SlotType.HANDS;
+        Data.IconType it = Data.IconType.AXE;
+
         foreach (XmlNode itemData in items)
         {
             XmlNodeList item = itemData.ChildNodes;
 
             foreach (XmlNode itemDataRead in item)
             {
-                switch (itemData.Name)
+                switch (itemDataRead.Name)
                 {
-                    case "ITEMNAME": name = itemData.InnerText; break;
-                    case "SPRITEID": id = Int32.Parse(itemData.InnerText); break;
-                    case "DESCRIPTION": desc = itemData.InnerText; break;
-                    case "SLOTTYPE": st = (Data.SlotType)Int32.Parse(itemData.InnerText); break;
+                    case "ITEMNAME": name = itemDataRead.InnerText; break;
+                    case "SPRITEID": id = Int32.Parse(itemDataRead.InnerText); break;
+                    case "DESCRIPTION": desc = itemDataRead.InnerText; break;
+                    case "SLOTTYPE": st = (Data.SlotType)Int32.Parse(itemDataRead.InnerText); break;
+                    case "ICONTYPE": it = (Data.IconType)Int32.Parse(itemDataRead.InnerText); break;
                     
                 }
             }
 
-            Data.listOfItems[st.GetHashCode()].Add(new ItemData(name, id, desc, st));
+            Data.listOfItems[it.GetHashCode()].Add(new ItemData(name, id, desc, st, it));
         }
     }
 }

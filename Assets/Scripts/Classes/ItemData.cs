@@ -7,14 +7,15 @@ public class ItemData {
     private int spriteId;
     private string description;
     public Data.SlotType slotType;
-   // public Data.IconType iconType;
+    public Data.IconType iconType;
 
-    public ItemData(string _itemName, int _spriteId, string _description, Data.SlotType _slotType/*,Data.IconType _iconType*/)
+    public ItemData(string _itemName, int _spriteId, string _description, Data.SlotType _slotType, Data.IconType _iconType)
     {
         itemName = _itemName;
         spriteId = _spriteId;
         description = _description;
         slotType = _slotType;
+        iconType = _iconType;
     }
 
     public int SpriteId

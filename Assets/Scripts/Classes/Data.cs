@@ -32,6 +32,7 @@ public class Data {
     //TODO liste d'objet
 
     public static List<List<ItemData>> listOfItems = new List<List<ItemData>>(); //ordered on IconType 
+    public static List<Sprite> sprites;
 
     public static HeroData heroData = new HeroData();
 

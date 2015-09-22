@@ -24,4 +24,5 @@ public class HeroData {
     public int xpForNextLevel;
     public int level;
 
+    public Data.SkillType[] skillAvailable;
 }

@@ -29,6 +29,8 @@ public class Hero {
         isReady = false;
         isDead = false;
 
+        Data.heroData.skillAvailable[0] = Data.SkillType.ATTACK;
+
         hp = (hp / 2) - 1;
     }
 

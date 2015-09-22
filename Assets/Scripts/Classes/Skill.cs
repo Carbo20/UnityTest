@@ -24,6 +24,7 @@ public class Skill {
         /* Test for put all the method in testAction Array */
         actionList[(int)Data.SkillType.ATTACK] = FakeBuffTest;
         actionList[(int)Data.SkillType.TESTSKILL] = FakeDebuffTest;
+        actionList[(int)Data.SkillType.FIREBALL] = FakeFireBall;
     }
 
     public void UpdateEManager(EnemiesManager enemies)

@@ -5,7 +5,7 @@ public class IaData
 {
 
     public enum IaCondition {HEALTH, MANA, ENEMYHEALTH, ENEMYMANA, ENEMYCAST, ENEMYNB, ENEMYCLASS, NULL };
-    public int[] value; // The value of the condition in percent
+    public int[] value; // The value of the condition in percent OR the enemy nb OR enemy class
     public int[] idTarget; // ID of the target (0 for the hero, 1...3 for the monster)
     public IaCondition[] idCondition; // ID of the condition (0 for Hp, 1 for mana ... [TODO] to complete)
     public Data.SkillType[] idSkill; // ID of the skill

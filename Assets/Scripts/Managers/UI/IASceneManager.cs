@@ -6,7 +6,6 @@ public class IASceneManager : MonoBehaviour
 {
 
     private Dropdown categoryDropdown, categoryDropdown1, categoryDropdown2;
-    private int line;
     private int indexButtonCatMax;
     private int indexCatMax;
     private int unchosenCount;
@@ -30,6 +29,7 @@ public class IASceneManager : MonoBehaviour
 
     private float switchCatCount;
     private IaData.IaCondition conditionNb;
+    private GameObject gObjEnemiesNbBis;
 
 
 
@@ -97,23 +97,147 @@ public class IASceneManager : MonoBehaviour
             gObjEnemyClass[ind] = GameObject.Find("CondEnemyClass" + ind);
 
         }
-
-
-
-        
+                
         initAll();
-
         
     }
     public void CallbackApplyAndFarm()
     {
-        
-        
-    }
+        for (int line = 0; line < indexButtonCatMax; line++)
+        {
+            //Player's Health
+            if (categoryDropdown.value == 1)
+            {
+                Data.iaData.idCondition[line] = IaData.IaCondition.HEALTH;
 
-    public void CallbackInputfield(int text) {
-         valueInputfield = text;
+                //Stock value of %
+                Data.iaData.value[line] = System.Int32.Parse(gObjHealth[line].GetComponent<InputField>().text);
+
+                //Test which sign has been chosen
+                if (gObjHealth[line].GetComponent<Dropdown>().value == 0)
+                {
+                    Data.iaData.idSigne[line] = 0;
+                }
+                else
+                {
+                    Data.iaData.idSigne[line] = 1;
+                }
+
+                //Stock which spell has been chosen
+                Data.iaData.idSkill[line] = gObjHealthBis[line].GetComponent<Dropdown>().value;
+
+            }
+
+            //Player's Mana
+            if (categoryDropdown.value == 2)
+            {
+                Data.iaData.idCondition[line] = IaData.IaCondition.MANA;
+
+                //Stock value of %
+                Data.iaData.value[line] = System.Int32.Parse(gObjMana[line].GetComponent<InputField>().text);
+
+                //Test which sign has been chosen
+                if (gObjMana[line].GetComponent<Dropdown>().value == 0)
+                {
+                    Data.iaData.idSigne[line] = 0;
+                }
+                else
+                {
+                    Data.iaData.idSigne[line] = 1;
+                }
+
+                //Stock which spell has been chosen
+                Data.iaData.idSkill[line] = gObjManaBis[line].GetComponent<Dropdown>().value;
+            }
+
+            if (categoryDropdown.value == 3)
+            {
+                Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYHEALTH;
+
+                //Stock value of %
+                Data.iaData.value[line] = System.Int32.Parse(gObjHealthEn[line].GetComponent<InputField>().text);
+
+                //Test which sign has been chosen
+                if (gObjHealthEn[line].GetComponent<Dropdown>().value == 0)
+                {
+                    Data.iaData.idSigne[line] = 0;
+                }
+                else
+                {
+                    Data.iaData.idSigne[line] = 1;
+                }
+
+                //Stock which spell has been chosen
+                Data.iaData.idSkill[line] = gObjHealthBisEn[line].GetComponent<Dropdown>().value;
+            }
+
+
+            if (categoryDropdown.value == 4)
+            {
+                Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYMANA;
+
+                //Stock value of %
+                Data.iaData.value[line] = System.Int32.Parse(gObjManaEn[line].GetComponent<InputField>().text);
+
+                //Test which sign has been chosen
+                if (gObjManaEn[line].GetComponent<Dropdown>().value == 0)
+                {
+                    Data.iaData.idSigne[line] = 0;
+                }
+                else
+                {
+                    Data.iaData.idSigne[line] = 1;
+                }
+
+                //Stock which spell has been chosen
+                Data.iaData.idSkill[line] = gObjManaBisEn[line].GetComponent<Dropdown>().value;
+            }
+
+            if (categoryDropdown.value == 5)
+            {
+                Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYCAST;
+
+                //Set value table to -1 (null) for the only category who don't have this kind of value 
+                Data.iaData.value[line] = -1;
+
+                //Stock which spell has been chosen
+                Data.iaData.idSkill[line] = gObjCast[line].GetComponent<Dropdown>().value;
+
+            }
+
+            if (categoryDropdown.value == 6)
+            {
+                Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYNB;
+
+                //Stock the enemy nb chosen
+                Data.iaData.value[line] = GameObject.Find("CondEnemiesNb" + line + "/enemyNb").GetComponent<Dropdown>().value;
+
+                //Stock which spell the player will use
+                Data.iaData.idSkill[line] = GameObject.Find("CondEnemiesNb" + line + "/playerSpells").GetComponent<Dropdown>().value;
+
+            }
+
+            if (categoryDropdown.value == 7)
+            {
+                Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYCLASS;
+
+                //Stock the enemy class chosen
+                Data.iaData.value[line] = GameObject.Find("CondEnemyClass" + line + "/enemyClass").GetComponent<Dropdown>().value;
+
+                //Stock which spell the player will use
+                Data.iaData.idSkill[line] = GameObject.Find("CondEnemyClass" + line + "/playerSpells").GetComponent<Dropdown>().value;
+
+            }
+
+            if (categoryDropdown.value == 0)
+            {
+
+                Data.iaData.idCondition[line] = IaData.IaCondition.NULL;
+            }
+        }
     }
+    
+
 
     public void CallbackDropdownChanged(int line)
     {
@@ -122,6 +246,7 @@ public class IASceneManager : MonoBehaviour
             categoryDropdown = GameObject.Find("categoryDropdown(" + line + ")").GetComponent<Dropdown>();
             Debug.Log("categoryDropdown(" + line + ")");
 
+            //dropdown line : from 1 to 8 => we shift from 0 to 7
             line = line - 1;
 
             //Player's Health
@@ -129,23 +254,11 @@ public class IASceneManager : MonoBehaviour
             {
 
                 initLine(line);
-                Data.iaData.idCondition[line] = IaData.IaCondition.HEALTH;
+                
                 switchCatCount++;
                 gObjHealth[line].SetActive(true);
                 gObjHealthBis[line].SetActive(true);
-
-                //Get value of %
-                Data.iaData.value[line] = valueInputfield;
-                
-                //Test which sign has been chosen
-                if (gObjHealth[line].GetComponent<Dropdown>().value == 0)
-                {
-                    Data.iaData.idSigne[line] = 0;
-                }
-                else
-                {
-                    Data.iaData.idSigne[line] = 1;
-                }
+                            
             }
 
             //Player's Mana
@@ -153,118 +266,80 @@ public class IASceneManager : MonoBehaviour
             {
 
                 initLine(line);
-                Data.iaData.idCondition[line] = IaData.IaCondition.MANA;
+                
                 switchCatCount++;
                 gObjMana[line].SetActive(true);
                 gObjManaBis[line].SetActive(true);
-
-                //Test which sign has been chosen
-                if (gObjHealth[line].GetComponent<Dropdown>().value == 0)
-                {
-                    Data.iaData.idSigne[line] = 0;
-                }
-                else
-                {
-                    Data.iaData.idSigne[line] = 1;
-                }
+               
             }
 
             //Enemy's Health
             if (categoryDropdown.value == 3)
             {
-                Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYHEALTH;
+                initLine(line);
+
                 gObjHealthEn[line].SetActive(true);
                 gObjHealthBisEn[line].SetActive(true);
                 switchCatCount++;
-
-                //Test which sign has been chosen
-                if (gObjHealth[line].GetComponent<Dropdown>().value == 0)
-                {
-                    Data.iaData.idSigne[line] = 0;
-                }
-                else
-                {
-                    Data.iaData.idSigne[line] = 1;
-                }
+                            
             }
 
             //Enemy's Mana
             if (categoryDropdown.value == 4)
             {
-                Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYMANA;
+                initLine(line);
+
                 gObjManaEn[line].SetActive(true);
                 gObjManaBisEn[line].SetActive(true);
                 switchCatCount++;
 
-                //Test which sign has been chosen
-                if (gObjHealth[line].GetComponent<Dropdown>().value == 0)
-                {
-                    Data.iaData.idSigne[line] = 0;
-                }
-                else
-                {
-                    Data.iaData.idSigne[line] = 1;
-                }
             }
 
             //Enemy casting
             if (categoryDropdown.value == 5)
             {
-                Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYCAST;
                 initLine(line);
+
                 switchCatCount++;
                 gObjCast[line].SetActive(true);
-
-                //Set none sign
-                Data.iaData.idSigne[line] = -1;
+                            
             }
 
             //Enemies Nb
             if (categoryDropdown.value == 6)
             {
-                Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYNB;
                 initLine(line);
+
                 switchCatCount++;
                 gObjEnemiesNb[line].SetActive(true);
                 
-                //Set none sign
-                Data.iaData.idSigne[line] = -1;
             }
 
             //Enemy's Class       
             if (categoryDropdown.value == 7)
             {
-                Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYCLASS;
+
                 initLine(line);
+
                 switchCatCount++;
                 gObjEnemyClass[line].SetActive(true);
-
-                //Set none sign
-                Data.iaData.idSigne[line] = -1;
-
+            
             }
 
             //Default Category
             if (categoryDropdown.value == 0)
             {
-                Data.iaData.idCondition[line] = IaData.IaCondition.NULL;
+                
                 initLine(line);
 
-                unchosenCount++;
-
-                //Set none sign
-                Data.iaData.idSigne[line] = -1;
+                if (switchCatCount < 1)
+                {
+                    //TODO print text "Choose one condition or more please"
+                }
+            
 
             }
 
-
-
-        if (unchosenCount == indexButtonCatMax)
-            {
-                //TODO print textToChoose to the screen
-            }
-        
-    
 }
 
     // Update is called once per frame

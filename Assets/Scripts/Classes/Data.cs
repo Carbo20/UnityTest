@@ -35,7 +35,7 @@ public class Data {
 
     public static HeroData heroData = new HeroData();
 
-    public static IAData iaData = new IAData();
+    public static IaData iaData = new IaData();
 
     public static int HeroStatsCount = 6;
     public static int nbOrder;

@@ -29,9 +29,8 @@ public class IASceneManager : MonoBehaviour
 
 
     private float switchCatCount;
-    private int conditionNb;
-    private int signe;
-    private int nbOrder;
+    private IaData.IaCondition conditionNb;
+
 
 
     //Text textToChoose = "You have to choose one or more conditions and actions";
@@ -40,7 +39,7 @@ public class IASceneManager : MonoBehaviour
     {
         indexButtonCatMax = 8;
         unchosenCount = 0;
-        nbOrder = 0;
+        Data.iaData.nbOrder = indexButtonCatMax;
 
         for (int ind = 0; ind < indexButtonCatMax; ind++)
         {
@@ -108,17 +107,15 @@ public class IASceneManager : MonoBehaviour
     }
     public void CallbackApplyAndFarm()
     {
-        Data.nbOrder = nbOrder;
-        Data.IdCondition = conditionNb;
-        Data.idSigne[line] = signe;
-
+        
+        
     }
 
  
 
     public void CallbackDropdownChanged(int line)
     {
-            nbOrder++;
+            
 
             categoryDropdown = GameObject.Find("categoryDropdown(" + line + ")").GetComponent<Dropdown>();
             Debug.Log("categoryDropdown(" + line + ")");
@@ -130,12 +127,20 @@ public class IASceneManager : MonoBehaviour
             {
 
                 initLine(line - 1);
-                conditionNb = 1;
+                Data.iaData.idCondition[line] = IaData.IaCondition.HEALTH;
                 switchCatCount++;
                 gObjHealth[line - 1].SetActive(true);
                 gObjHealthBis[line - 1].SetActive(true);
-                
 
+                //Test which sign has been chosen
+                if (gObjHealth[line - 1].GetComponent<Dropdown>().value == 0)
+                {
+                    Data.iaData.idSigne[line] = 0;
+                }
+                else
+                {
+                    Data.iaData.idSigne[line] = 1;
+                }
             }
 
             //Player's Mana
@@ -143,71 +148,113 @@ public class IASceneManager : MonoBehaviour
             {
 
                 initLine(line - 1);
-                conditionNb = 2;
+                Data.iaData.idCondition[line] = IaData.IaCondition.MANA;
                 switchCatCount++;
                 gObjMana[line - 1].SetActive(true);
                 gObjManaBis[line - 1].SetActive(true);
 
+                //Test which sign has been chosen
+                if (gObjHealth[line - 1].GetComponent<Dropdown>().value == 0)
+                {
+                    Data.iaData.idSigne[line] = 0;
+                }
+                else
+                {
+                    Data.iaData.idSigne[line] = 1;
+                }
             }
 
             //Enemy's Health
             if (categoryDropdown.value == 3)
             {
-                conditionNb = 3;
+                Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYHEALTH;
                 gObjHealthEn[line - 1].SetActive(true);
                 gObjHealthBisEn[line - 1].SetActive(true);
                 switchCatCount++;
+
+                //Test which sign has been chosen
+                if (gObjHealth[line - 1].GetComponent<Dropdown>().value == 0)
+                {
+                    Data.iaData.idSigne[line] = 0;
+                }
+                else
+                {
+                    Data.iaData.idSigne[line] = 1;
+                }
             }
 
             //Enemy's Mana
             if (categoryDropdown.value == 4)
             {
-                conditionNb = 4;
+                Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYMANA;
                 gObjManaEn[line - 1].SetActive(true);
                 gObjManaBisEn[line - 1].SetActive(true);
                 switchCatCount++;
+
+                //Test which sign has been chosen
+                if (gObjHealth[line - 1].GetComponent<Dropdown>().value == 0)
+                {
+                    Data.iaData.idSigne[line] = 0;
+                }
+                else
+                {
+                    Data.iaData.idSigne[line] = 1;
+                }
             }
 
             //Enemy casting
             if (categoryDropdown.value == 5)
             {
-                conditionNb = 5;
+                Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYCAST;
                 initLine(line - 1);
                 switchCatCount++;
                 gObjCast[line - 1].SetActive(true);
+
+                //Set none sign
+                Data.iaData.idSigne[line] = -1;
             }
 
             //Enemies Nb
             if (categoryDropdown.value == 6)
             {
-                conditionNb = 6;
+                Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYNB;
                 initLine(line - 1);
                 switchCatCount++;
                 gObjEnemiesNb[line - 1].SetActive(true);
+                
+                //Set none sign
+                Data.iaData.idSigne[line] = -1;
             }
 
             //Enemy's Class       
             if (categoryDropdown.value == 7)
             {
-                conditionNb = 7;
+                Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYCLASS;
                 initLine(line - 1);
                 switchCatCount++;
                 gObjEnemyClass[line - 1].SetActive(true);
+
+                //Set none sign
+                Data.iaData.idSigne[line] = -1;
+
             }
 
             //Default Category
             if (categoryDropdown.value == 0)
             {
-                conditionNb = 0;
+                Data.iaData.idCondition[line] = IaData.IaCondition.NULL;
                 initLine(line - 1);
 
                 unchosenCount++;
+
+                //Set none sign
+                Data.iaData.idSigne[line] = -1;
 
             }
 
 
 
-            if (unchosenCount == indexButtonCatMax)
+        if (unchosenCount == indexButtonCatMax)
             {
                 //TODO print textToChoose to the screen
             }

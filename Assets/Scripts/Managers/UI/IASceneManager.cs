@@ -111,10 +111,10 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.idCondition[line] = IaData.IaCondition.HEALTH;
 
                 //Stock value of %
-                Data.iaData.value[line] = System.Int32.Parse(gObjHealth[line].GetComponent<InputField>().text);
-
+                Data.iaData.value[line] = System.Int32.Parse(GameObject.Find("CondHealth" + line +"/InputField").GetComponent<InputField>().text);
+                
                 //Test which sign has been chosen
-                if (gObjHealth[line].GetComponent<Dropdown>().value == 0)
+                if (GameObject.Find("CondHealth" + line + "/Dropdown").GetComponent<Dropdown>().value == 0)
                 {
                     Data.iaData.idSigne[line] = 0;
                 }
@@ -123,6 +123,7 @@ public class IASceneManager : MonoBehaviour
                     Data.iaData.idSigne[line] = 1;
                 }
 
+                Debug.Log("gObjHealthBis[line].GetComponent<Dropdown>().value: "+ gObjHealthBis[line].GetComponent<Dropdown>().value);
                 //Stock which spell has been chosen
                 Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjHealthBis[line].GetComponent<Dropdown>().value];
 
@@ -134,10 +135,10 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.idCondition[line] = IaData.IaCondition.MANA;
 
                 //Stock value of %
-                Data.iaData.value[line] = System.Int32.Parse(gObjMana[line].GetComponent<InputField>().text);
-
+                Data.iaData.value[line] = System.Int32.Parse(GameObject.Find("CondMana" + line + "/InputField").GetComponent<InputField>().text);
+                Debug.Log("MANA: " + Data.iaData.value[line]);
                 //Test which sign has been chosen
-                if (gObjMana[line].GetComponent<Dropdown>().value == 0)
+                if (GameObject.Find("CondMana" + line + "/Dropdown").GetComponent<Dropdown>().value == 0)
                 {
                     Data.iaData.idSigne[line] = 0;
                 }
@@ -145,9 +146,9 @@ public class IASceneManager : MonoBehaviour
                 {
                     Data.iaData.idSigne[line] = 1;
                 }
-
+                Debug.Log("MANASign: " + Data.iaData.idSigne[line]);
                 //Stock which spell has been chosen
-                Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjHealthBis[line].GetComponent<Dropdown>().value];
+                Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjManaBis[line].GetComponent<Dropdown>().value];
             }
 
             if (categoryDropdown.value == 3)
@@ -155,10 +156,10 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYHEALTH;
 
                 //Stock value of %
-                Data.iaData.value[line] = System.Int32.Parse(gObjHealthEn[line].GetComponent<InputField>().text);
-
+                Data.iaData.value[line] = System.Int32.Parse(GameObject.Find("CondHealthEn" + line + "/InputField").GetComponent<InputField>().text);
+                Debug.Log("ENEMYHEALTH: " + Data.iaData.value[line]);
                 //Test which sign has been chosen
-                if (gObjHealthEn[line].GetComponent<Dropdown>().value == 0)
+                if (GameObject.Find("CondHealthEn" + line + "/Dropdown").GetComponent<Dropdown>().value == 0)
                 {
                     Data.iaData.idSigne[line] = 0;
                 }
@@ -168,7 +169,7 @@ public class IASceneManager : MonoBehaviour
                 }
 
                 //Stock which spell has been chosen
-                Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjHealthBis[line].GetComponent<Dropdown>().value];
+                Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjHealthBisEn[line].GetComponent<Dropdown>().value];
             }
 
 
@@ -177,10 +178,10 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYMANA;
 
                 //Stock value of %
-                Data.iaData.value[line] = System.Int32.Parse(gObjManaEn[line].GetComponent<InputField>().text);
+                Data.iaData.value[line] = System.Int32.Parse(GameObject.Find("CondManaEn" + line + "/InputField").GetComponent<InputField>().text);
 
                 //Test which sign has been chosen
-                if (gObjManaEn[line].GetComponent<Dropdown>().value == 0)
+                if (GameObject.Find("CondManaEn" + line + "/Dropdown").GetComponent<Dropdown>().value == 0)
                 {
                     Data.iaData.idSigne[line] = 0;
                 }
@@ -190,7 +191,7 @@ public class IASceneManager : MonoBehaviour
                 }
 
                 //Stock which spell has been chosen
-                Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjHealthBis[line].GetComponent<Dropdown>().value];
+                Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjManaBisEn[line].GetComponent<Dropdown>().value];
             }
 
             if (categoryDropdown.value == 5)
@@ -201,7 +202,7 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.value[line] = -1;
 
                 //Stock which spell has been chosen
-                Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjHealthBis[line].GetComponent<Dropdown>().value];
+                Data.iaData.idSkill[line] = Data.heroData.skillAvailable[GameObject.Find("CondCast" + line + "/Dropdown").GetComponent<Dropdown>().value];
 
             }
 
@@ -235,6 +236,8 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.idCondition[line] = IaData.IaCondition.NULL;
             }
         }
+        //Switch the current scene to the menu
+        //Application.LoadLevel("mainScene");
     }
     
 

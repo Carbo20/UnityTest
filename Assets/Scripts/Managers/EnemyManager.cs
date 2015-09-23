@@ -8,9 +8,12 @@ public class EnemyManager : MonoBehaviour {
     private float enemyDeltaTime;
     private float ennemyActivation;
 
+    MonsterStatus monsterStatus;
+
     // Use for the initialization just after the instantiation of the object in the enemiesManager
     void Awake()
     {
+        monsterStatus = GetComponent<MonsterStatus>();
         enemy = new Enemy(6, 6, 4, 4, 4, 4);
     }
 

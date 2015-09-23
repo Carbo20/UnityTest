@@ -47,7 +47,19 @@ public class Inventory {
         Data.heroData.critical -= it.CritBonus;
         Data.heroData.armor -= it.Armor;
 
-        Data.heroData.cdAttack -= it.CdAttackBonus;
+        // Maj cdAttackBase
+        if (it.SlotType == Data.SlotType.ONEHAND)
+        {
+            if (RightHandItemID == -1 && LeftHandItemID == -1) // No weapons
+                Data.heroData.cdAttackBase = 3;
+            else if (RightHandItemID == -1 && LeftHandItemID != -1)
+                Data.heroData.cdAttackBase = items[Data.SlotType.ONEHAND.GetHashCode()][LeftHandItemID].CdAttack;
+            else if(RightHandItemID != -1 && LeftHandItemID == -1)
+                Data.heroData.cdAttackBase = items[Data.SlotType.ONEHAND.GetHashCode()][RightHandItemID].CdAttack;
+        }
+
+        Data.heroData.cdAttackBonusTotal -= it.CdAttackBonus;
+        Data.heroData.UpdateCdAttackModified();
 
         Data.heroData.legendaryEffectAvailable.Remove(it.LegendaryEffect);
        
@@ -67,7 +79,24 @@ public class Inventory {
         Data.heroData.critical += it.CritBonus;
         Data.heroData.armor += it.Armor;
 
-        Data.heroData.cdAttack += it.CdAttackBonus;
+        // Maj cdAttackBase
+        if (it.SlotType == Data.SlotType.ONEHAND)
+        {
+            if (RightHandItemID == -1 && LeftHandItemID == -1) // No weapons
+                Data.heroData.cdAttackBase = 3;
+            else if (LeftHandItemID != -1 && (RightHandItemID == -1 || items[Data.SlotType.ONEHAND.GetHashCode()][RightHandItemID].CdAttack == 0))
+                Data.heroData.cdAttackBase = items[Data.SlotType.ONEHAND.GetHashCode()][LeftHandItemID].CdAttack;
+            else if (RightHandItemID != -1 && (LeftHandItemID == -1 || items[Data.SlotType.ONEHAND.GetHashCode()][LeftHandItemID].CdAttack == 0))
+                Data.heroData.cdAttackBase = items[Data.SlotType.ONEHAND.GetHashCode()][RightHandItemID].CdAttack;
+            else if (RightHandItemID != -1 && LeftHandItemID != -1)
+                    Data.heroData.cdAttackBase = (items[Data.SlotType.ONEHAND.GetHashCode()][LeftHandItemID].CdAttack + items[Data.SlotType.ONEHAND.GetHashCode()][RightHandItemID].CdAttack) / 2;   
+        }
+        else if(it.SlotType == Data.SlotType.TWOHANDS)
+            Data.heroData.cdAttackBase = items[Data.SlotType.TWOHANDS.GetHashCode()][LeftHandItemID].CdAttack;
+
+
+        Data.heroData.cdAttackBonusTotal += it.CdAttackBonus;
+        Data.heroData.UpdateCdAttackModified();
 
         Data.heroData.legendaryEffectAvailable.Add(it.LegendaryEffect);
 

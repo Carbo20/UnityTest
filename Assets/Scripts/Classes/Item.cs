@@ -159,7 +159,7 @@ public class Item
                 itemTypeInt = Data.ItemType.WEAPON.GetHashCode();
 
                 AttackValue = UnityEngine.Random.Range(Level * attack1HPerLevelMin, Level * attack1HPerLevelMax);
-                AttackSpeed = UnityEngine.Random.Range(cdAttack1HMin, cdAttack1HMax);
+                CdAttack = UnityEngine.Random.Range(cdAttack1HMin, cdAttack1HMax);
                 iconTypeId = UnityEngine.Random.Range(Data.IconType.AXE.GetHashCode(), Data.IconType.WAND.GetHashCode() + 1); // Random among all 1hweapons from iconType 
             }
         }
@@ -169,7 +169,7 @@ public class Item
             slotTypeInt = Data.SlotType.TWOHANDS.GetHashCode();
 
             AttackValue = UnityEngine.Random.Range(Level * attack2HPerLevelMin, Level * attack2HPerLevelMax);
-            AttackSpeed = UnityEngine.Random.Range(cdAttack2HMin, cdAttack2HMax);
+            CdAttack = UnityEngine.Random.Range(cdAttack2HMin, cdAttack2HMax);
             iconTypeId = UnityEngine.Random.Range(Data.IconType.SWORD2H.GetHashCode(), Data.IconType.SPEAR.GetHashCode() + 1); // Random among all 2hweapons from iconType 
         }
         ItemType = (Data.ItemType)itemTypeInt;
@@ -263,7 +263,7 @@ public class Item
         }
     }
 
-    public float AttackSpeed
+    public float CdAttack
     {
         get
         {

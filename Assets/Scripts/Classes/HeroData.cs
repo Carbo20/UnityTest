@@ -25,7 +25,10 @@ public class HeroData {
     public float dodge;
     public float critical;
 
-    public float cdAttack;
+    public float cdAttackBase;
+    public float cdAttackModified;
+    public float cdAttackBonusTotal;
+
     public int nbSkillAvailable;
 
     public int xp;
@@ -53,5 +56,10 @@ public class HeroData {
     public int GetXPForLevel(int lvl)
     {
         return (lvl * (lvl - 1) * 10) + 100;
+    }
+
+    public void UpdateCdAttackModified()
+    {
+        cdAttackModified = cdAttackBase - (cdAttackBase * cdAttackBonusTotal);
     }
 }

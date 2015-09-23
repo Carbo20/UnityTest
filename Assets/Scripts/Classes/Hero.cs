@@ -20,7 +20,7 @@ public class Hero {
         Data.heroData.intelligence = _inteligence;
         Data.heroData.agility = _agility;
         Data.heroData.vitality = _vitality;
-        Data.heroData.cdAttack = 3;
+        Data.heroData.cdAttackBase = 3;
 
         Data.heroData.xp = 0;
         Data.heroData.level = 1;

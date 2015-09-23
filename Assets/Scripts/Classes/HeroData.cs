@@ -18,16 +18,24 @@ public class HeroData {
     public int vitality;
 
     /* Secondary Hero variable*/
+    public int speed;
     public int damage;
     public int spellDamage;
     public float dodge;
     public float critical;
 
     public float cdAttack;
+    public int nbSkillAvailable;
 
     public int xp;
     public int xpForNextLevel;
     public int level;
 
     public Data.SkillType[] skillAvailable;
+
+    public HeroData()
+    {
+        nbSkillAvailable = 6;
+        skillAvailable = new Data.SkillType[nbSkillAvailable];
+    }
 }

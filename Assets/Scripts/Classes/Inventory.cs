@@ -31,7 +31,6 @@ public class Inventory {
         FeetItemID      = -1;
         RightHandItemID = -1;
         LeftHandItemID  = -1;
-        
     }
 
     public void unequipeItem(Item it)
@@ -48,15 +47,14 @@ public class Inventory {
         Data.heroData.critical -= it.CritBonus;
         Data.heroData.armor -= it.Armor;
 
+        Data.heroData.cdAttack -= it.CdAttackBonus;
+
         Data.heroData.legendaryEffectAvailable.Remove(it.LegendaryEffect);
-
-        Data.heroData.cdAttack -= it.CastTimeBonus;
+       
     }
-
 
     public void equipItem(Item it)
     {
-
         Data.heroData.hpMax += it.HealthBonus;
         Data.heroData.manaMax += it.ManaBonus;
         Data.heroData.strenght += it.StrenBonus;
@@ -69,9 +67,9 @@ public class Inventory {
         Data.heroData.critical += it.CritBonus;
         Data.heroData.armor += it.Armor;
 
-        Data.heroData.legendaryEffectAvailable.Add(it.LegendaryEffect);
+        Data.heroData.cdAttack += it.CdAttackBonus;
 
-        Data.heroData.cdAttack += it.CastTimeBonus;
+        Data.heroData.legendaryEffectAvailable.Add(it.LegendaryEffect);
 
     }
     /// <summary>

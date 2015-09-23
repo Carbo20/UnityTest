@@ -13,9 +13,10 @@ public class Item
     private int attackValue;
     private int armor;
     private int level;
+    private float cdAttack;
 
     private int strenBonus, intelBonus, agiBonus, vitalBonus, attackBonus, spellBonus, manaBonus,   healthBonus;
-    private float attackSpeedBonus, castTimeBonus, regenManaBonus, regenHealthBonus, dodgeBonus, critBonus; // for speed : between 0 and 1, it will reduce the delay after an attack or a cast is done
+    private float cdAttackBonus, castTimeBonus, regenManaBonus, regenHealthBonus, dodgeBonus, critBonus;
 
    // private Data.SlotType slotType;
     private Data.ItemType itemType;
@@ -25,6 +26,10 @@ public class Item
 
     public Item(int _level, int _magicFind)
     {
+        attackValue = 0;
+        armor = 0;
+        cdAttack = 0;
+
         strenBonus = 0;
         intelBonus = 0;
         agiBonus = 0;
@@ -33,7 +38,7 @@ public class Item
         spellBonus = 0;
         manaBonus = 0;
         healthBonus = 0;
-        attackSpeedBonus = 0;
+        cdAttackBonus = 0;
         castTimeBonus = 0;
         regenManaBonus = 0;
         regenHealthBonus = 0;
@@ -68,9 +73,9 @@ public class Item
         //Normal stats for items
         int armorPerLevelMin = 8, armorPerLevelMax = 10;
         int attack1HPerLevelMin = 8, attack1HPerLevelMax = 10;
-        float attackSpeed1HMin = 1.75f, attackSpeed1HMax = 2.25f;
+        float cdAttack1HMin = 1.75f, cdAttack1HMax = 2.25f;
         int attack2HPerLevelMin = 40, attack2HPerLevelMax = 50;
-        float attackSpeed2HMin = 2.625f, attackSpeed2HMax = 3.375f;
+        float cdAttack2HMin = 2.625f, cdAttack2HMax = 3.375f;
 
         // Semi-random number of bonuses and semi-random amout of bonus
         float strPerLevelMin = 0.80f, strPerLevelMax = 1;
@@ -85,7 +90,7 @@ public class Item
         //float critPerLevelMin, critPerLevelMax;                   // CF BELOW
         float regenManaPerLevelMin = 0.15f, regenManaPerLevelMax = 0.2f;
         float regenHealthPerLevelMin = 0.15f, regenHealthPerLevelMax = 0.2f;
-        //float attackSpeedPerLevelMin, attackSpeedPerLevelMax;     // CF BELOW
+        //float cdAttackPerLevelMin, cdAttackPerLevelMax;           // CF BELOW
         //float castTimePerLevelMin, castTimePerLevelMax;           // CF BELOW
 
         // Peculiar restrictions
@@ -154,7 +159,7 @@ public class Item
                 itemTypeInt = Data.ItemType.WEAPON.GetHashCode();
 
                 AttackValue = UnityEngine.Random.Range(Level * attack1HPerLevelMin, Level * attack1HPerLevelMax);
-                AttackSpeed = UnityEngine.Random.Range(attackSpeed1HMin, attackSpeed1HMax);
+                AttackSpeed = UnityEngine.Random.Range(cdAttack1HMin, cdAttack1HMax);
                 iconTypeId = UnityEngine.Random.Range(Data.IconType.AXE.GetHashCode(), Data.IconType.WAND.GetHashCode() + 1); // Random among all 1hweapons from iconType 
             }
         }
@@ -164,7 +169,7 @@ public class Item
             slotTypeInt = Data.SlotType.TWOHANDS.GetHashCode();
 
             AttackValue = UnityEngine.Random.Range(Level * attack2HPerLevelMin, Level * attack2HPerLevelMax);
-            AttackSpeed = UnityEngine.Random.Range(attackSpeed2HMin, attackSpeed2HMax);
+            AttackSpeed = UnityEngine.Random.Range(cdAttack2HMin, cdAttack2HMax);
             iconTypeId = UnityEngine.Random.Range(Data.IconType.SWORD2H.GetHashCode(), Data.IconType.SPEAR.GetHashCode() + 1); // Random among all 2hweapons from iconType 
         }
         ItemType = (Data.ItemType)itemTypeInt;
@@ -230,7 +235,7 @@ public class Item
                     RegenHealthBonus += UnityEngine.Random.Range(regenHealthPerLevelMin * levelFloat, regenHealthPerLevelMax * levelFloat);
                     break;
                 case Data.BonusType.ATTACKSPEED:
-                    AttackSpeedBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100); // between 0 and 0.07
+                    CdAttackBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100); // between 0 and 0.07
                     break;
                 case Data.BonusType.CASTTIME:
                     CastTimeBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100); // between 0 and 0.07
@@ -262,12 +267,12 @@ public class Item
     {
         get
         {
-            return castTimeBonus;
+            return cdAttack;
         }
 
         set
         {
-            castTimeBonus = value;
+            cdAttack = value;
         }
     }
 
@@ -419,29 +424,16 @@ public class Item
         }
     }
 
-    public float AttackSpeedBonus
+    public float CdAttackBonus
     {
         get
         {
-            return AttackSpeedBonus1;
+            return cdAttackBonus;
         }
 
         set
         {
-            AttackSpeedBonus1 = value;
-        }
-    }
-
-    public float AttackSpeedBonus1
-    {
-        get
-        {
-            return attackSpeedBonus;
-        }
-
-        set
-        {
-            attackSpeedBonus = value;
+            cdAttackBonus = value;
         }
     }
 

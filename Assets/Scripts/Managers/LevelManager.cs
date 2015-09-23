@@ -5,7 +5,9 @@ using System.Collections.Generic;
 public class LevelManager : MonoBehaviour {
 
     private Skill skill; //All the skill usable by the hero are here
+    private EnemySkill mSkill;// All the monster skill are here
     private IA ia; //Here is the IA manager
+
 
     private GameObject hero;
     private HeroManager hManager;
@@ -27,6 +29,7 @@ public class LevelManager : MonoBehaviour {
         enemyTextBar1 = textBox.GetComponent<TextMesh>();
 
         skill = new Skill(hManager,eManager);
+        mSkill = new EnemySkill(hManager, eManager);
         ia = new IA(hManager, eManager, skill);
     }
 	
@@ -77,6 +80,7 @@ public class LevelManager : MonoBehaviour {
             if (e.enemy.IsReady)
             {
                 //[TODO] A lot of stuff
+                mSkill.actionList[(int)e.DoAnAction()]();
                 e.enemy.IsReady = false;
             }
         }

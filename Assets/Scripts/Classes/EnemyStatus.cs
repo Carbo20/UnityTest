@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class MonsterStatus : MonoBehaviour {
+public abstract class EnemyStatus : MonoBehaviour {
     
     private int hpMax;
     private int manaMax;
@@ -25,10 +25,12 @@ public abstract class MonsterStatus : MonoBehaviour {
     private float critical;
 
     private float cdAttack;
+    private Data.EnemySkillType[] skillAvailable;
 
     /* We have to put the IA monster into DoAnAction wich choose wich action
     the monster will do --------------------------------------------------*/
-    public abstract Data.SkillType DoAnAction();
+    public abstract void InitStatus();
+    public abstract Data.EnemySkillType DoAnAction();
 
 
     /* Getter and Setter */
@@ -251,6 +253,19 @@ public abstract class MonsterStatus : MonoBehaviour {
         set
         {
             cdAttack = value;
+        }
+    }
+
+    public Data.EnemySkillType[] SkillAvailable
+    {
+        get
+        {
+            return skillAvailable;
+        }
+
+        set
+        {
+            skillAvailable = value;
         }
     }
 }

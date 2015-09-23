@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Mummy : MonsterStatus {
+public class Mummy : EnemyStatus {
 
-    public Mummy()
+    public override void InitStatus()
     {
         HpMax = 10;
         ManaMax = 30;
@@ -23,12 +23,23 @@ public class Mummy : MonsterStatus {
         Critical = 0;
 
         CdAttack = 1.5f;
+
+        /* List here all the skill the monster can use */
+        SkillAvailable = new Data.EnemySkillType[2];
+        SkillAvailable[0] = Data.EnemySkillType.ATTACK;
+        SkillAvailable[1] = Data.EnemySkillType.FIREBALL;
     }
 
-    public override Data.SkillType DoAnAction()
+    public override Data.EnemySkillType DoAnAction()
     {
-        Data.SkillType idSkill;
-        idSkill = Data.SkillType.ATTACK;
+        /* Here is an example for monster IA 
+        A Simple Random IA for example*/
+        Data.EnemySkillType idSkill;
+
+        int rnd = Random.Range(0, 2);
+        
+
+        idSkill = SkillAvailable[rnd];
         return idSkill;
     }
 }

@@ -7,22 +7,16 @@ public class EnemiesManager : MonoBehaviour {
     public List<EnemyManager> enemyList;
     private EnemyManager eManager;
 
-   
 
 	// Use this for initialization
 	void Start () {
-        Debug.Log("Enter in EnemiesManager");
         enemyList = new List<EnemyManager>();
-        GameObject enemy = Instantiate(Resources.Load("Prefabs/Monsters/MonsterCute")) as GameObject;
+        GameObject enemy = Instantiate(Resources.Load("Prefabs/Monsters/Mumy")) as GameObject;
         eManager = enemy.GetComponent<EnemyManager>();
         enemyList.Add(eManager);
         GameObject enemy2 = Instantiate(Resources.Load("Prefabs/Monsters/Mumy")) as GameObject;
         eManager = enemy2.GetComponent<EnemyManager>();
         enemyList.Add(eManager);
-        foreach(EnemyManager e in enemyList)
-        {
-            Debug.Log(e.enemy);
-        }
     }
 	
 	// Update is called once per frame

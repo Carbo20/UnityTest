@@ -6,15 +6,16 @@ public class EnemyManager : MonoBehaviour {
     public Enemy enemy;
 
     private float enemyDeltaTime;
-    private float ennemyActivation;
+    private float enemyActivation = 3; // [TODO] Change this after test
 
-    MonsterStatus monsterStatus;
+    EnemyStatus monsterStatus; // Stats + Skill
 
     // Use for the initialization just after the instantiation of the object in the enemiesManager
     void Awake()
     {
-        monsterStatus = GetComponent<MonsterStatus>();
-        enemy = new Enemy(6, 6, 4, 4, 4, 4);
+        monsterStatus = GetComponent<EnemyStatus>();
+        monsterStatus.InitStatus();
+        enemy = new Enemy(monsterStatus.HpMax, monsterStatus.ManaMax, monsterStatus.Strenght, monsterStatus.Intelligence, monsterStatus.Agility, monsterStatus.Vitality);
     }
 
     // Use this for initialization
@@ -30,7 +31,13 @@ public class EnemyManager : MonoBehaviour {
             Debug.Log("I Diiiie !");
             Destroy(gameObject);
         }
-	}
+        
+    }
+    
+    public Data.EnemySkillType DoAnAction()
+    {
+       return monsterStatus.DoAnAction();
+    }
 
     public float EnemyDeltaTime
     {
@@ -49,12 +56,12 @@ public class EnemyManager : MonoBehaviour {
     {
         get
         {
-            return ennemyActivation;
+            return enemyActivation;
         }
 
         set
         {
-            ennemyActivation = value;
+            enemyActivation = value;
         }
     }
 }

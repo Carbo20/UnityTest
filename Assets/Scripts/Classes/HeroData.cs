@@ -43,4 +43,15 @@ public class HeroData {
 
         legendaryEffectAvailable = new List<Data.LegendaryEffect>();
     }
+
+    public void LevelUP()
+    {
+        level++;
+        xpForNextLevel += GetXPForLevel(level);
+    }
+
+    public int GetXPForLevel(int lvl)
+    {
+        return (lvl * (lvl - 1) * 10) + 100;
+    }
 }

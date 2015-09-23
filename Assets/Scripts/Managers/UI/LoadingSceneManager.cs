@@ -68,9 +68,11 @@ public class LoadingSceneManager : MonoBehaviour {
                     case "XP"            : Data.heroData.xp             = Int32.Parse(stat.InnerText); break;
                     case "XPFORNEXTLEVEL": Data.heroData.xpForNextLevel = Int32.Parse(stat.InnerText); break;
                     case "LEVEL"         : Data.heroData.level          = Int32.Parse(stat.InnerText); break;
-
+                    case "ARMOR"         : Data.heroData.armor          = Int32.Parse(stat.InnerText); break;
                 }
             }
+
+            Data.heroData.LevelUP();
         }
     }
 

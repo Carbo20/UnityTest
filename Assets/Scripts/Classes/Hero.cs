@@ -73,14 +73,13 @@ public class Hero {
         Data.heroData.xp = Data.heroData.xp + xp;
         if (xp >= Data.heroData.xpForNextLevel)
         {
-            GetLevel();
+            LevelUP();
         }
     }
 
-    public void GetLevel()
+    public void LevelUP()
     {
-        Data.heroData.level++;
-        //[TODO] Do some stuff after a lvl up, stats up or something like this
+        Data.heroData.LevelUP();
     }
 
     /*** Getter and Setter ***/

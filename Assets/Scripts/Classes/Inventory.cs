@@ -48,6 +48,8 @@ public class Inventory {
         Data.heroData.critical -= it.CritBonus;
         Data.heroData.armor -= it.Armor;
 
+        Data.heroData.legendaryEffectAvailable.Remove(it.LegendaryEffect);
+
         Data.heroData.cdAttack -= it.CastTimeBonus;
     }
 
@@ -66,6 +68,8 @@ public class Inventory {
         Data.heroData.dodge += it.DodgeBonus;
         Data.heroData.critical += it.CritBonus;
         Data.heroData.armor += it.Armor;
+
+        Data.heroData.legendaryEffectAvailable.Add(it.LegendaryEffect);
 
         Data.heroData.cdAttack += it.CastTimeBonus;
 

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class HeroData {
 
@@ -32,10 +33,14 @@ public class HeroData {
     public int level;
 
     public Data.SkillType[] skillAvailable;
+    public List<Data.LegendaryEffect> legendaryEffectAvailable;
 
     public HeroData()
     {
+        //[TODO] update dat stuff!
         nbSkillAvailable = 6;
         skillAvailable = new Data.SkillType[nbSkillAvailable];
+
+        legendaryEffectAvailable = new List<Data.LegendaryEffect>();
     }
 }

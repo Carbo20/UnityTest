@@ -13,15 +13,14 @@ public class CharacterBuildManager : MonoBehaviour {
     RectTransform contentRectTransform;
     Text LVLTxt, ATKTxt, ATStxt, DEFTxt;
     Color lowerSTATColor, upperSTATColor, equalSTATColor;
-    private GameObject heroStat, heroEquip;
+    private GameObject heroStat, heroEquip, itemStat, itemDesc;
     private Text LVLStat, XPStat, HPStat, MANAStat, STRStat, INTStat, AGIStat, VITStat, DMGStat, SPDMGStat, DODStat, CRITStat, SPEStat, ARMORStat;
     bool heroStatTextLoad;
     bool heroStatsDraws;
+    bool itemDescriptionDraws;
     //just for test
     Item it;
     
-    //
-
 	// Use this for initialization
 	void Start () {
         heroStatTextLoad = false;
@@ -29,13 +28,12 @@ public class CharacterBuildManager : MonoBehaviour {
         selectedItem = 0;
         contentRectTransform = GameObject.Find("Content").GetComponent<RectTransform>();
         initTextGameObject();
-        heroStat = GameObject.Find("Canvas/Canvas/HeroStats");
-        
-        heroEquip = GameObject.Find("Hero");
+        initGameobject();
         lowerSTATColor = Color.red;
         upperSTATColor = Color.green;
         equalSTATColor = Color.black;
         heroStatsDraws = false;
+        itemDescriptionDraws = false;
         //just for test
         for (int i = 0; i < 100; i++)
         {
@@ -47,17 +45,22 @@ public class CharacterBuildManager : MonoBehaviour {
 
 
         updateItemList();
-        updateItemDescription();
+        updateItemStat();
+        updateItemDesc();
         updateHeroEquipement();
         updateHeroStats();
 	}
 
-    void initTextGameObject()
+    void initGameobject()
     {
-        LVLTxt = GameObject.Find("LVLValueText").GetComponent<Text>();
-        ATKTxt = GameObject.Find("ATKValueText").GetComponent<Text>();
-        ATStxt = GameObject.Find("ATSValueText").GetComponent<Text>();
-        DEFTxt = GameObject.Find("DEFValueText").GetComponent<Text>();
+        heroStat  = GameObject.Find("Canvas/Canvas/HeroStats");
+        itemDesc = GameObject.Find("Canvas/Canvas/Inventory/ItemDescriptionPanel");
+        heroEquip = GameObject.Find("Hero");
+        itemStat  = GameObject.Find("ItemStatPanel");
+
+    }
+    void initHeroStatTxt()
+    {
 
         if (!heroStatTextLoad && heroStatsDraws)
         {
@@ -78,6 +81,14 @@ public class CharacterBuildManager : MonoBehaviour {
 
             heroStatTextLoad = true;
         }
+    }
+    void initTextGameObject()
+    {
+        LVLTxt = GameObject.Find("LVLValueText").GetComponent<Text>();
+        ATKTxt = GameObject.Find("ATKValueText").GetComponent<Text>();
+        ATStxt = GameObject.Find("ATSValueText").GetComponent<Text>();
+        DEFTxt = GameObject.Find("DEFValueText").GetComponent<Text>();
+        initHeroStatTxt();
     }
 	
 	// Update is called once per frame
@@ -102,7 +113,8 @@ public class CharacterBuildManager : MonoBehaviour {
         selectedSlotType = (Data.SlotType) i;
         SelectFirstItem();
         updateItemList();
-        updateItemDescription();
+        updateItemDesc();
+        updateItemStat();
         contentRectTransform.offsetMax = new Vector2(contentRectTransform.offsetMax.x, 0);
         contentRectTransform.offsetMin = new Vector2(contentRectTransform.offsetMin.x, -271);
     }
@@ -128,7 +140,7 @@ public class CharacterBuildManager : MonoBehaviour {
     public void ChangeSelectedItem(int i)
     {
         selectedItem = i;
-        updateItemDescription();
+        updateItemStat();
     }
 
     /// <summary>
@@ -201,12 +213,27 @@ public class CharacterBuildManager : MonoBehaviour {
         }
     }
 
+    private void updateItemDesc()
+    {
+        if (!itemDescriptionDraws) return;
+
+        if (Data.inventory.items[selectedSlotType.GetHashCode()].Count > selectedItem)
+        {
+            GameObject.Find("Canvas/Canvas/Inventory/ItemDescriptionPanel/DescriptionValue").GetComponent<Text>().text = Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Description;
+        }
+        else
+        {
+            GameObject.Find("Canvas/Canvas/Inventory/ItemDescriptionPanel/DescriptionValue").GetComponent<Text>().text = "";
+        }
+    }
+
     /// <summary>
     /// Function that update the item description area
     /// </summary>
-    private void updateItemDescription()
+    private void updateItemStat()
     {
-        
+        if (itemDescriptionDraws) return;
+
         if (Data.inventory.items[selectedSlotType.GetHashCode()].Count > selectedItem)
         {
             GameObject.Find("ItemNameText").GetComponent<Text>().text = Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Name;
@@ -584,7 +611,7 @@ public class CharacterBuildManager : MonoBehaviour {
         if (!heroStatsDraws) return;
         
         if(!heroStatTextLoad)   
-            initTextGameObject();
+            initHeroStatTxt();
 
         LVLStat.text = Data.heroData.level.ToString();
         XPStat.text = Data.heroData.xp + " / " + Data.heroData.xpForNextLevel;
@@ -601,6 +628,26 @@ public class CharacterBuildManager : MonoBehaviour {
         SPEStat.text = Data.heroData.cdAttackBase.ToString();
         ARMORStat.text = Data.heroData.armor.ToString();
 
+    }
+
+    public void showItemDescription()
+    {
+        
+        if (itemDescriptionDraws)
+        {
+            itemStat.SetActive(true);
+            itemDesc.SetActive(false);
+            itemDescriptionDraws = false;
+        }
+        else
+        {
+            itemStat.SetActive(false);
+            itemDesc.SetActive(true);
+            itemDescriptionDraws = true;
+        }
+
+        updateItemStat();
+        updateItemDesc();
     }
 
     /// <summary>
@@ -635,7 +682,8 @@ public class CharacterBuildManager : MonoBehaviour {
             Data.inventory.Equip(selectedSlotType, selectedItem);
             updateHeroEquipement();
             updateItemList();
-            updateItemDescription();
+            updateItemDesc();
+            updateItemStat();
             updateHeroStats();
         }
     }

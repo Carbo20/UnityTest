@@ -5,8 +5,7 @@ using System.Collections.Generic;
 
 /// <summary>
 /// AUTHOR : Lucky
-///                     TODO :  Add effects depending on skills
-///                             Check for 
+///                             
 /// </summary>
 public class Item
 {
@@ -22,6 +21,7 @@ public class Item
     private Data.ItemType itemType;
     private Data.ItemQuality itemQuality;
     private ItemData itemData;
+    private Data.LegendaryEffect legendaryEffect;
 
     public Item(int _level, int _magicFind)
     {
@@ -39,6 +39,7 @@ public class Item
         regenHealthBonus = 0;
         dodgeBonus = 0;
         critBonus = 0;
+        LegendaryEffect = Data.LegendaryEffect.NONE;
 
         level = _level;
 
@@ -174,7 +175,7 @@ public class Item
         {
             ItemQuality = Data.ItemQuality.LEGENDARY;
             numberOfBonus = UnityEngine.Random.Range(3, 5);
-            //EFFECT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            LegendaryEffect = (Data.LegendaryEffect) UnityEngine.Random.Range(Data.LegendaryEffect.NONE.GetHashCode()+1, Data.LegendaryEffect.LAST.GetHashCode());
         }
         else if (itemQualityInt > NormalRange)// the item is magical
         {
@@ -561,5 +562,18 @@ public class Item
             itemData.SpriteId = value;
         }
 
+    }
+
+    public Data.LegendaryEffect LegendaryEffect
+    {
+        get
+        {
+            return legendaryEffect;
+        }
+
+        set
+        {
+            legendaryEffect = value;
+        }
     }
 }

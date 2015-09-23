@@ -32,7 +32,8 @@ public class Data {
 
     public enum SkillType {ATTACK, USEITEM, TESTSKILL, FIREBALL } //Complete with all the skill
 
-    //TODO liste d'objet
+    //[TODO] Complete the list of legendary effects
+    public enum LegendaryEffect { NONE, FIREBALL1, FIREBAL2, LAST}; // NONE and LAST don't have any effect
 
     public static List<List<ItemData>> listOfItems = new List<List<ItemData>>(); //ordered on IconType 
     public static List<Sprite> sprites;

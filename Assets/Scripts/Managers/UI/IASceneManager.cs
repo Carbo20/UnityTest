@@ -112,7 +112,6 @@ public class IASceneManager : MonoBehaviour
 
                 //Stock value of %
                 Data.iaData.value[line] = gObjPourcentValue[line].GetComponent<Dropdown>().value;
-                Debug.Log("Data.iaData.value[line]: "+ Data.iaData.value[line]);
 
                 
                 //Test which sign has been chosen
@@ -124,9 +123,9 @@ public class IASceneManager : MonoBehaviour
                 {
                     Data.iaData.idSigne[line] = 1;
                 }
-                Debug.Log("Data.iaData.idSigne[line]: " + Data.iaData.idSigne[line]);
-                Debug.Log("gObjHealthBis[line].GetComponent<Dropdown>().value: "+ gObjHealthBis[line].GetComponent<Dropdown>().value);
                 //Stock which spell has been chosen
+                Debug.Log("Indice  : " + gObjHealthBis[line].GetComponent<Dropdown>().value);
+                Debug.Log("Valeur du skill dropdown : " + Data.heroData.skillAvailable[gObjHealthBis[line].GetComponent<Dropdown>().value]);
                 Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjHealthBis[line].GetComponent<Dropdown>().value];
 
             }
@@ -138,7 +137,6 @@ public class IASceneManager : MonoBehaviour
 
                 //Stock value of %
                 Data.iaData.value[line] = gObjPourcentValue[line].GetComponent<Dropdown>().value;
-                Debug.Log("Data.iaData.value[line]: " + Data.iaData.value[line]);
 
                 //Test which sign has been chosen
                 if (gObjSign[line].GetComponent<Dropdown>().value == 0)
@@ -149,7 +147,6 @@ public class IASceneManager : MonoBehaviour
                 {
                     Data.iaData.idSigne[line] = 1;
                 }
-                Debug.Log("MANASign: " + Data.iaData.idSigne[line]);
                 //Stock which spell has been chosen
                 Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjManaBis[line].GetComponent<Dropdown>().value];
             }
@@ -160,7 +157,6 @@ public class IASceneManager : MonoBehaviour
 
                 //Stock value of %
                 Data.iaData.value[line] = gObjPourcentValue[line].GetComponent<Dropdown>().value;
-                Debug.Log("Data.iaData.value[line]: " + Data.iaData.value[line]);
 
                 //Test which sign has been chosen
                 if (gObjSign[line].GetComponent<Dropdown>().value == 0)
@@ -183,7 +179,6 @@ public class IASceneManager : MonoBehaviour
 
                 //Stock value of %
                 Data.iaData.value[line] = gObjPourcentValue[line].GetComponent<Dropdown>().value;
-                Debug.Log("Data.iaData.value[line]: " + Data.iaData.value[line]);
 
                 //Test which sign has been chosen
                 if (gObjSign[line].GetComponent<Dropdown>().value == 0)
@@ -217,7 +212,6 @@ public class IASceneManager : MonoBehaviour
 
                 //Stock the enemy nb chosen
                 Data.iaData.value[line] = GameObject.Find("CondEnemiesNb" + line + "/enemyNb").GetComponent<Dropdown>().value;
-                Debug.Log("Data.iaData.value[line]: " + Data.iaData.value[line]);
                 //Stock which spell the player will use
                 Data.iaData.idSkill[line] = Data.heroData.skillAvailable[GameObject.Find("CondEnemiesNb" + line + "/playerSpells").GetComponent<Dropdown>().value];
 
@@ -229,10 +223,8 @@ public class IASceneManager : MonoBehaviour
 
                 //Stock the enemy class chosen
                 Data.iaData.value[line] = GameObject.Find("CondEnemyClass" + line + "/enemyClass").GetComponent<Dropdown>().value;
-                Debug.Log("Data.iaData.value[line]: " + Data.iaData.value[line]);
                 //Stock which spell the player will use
                 Data.iaData.idSkill[line] = Data.heroData.skillAvailable[GameObject.Find("CondEnemyClass" + line + "/playerSpells").GetComponent<Dropdown>().value];
-                Debug.Log("Data.iaData.idSkill[line]: " + Data.iaData.idSkill[line]);
             }
 
             if (categoryDropdown[line].value == 0)
@@ -252,7 +244,6 @@ public class IASceneManager : MonoBehaviour
 
 
         categoryDropdown[_line-1] = GameObject.Find("categoryDropdown(" + _line + ")").GetComponent<Dropdown>();
-            Debug.Log("categoryDropdown(" + _line + ")");
 
             //dropdown line : from 1 to 8 => we shift from 0 to 7
             line = _line - 1;

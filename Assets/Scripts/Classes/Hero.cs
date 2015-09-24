@@ -30,6 +30,7 @@ public class Hero {
         isDead = false;
 
         Data.heroData.skillAvailable[0] = Data.SkillType.ATTACK;
+        Data.heroData.skillAvailable[1] = Data.SkillType.FIREBALL;
 
         hp = (hp / 2) - 1;
     }

@@ -107,21 +107,7 @@ public class IA
         skill.IdTarget = Data.iaData.idTarget[i];
         skill.actionList[(int)Data.iaData.idSkill[i]]();
         isValid = true;
-        Debug.Log("Do an action");
+        Debug.Log("Do an action : " + Data.iaData.idSkill[i]);
     }
-    /*
-    public int NbOrder
-    {
-        get
-        {
-            return nbOrder;
-        }
-
-        set
-        {
-            nbOrder = value;
-        }
-    }
-    */
 
 }

@@ -77,12 +77,15 @@ public class LevelManager : MonoBehaviour {
     {
         foreach (EnemyManager e in eManager.enemyList)
         {
+            int idEnemy = 0;
             if (e.enemy.IsReady)
             {
                 //[TODO] A lot of stuff
+                mSkill.UpdateWhoIsCasting(idEnemy);
                 mSkill.actionList[(int)e.DoAnAction()]();
                 e.enemy.IsReady = false;
             }
+            idEnemy++;
         }
     }
 

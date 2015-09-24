@@ -106,7 +106,7 @@ public class IASceneManager : MonoBehaviour
 
             gObjPourcentValue[ind] = GameObject.Find("PourcentValue" + ind);
 
-            categoryDropdown[ind].value = 0;
+            categoryDropdown[ind] = null;
 
         }
         gObjSign[0] = GameObject.Find("PourcentValue" + 0);
@@ -119,7 +119,8 @@ public class IASceneManager : MonoBehaviour
         
         for (int line = 0; line < indexButtonCatMax; line++)
         {
-            categoryDropdown[line] = GameObject.Find("categoryDropdown(" + line+1 + ")").GetComponent<Dropdown>();
+            int indName = line + 1;
+            categoryDropdown[line] = GameObject.Find("categoryDropdown(" + indName + ")").GetComponent<Dropdown>();
             //Player's Health
             if (categoryDropdown[line].value == 1)
             {

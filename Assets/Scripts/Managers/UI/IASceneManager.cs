@@ -242,7 +242,7 @@ public class IASceneManager : MonoBehaviour
             }
         }
         //Switch the current scene to the menu
-        //Application.LoadLevel("mainScene");
+        Application.LoadLevel("mainScene");
     }
 
 

@@ -14,19 +14,19 @@ public class IA
     {
         hManager = _hManager;
         eManager = _eManager;
-        this.skill = _skill;
+        skill = _skill;
         
         Data.iaData.nbOrder = 1;
         
         isValid = false;
 
 
-        /* Testing value for the moment */
+        /* Testing value for the moment 
         Data.iaData.value[0] = 50;
         Data.iaData.idTarget[0] = 0;
         Data.iaData.idCondition[0] = IaData.IaCondition.HEALTH;
         Data.iaData.idSkill[0] = Data.SkillType.ATTACK;
-        Data.iaData.idSigne[0] = 0;
+        Data.iaData.idSigne[0] = 0; */
     }
 
 
@@ -39,13 +39,14 @@ public class IA
                 switch (Data.iaData.idCondition[i])
                 {
                     case IaData.IaCondition.HEALTH:
-                        if (hManager.hero.Hp * 100 / hManager.hero.HpMax <= Data.iaData.value[i]) // If Current HP < X%
+                        if (hManager.hero.Hp * 100 / hManager.hero.HpMax >= Data.iaData.value[i]) // If Current HP > X%
                         {
+
                             DoAnAction(i);
                         }
                         break;
                     case IaData.IaCondition.MANA:
-                        if (hManager.hero.Mana * 100 / hManager.hero.ManaMax <= Data.iaData.value[i]) // If Current Mana < X%
+                        if (hManager.hero.Mana * 100 / hManager.hero.ManaMax >= Data.iaData.value[i]) // If Current Mana > X%
                         {
                             DoAnAction(i);
                         }
@@ -57,13 +58,13 @@ public class IA
                 switch (Data.iaData.idCondition[i])
                 {
                     case IaData.IaCondition.HEALTH:
-                        if (hManager.hero.Hp * 100 / hManager.hero.HpMax >= Data.iaData.value[i]) // If Current HP > X%
+                        if (hManager.hero.Hp * 100 / hManager.hero.HpMax <= Data.iaData.value[i]) // If Current HP < X%
                         {
                             DoAnAction(i);
                         }
                         break;
                     case IaData.IaCondition.MANA:
-                        if (hManager.hero.Mana * 100 / hManager.hero.ManaMax >= Data.iaData.value[i]) // If Current Mana > X%
+                        if (hManager.hero.Mana * 100 / hManager.hero.ManaMax <= Data.iaData.value[i]) // If Current Mana < X%
                         {
                             DoAnAction(i);
                         }

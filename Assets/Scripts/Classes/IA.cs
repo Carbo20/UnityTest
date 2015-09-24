@@ -16,7 +16,7 @@ public class IA
         eManager = _eManager;
         skill = _skill;
         
-        Data.iaData.nbOrder = 1;
+        Data.iaData.nbOrder = 8; // [TODO] Important to fixe it when we will have a dynamic nbOrder
         
         isValid = false;
 

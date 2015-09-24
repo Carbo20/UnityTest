@@ -16,6 +16,7 @@ public class Hero {
         hp = _hp;
         Data.heroData.hpMax = _hp;
         mana = _mana;
+        Data.heroData.manaMax = _mana;
         Data.heroData.strenght = _strenght;
         Data.heroData.intelligence = _inteligence;
         Data.heroData.agility = _agility;

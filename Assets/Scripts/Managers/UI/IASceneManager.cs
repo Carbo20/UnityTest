@@ -48,12 +48,12 @@ public class IASceneManager : MonoBehaviour
         {
            // gObjHealth[ind].SetActive(false);
             gObjHealthBis[ind].SetActive(false);
-            gObjMana[ind].SetActive(false);
+         //   gObjMana[ind].SetActive(false);
             gObjManaBis[ind].SetActive(false);
 
-            gObjHealthEn[ind].SetActive(false);
+        //    gObjHealthEn[ind].SetActive(false);
             gObjHealthBisEn[ind].SetActive(false);
-            gObjManaEn[ind].SetActive(false);
+        //    gObjManaEn[ind].SetActive(false);
             gObjManaBisEn[ind].SetActive(false);
 
             gObjCast[ind].SetActive(false);
@@ -62,19 +62,20 @@ public class IASceneManager : MonoBehaviour
 
             
             gObjPourcentValue[ind].SetActive(false);
-        }gObjSign[0].SetActive(false);
+            gObjSign[ind].SetActive(false);
+        }
     }
 
     void initLine(int ind)
     {
        // gObjHealth[ind].SetActive(false);
         gObjHealthBis[ind].SetActive(false);
-        gObjMana[ind].SetActive(false);
+       // gObjMana[ind].SetActive(false);
         gObjManaBis[ind].SetActive(false);
 
-        gObjHealthEn[ind].SetActive(false);
+       // gObjHealthEn[ind].SetActive(false);
         gObjHealthBisEn[ind].SetActive(false);
-        gObjManaEn[ind].SetActive(false);
+      //  gObjManaEn[ind].SetActive(false);
         gObjManaBisEn[ind].SetActive(false);
 
         gObjCast[ind].SetActive(false);
@@ -92,12 +93,12 @@ public class IASceneManager : MonoBehaviour
         { 
            // gObjHealth[ind] = GameObject.Find("CondHealth"+ind);
             gObjHealthBis[ind] = GameObject.Find("CondHealthBis" + ind);
-            gObjMana[ind] = GameObject.Find("CondMana" + ind);
+           // gObjMana[ind] = GameObject.Find("CondMana" + ind);
             gObjManaBis[ind] = GameObject.Find("CondManaBis" + ind);
 
-            gObjHealthEn[ind] = GameObject.Find("CondHealthEn" + ind);
+           // gObjHealthEn[ind] = GameObject.Find("CondHealthEn" + ind);
             gObjHealthBisEn[ind] = GameObject.Find("CondHealthBisEn" + ind);
-            gObjManaEn[ind] = GameObject.Find("CondManaEn" + ind);
+           // gObjManaEn[ind] = GameObject.Find("CondManaEn" + ind);
             gObjManaBisEn[ind] = GameObject.Find("CondManaBisEn" + ind);
 
             gObjCast[ind] = GameObject.Find("CondCast" + ind);
@@ -106,10 +107,10 @@ public class IASceneManager : MonoBehaviour
 
             gObjPourcentValue[ind] = GameObject.Find("PourcentValue" + ind);
 
-            categoryDropdown[ind] = null;
-
+           // categoryDropdown[ind] = null;
+            gObjSign[ind] = GameObject.Find("Sign" + ind);
         }
-        gObjSign[0] = GameObject.Find("PourcentValue" + 0);
+       
         initAll();
         
     }
@@ -157,7 +158,7 @@ public class IASceneManager : MonoBehaviour
                 Debug.Log("Data.iaData.value[line]: " + Data.iaData.value[line]);
 
                 //Test which sign has been chosen
-                if (GameObject.Find("CondMana" + line + "/Dropdown").GetComponent<Dropdown>().value == 0)
+                if (gObjSign[line].GetComponent<Dropdown>().value == 0)
                 {
                     Data.iaData.idSigne[line] = 0;
                 }
@@ -179,7 +180,7 @@ public class IASceneManager : MonoBehaviour
                 Debug.Log("Data.iaData.value[line]: " + Data.iaData.value[line]);
 
                 //Test which sign has been chosen
-                if (GameObject.Find("CondHealthEn" + line + "/Dropdown").GetComponent<Dropdown>().value == 0)
+                if (gObjSign[line].GetComponent<Dropdown>().value == 0)
                 {
                     Data.iaData.idSigne[line] = 0;
                 }
@@ -202,7 +203,7 @@ public class IASceneManager : MonoBehaviour
                 Debug.Log("Data.iaData.value[line]: " + Data.iaData.value[line]);
 
                 //Test which sign has been chosen
-                if (GameObject.Find("CondManaEn" + line + "/Dropdown").GetComponent<Dropdown>().value == 0)
+                if (gObjSign[line].GetComponent<Dropdown>().value == 0)
                 {
                     Data.iaData.idSigne[line] = 0;
                 }
@@ -233,7 +234,7 @@ public class IASceneManager : MonoBehaviour
 
                 //Stock the enemy nb chosen
                 Data.iaData.value[line] = GameObject.Find("CondEnemiesNb" + line + "/enemyNb").GetComponent<Dropdown>().value;
-
+                Debug.Log("Data.iaData.value[line]: " + Data.iaData.value[line]);
                 //Stock which spell the player will use
                 Data.iaData.idSkill[line] = Data.heroData.skillAvailable[GameObject.Find("CondEnemiesNb" + line + "/playerSpells").GetComponent<Dropdown>().value];
 
@@ -245,10 +246,10 @@ public class IASceneManager : MonoBehaviour
 
                 //Stock the enemy class chosen
                 Data.iaData.value[line] = GameObject.Find("CondEnemyClass" + line + "/enemyClass").GetComponent<Dropdown>().value;
-
+                Debug.Log("Data.iaData.value[line]: " + Data.iaData.value[line]);
                 //Stock which spell the player will use
                 Data.iaData.idSkill[line] = Data.heroData.skillAvailable[GameObject.Find("CondEnemyClass" + line + "/playerSpells").GetComponent<Dropdown>().value];
-
+                Debug.Log("Data.iaData.idSkill[line]: " + Data.iaData.idSkill[line]);
             }
 
             if (categoryDropdown[line].value == 0)
@@ -293,7 +294,7 @@ public class IASceneManager : MonoBehaviour
                 initLine(line);
                 
                 switchCatCount++;
-                gObjMana[line].SetActive(true);
+                gObjSign[line].SetActive(true);
                 gObjManaBis[line].SetActive(true);
                 gObjPourcentValue[line].SetActive(true);
 
@@ -304,7 +305,7 @@ public class IASceneManager : MonoBehaviour
             {
                 initLine(line);
 
-                gObjHealthEn[line].SetActive(true);
+                gObjSign[line].SetActive(true);
                 gObjHealthBisEn[line].SetActive(true);
                 gObjPourcentValue[line].SetActive(true);
                 switchCatCount++;
@@ -316,7 +317,7 @@ public class IASceneManager : MonoBehaviour
             {
                 initLine(line);
 
-                gObjManaEn[line].SetActive(true);
+                gObjSign[line].SetActive(true);
                 gObjManaBisEn[line].SetActive(true);
                 gObjPourcentValue[line].SetActive(true);
                 switchCatCount++;

@@ -106,6 +106,8 @@ public class IASceneManager : MonoBehaviour
 
             gObjPourcentValue[ind] = GameObject.Find("PourcentValue" + ind);
 
+            categoryDropdown[ind].value = 0;
+
         }
         gObjSign[0] = GameObject.Find("PourcentValue" + 0);
         initAll();

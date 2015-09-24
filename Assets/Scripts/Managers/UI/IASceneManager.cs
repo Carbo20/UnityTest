@@ -5,11 +5,13 @@ using UnityEngine.UI;
 public class IASceneManager : MonoBehaviour
 {
 
-    private Dropdown categoryDropdown, categoryDropdown1, categoryDropdown2;
+    private Dropdown[] categoryDropdown = new Dropdown[8];
+
     private int indexButtonCatMax;
     private int indexCatMax;
     private int unchosenCount;
     private int valueInputfield = -1;
+    private int line;
     private Button button;
 
     private GameObject[] gObjHealth = new GameObject[8];
@@ -27,7 +29,7 @@ public class IASceneManager : MonoBehaviour
     private GameObject[] gObjEnemyClass = new GameObject[8];
 
     private GameObject[] gObjPourcentValue = new GameObject[8];
-
+    private GameObject[] gObjSign = new GameObject[8];
 
     private float switchCatCount;
     private IaData.IaCondition conditionNb;
@@ -44,7 +46,7 @@ public class IASceneManager : MonoBehaviour
 
         for (int ind = 0; ind < indexButtonCatMax; ind++)
         {
-            gObjHealth[ind].SetActive(false);
+           // gObjHealth[ind].SetActive(false);
             gObjHealthBis[ind].SetActive(false);
             gObjMana[ind].SetActive(false);
             gObjManaBis[ind].SetActive(false);
@@ -58,13 +60,14 @@ public class IASceneManager : MonoBehaviour
             gObjEnemiesNb[ind].SetActive(false);
             gObjEnemyClass[ind].SetActive(false);
 
+            
             gObjPourcentValue[ind].SetActive(false);
-        }
+        }gObjSign[0].SetActive(false);
     }
 
     void initLine(int ind)
     {
-        gObjHealth[ind].SetActive(false);
+       // gObjHealth[ind].SetActive(false);
         gObjHealthBis[ind].SetActive(false);
         gObjMana[ind].SetActive(false);
         gObjManaBis[ind].SetActive(false);
@@ -79,7 +82,7 @@ public class IASceneManager : MonoBehaviour
         gObjEnemyClass[ind].SetActive(false);
 
         gObjPourcentValue[ind].SetActive(false);
-
+        gObjSign[ind].SetActive(false);
     }
 
     // Use this for initialization
@@ -87,7 +90,7 @@ public class IASceneManager : MonoBehaviour
     {
         for (int ind=0; ind<8; ind++)
         { 
-            gObjHealth[ind] = GameObject.Find("CondHealth"+ind);
+           // gObjHealth[ind] = GameObject.Find("CondHealth"+ind);
             gObjHealthBis[ind] = GameObject.Find("CondHealthBis" + ind);
             gObjMana[ind] = GameObject.Find("CondMana" + ind);
             gObjManaBis[ind] = GameObject.Find("CondManaBis" + ind);
@@ -102,19 +105,21 @@ public class IASceneManager : MonoBehaviour
             gObjEnemyClass[ind] = GameObject.Find("CondEnemyClass" + ind);
 
             gObjPourcentValue[ind] = GameObject.Find("PourcentValue" + ind);
+
         }
-                
+        gObjSign[0] = GameObject.Find("PourcentValue" + 0);
         initAll();
         
     }
     public void CallbackApplyAndFarm()
     {
         Data.iaData = new IaData(indexButtonCatMax);
-
+        
         for (int line = 0; line < indexButtonCatMax; line++)
         {
+            categoryDropdown[line] = GameObject.Find("categoryDropdown(" + line+1 + ")").GetComponent<Dropdown>();
             //Player's Health
-            if (categoryDropdown.value == 1)
+            if (categoryDropdown[line].value == 1)
             {
                 Data.iaData.idCondition[line] = IaData.IaCondition.HEALTH;
 
@@ -122,9 +127,9 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.value[line] = gObjPourcentValue[line].GetComponent<Dropdown>().value;
                 Debug.Log("Data.iaData.value[line]: "+ Data.iaData.value[line]);
 
-                categoryDropdown1 = GameObject.Find("CondHealth" + line).GetComponent<Dropdown>();
+                
                 //Test which sign has been chosen
-                if (categoryDropdown1.value == 0)
+                if (gObjSign[line].GetComponent<Dropdown>().value == 0)
                 {
                     Data.iaData.idSigne[line] = 0;
                 }
@@ -140,7 +145,7 @@ public class IASceneManager : MonoBehaviour
             }
 
             //Player's Mana
-            if (categoryDropdown.value == 2)
+            if (categoryDropdown[line].value == 2)
             {
                 Data.iaData.idCondition[line] = IaData.IaCondition.MANA;
 
@@ -162,7 +167,7 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjManaBis[line].GetComponent<Dropdown>().value];
             }
 
-            if (categoryDropdown.value == 3)
+            if (categoryDropdown[line].value == 3)
             {
                 Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYHEALTH;
 
@@ -185,7 +190,7 @@ public class IASceneManager : MonoBehaviour
             }
 
 
-            if (categoryDropdown.value == 4)
+            if (categoryDropdown[line].value == 4)
             {
                 Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYMANA;
 
@@ -207,7 +212,7 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjManaBisEn[line].GetComponent<Dropdown>().value];
             }
 
-            if (categoryDropdown.value == 5)
+            if (categoryDropdown[line].value == 5)
             {
                 Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYCAST;
 
@@ -219,7 +224,7 @@ public class IASceneManager : MonoBehaviour
 
             }
 
-            if (categoryDropdown.value == 6)
+            if (categoryDropdown[line].value == 6)
             {
                 Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYNB;
 
@@ -231,7 +236,7 @@ public class IASceneManager : MonoBehaviour
 
             }
 
-            if (categoryDropdown.value == 7)
+            if (categoryDropdown[line].value == 7)
             {
                 Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYCLASS;
 
@@ -243,7 +248,7 @@ public class IASceneManager : MonoBehaviour
 
             }
 
-            if (categoryDropdown.value == 0)
+            if (categoryDropdown[line].value == 0)
             {
 
                 Data.iaData.idCondition[line] = IaData.IaCondition.NULL;
@@ -252,34 +257,34 @@ public class IASceneManager : MonoBehaviour
         //Switch the current scene to the menu
         //Application.LoadLevel("mainScene");
     }
-    
 
 
-    public void CallbackDropdownChanged(int line)
+
+    public void CallbackDropdownChanged(int _line)
     {
-            
 
-            categoryDropdown = GameObject.Find("categoryDropdown(" + line + ")").GetComponent<Dropdown>();
-            Debug.Log("categoryDropdown(" + line + ")");
+
+        categoryDropdown[_line-1] = GameObject.Find("categoryDropdown(" + _line + ")").GetComponent<Dropdown>();
+            Debug.Log("categoryDropdown(" + _line + ")");
 
             //dropdown line : from 1 to 8 => we shift from 0 to 7
-            line = line - 1;
+            line = _line - 1;
 
             //Player's Health
-            if (categoryDropdown.value == 1)
+            if (categoryDropdown[line].value == 1)
             {
 
                 initLine(line);
                 
                 switchCatCount++;
-                gObjHealth[line].SetActive(true);
+                gObjSign[line].SetActive(true);
                 gObjHealthBis[line].SetActive(true);
                 gObjPourcentValue[line].SetActive(true);
                             
             }
 
             //Player's Mana
-            if (categoryDropdown.value == 2)
+            if (categoryDropdown[line].value == 2)
             {
 
                 initLine(line);
@@ -292,7 +297,7 @@ public class IASceneManager : MonoBehaviour
         }
 
             //Enemy's Health
-            if (categoryDropdown.value == 3)
+            if (categoryDropdown[line].value == 3)
             {
                 initLine(line);
 
@@ -304,7 +309,7 @@ public class IASceneManager : MonoBehaviour
             }
 
             //Enemy's Mana
-            if (categoryDropdown.value == 4)
+            if (categoryDropdown[line].value == 4)
             {
                 initLine(line);
 
@@ -316,7 +321,7 @@ public class IASceneManager : MonoBehaviour
             }
 
             //Enemy casting
-            if (categoryDropdown.value == 5)
+            if (categoryDropdown[line].value == 5)
             {
                 initLine(line);
 
@@ -326,7 +331,7 @@ public class IASceneManager : MonoBehaviour
             }
 
             //Enemies Nb
-            if (categoryDropdown.value == 6)
+            if (categoryDropdown[line].value == 6)
             {
                 initLine(line);
 
@@ -336,7 +341,7 @@ public class IASceneManager : MonoBehaviour
             }
 
             //Enemy's Class       
-            if (categoryDropdown.value == 7)
+            if (categoryDropdown[line].value == 7)
             {
 
                 initLine(line);
@@ -347,7 +352,7 @@ public class IASceneManager : MonoBehaviour
             }
 
             //Default Category
-            if (categoryDropdown.value == 0)
+            if (categoryDropdown[line].value == 0)
             {
                 
                 initLine(line);

@@ -46,21 +46,15 @@ public class IASceneManager : MonoBehaviour
 
         for (int ind = 0; ind < indexButtonCatMax; ind++)
         {
-           // gObjHealth[ind].SetActive(false);
             gObjHealthBis[ind].SetActive(false);
-         //   gObjMana[ind].SetActive(false);
             gObjManaBis[ind].SetActive(false);
-
-        //    gObjHealthEn[ind].SetActive(false);
             gObjHealthBisEn[ind].SetActive(false);
-        //    gObjManaEn[ind].SetActive(false);
             gObjManaBisEn[ind].SetActive(false);
 
             gObjCast[ind].SetActive(false);
             gObjEnemiesNb[ind].SetActive(false);
             gObjEnemyClass[ind].SetActive(false);
 
-            
             gObjPourcentValue[ind].SetActive(false);
             gObjSign[ind].SetActive(false);
         }
@@ -68,14 +62,9 @@ public class IASceneManager : MonoBehaviour
 
     void initLine(int ind)
     {
-       // gObjHealth[ind].SetActive(false);
         gObjHealthBis[ind].SetActive(false);
-       // gObjMana[ind].SetActive(false);
         gObjManaBis[ind].SetActive(false);
-
-       // gObjHealthEn[ind].SetActive(false);
         gObjHealthBisEn[ind].SetActive(false);
-      //  gObjManaEn[ind].SetActive(false);
         gObjManaBisEn[ind].SetActive(false);
 
         gObjCast[ind].SetActive(false);
@@ -91,14 +80,10 @@ public class IASceneManager : MonoBehaviour
     {
         for (int ind=0; ind<8; ind++)
         { 
-           // gObjHealth[ind] = GameObject.Find("CondHealth"+ind);
             gObjHealthBis[ind] = GameObject.Find("CondHealthBis" + ind);
-           // gObjMana[ind] = GameObject.Find("CondMana" + ind);
             gObjManaBis[ind] = GameObject.Find("CondManaBis" + ind);
-
-           // gObjHealthEn[ind] = GameObject.Find("CondHealthEn" + ind);
+            
             gObjHealthBisEn[ind] = GameObject.Find("CondHealthBisEn" + ind);
-           // gObjManaEn[ind] = GameObject.Find("CondManaEn" + ind);
             gObjManaBisEn[ind] = GameObject.Find("CondManaBisEn" + ind);
 
             gObjCast[ind] = GameObject.Find("CondCast" + ind);
@@ -106,8 +91,6 @@ public class IASceneManager : MonoBehaviour
             gObjEnemyClass[ind] = GameObject.Find("CondEnemyClass" + ind);
 
             gObjPourcentValue[ind] = GameObject.Find("PourcentValue" + ind);
-
-           // categoryDropdown[ind] = null;
             gObjSign[ind] = GameObject.Find("Sign" + ind);
         }
        

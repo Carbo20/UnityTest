@@ -26,6 +26,8 @@ public class IASceneManager : MonoBehaviour
     private GameObject[] gObjEnemiesNb = new GameObject[8];
     private GameObject[] gObjEnemyClass = new GameObject[8];
 
+    private GameObject[] gObjPourcentValue = new GameObject[8];
+
 
     private float switchCatCount;
     private IaData.IaCondition conditionNb;
@@ -39,7 +41,6 @@ public class IASceneManager : MonoBehaviour
     {
         indexButtonCatMax = 8;
         unchosenCount = 0;
-        Data.iaData.nbOrder = indexButtonCatMax;
 
         for (int ind = 0; ind < indexButtonCatMax; ind++)
         {
@@ -56,6 +57,8 @@ public class IASceneManager : MonoBehaviour
             gObjCast[ind].SetActive(false);
             gObjEnemiesNb[ind].SetActive(false);
             gObjEnemyClass[ind].SetActive(false);
+
+            gObjPourcentValue[ind].SetActive(false);
         }
     }
 
@@ -74,6 +77,8 @@ public class IASceneManager : MonoBehaviour
         gObjCast[ind].SetActive(false);
         gObjEnemiesNb[ind].SetActive(false);
         gObjEnemyClass[ind].SetActive(false);
+
+        gObjPourcentValue[ind].SetActive(false);
 
     }
 
@@ -96,6 +101,7 @@ public class IASceneManager : MonoBehaviour
             gObjEnemiesNb[ind] = GameObject.Find("CondEnemiesNb" + ind);
             gObjEnemyClass[ind] = GameObject.Find("CondEnemyClass" + ind);
 
+            gObjPourcentValue[ind] = GameObject.Find("PourcentValue" + ind);
         }
                 
         initAll();
@@ -103,6 +109,8 @@ public class IASceneManager : MonoBehaviour
     }
     public void CallbackApplyAndFarm()
     {
+        Data.iaData = new IaData(indexButtonCatMax);
+
         for (int line = 0; line < indexButtonCatMax; line++)
         {
             //Player's Health
@@ -111,10 +119,12 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.idCondition[line] = IaData.IaCondition.HEALTH;
 
                 //Stock value of %
-                Data.iaData.value[line] = System.Int32.Parse(GameObject.Find("CondHealth" + line +"/InputField").GetComponent<InputField>().text);
-                
+                Data.iaData.value[line] = gObjPourcentValue[line].GetComponent<Dropdown>().value;
+                Debug.Log("Data.iaData.value[line]: "+ Data.iaData.value[line]);
+
+                categoryDropdown1 = GameObject.Find("CondHealth" + line).GetComponent<Dropdown>();
                 //Test which sign has been chosen
-                if (GameObject.Find("CondHealth" + line + "/Dropdown").GetComponent<Dropdown>().value == 0)
+                if (categoryDropdown1.value == 0)
                 {
                     Data.iaData.idSigne[line] = 0;
                 }
@@ -122,7 +132,7 @@ public class IASceneManager : MonoBehaviour
                 {
                     Data.iaData.idSigne[line] = 1;
                 }
-
+                Debug.Log("Data.iaData.idSigne[line]: " + Data.iaData.idSigne[line]);
                 Debug.Log("gObjHealthBis[line].GetComponent<Dropdown>().value: "+ gObjHealthBis[line].GetComponent<Dropdown>().value);
                 //Stock which spell has been chosen
                 Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjHealthBis[line].GetComponent<Dropdown>().value];
@@ -135,8 +145,9 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.idCondition[line] = IaData.IaCondition.MANA;
 
                 //Stock value of %
-                Data.iaData.value[line] = System.Int32.Parse(GameObject.Find("CondMana" + line + "/InputField").GetComponent<InputField>().text);
-                Debug.Log("MANA: " + Data.iaData.value[line]);
+                Data.iaData.value[line] = gObjPourcentValue[line].GetComponent<Dropdown>().value;
+                Debug.Log("Data.iaData.value[line]: " + Data.iaData.value[line]);
+
                 //Test which sign has been chosen
                 if (GameObject.Find("CondMana" + line + "/Dropdown").GetComponent<Dropdown>().value == 0)
                 {
@@ -156,8 +167,9 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYHEALTH;
 
                 //Stock value of %
-                Data.iaData.value[line] = System.Int32.Parse(GameObject.Find("CondHealthEn" + line + "/InputField").GetComponent<InputField>().text);
-                Debug.Log("ENEMYHEALTH: " + Data.iaData.value[line]);
+                Data.iaData.value[line] = gObjPourcentValue[line].GetComponent<Dropdown>().value;
+                Debug.Log("Data.iaData.value[line]: " + Data.iaData.value[line]);
+
                 //Test which sign has been chosen
                 if (GameObject.Find("CondHealthEn" + line + "/Dropdown").GetComponent<Dropdown>().value == 0)
                 {
@@ -178,7 +190,8 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYMANA;
 
                 //Stock value of %
-                Data.iaData.value[line] = System.Int32.Parse(GameObject.Find("CondManaEn" + line + "/InputField").GetComponent<InputField>().text);
+                Data.iaData.value[line] = gObjPourcentValue[line].GetComponent<Dropdown>().value;
+                Debug.Log("Data.iaData.value[line]: " + Data.iaData.value[line]);
 
                 //Test which sign has been chosen
                 if (GameObject.Find("CondManaEn" + line + "/Dropdown").GetComponent<Dropdown>().value == 0)
@@ -261,6 +274,7 @@ public class IASceneManager : MonoBehaviour
                 switchCatCount++;
                 gObjHealth[line].SetActive(true);
                 gObjHealthBis[line].SetActive(true);
+                gObjPourcentValue[line].SetActive(true);
                             
             }
 
@@ -273,8 +287,9 @@ public class IASceneManager : MonoBehaviour
                 switchCatCount++;
                 gObjMana[line].SetActive(true);
                 gObjManaBis[line].SetActive(true);
-               
-            }
+                gObjPourcentValue[line].SetActive(true);
+
+        }
 
             //Enemy's Health
             if (categoryDropdown.value == 3)
@@ -283,6 +298,7 @@ public class IASceneManager : MonoBehaviour
 
                 gObjHealthEn[line].SetActive(true);
                 gObjHealthBisEn[line].SetActive(true);
+                gObjPourcentValue[line].SetActive(true);
                 switchCatCount++;
                             
             }
@@ -294,6 +310,7 @@ public class IASceneManager : MonoBehaviour
 
                 gObjManaEn[line].SetActive(true);
                 gObjManaBisEn[line].SetActive(true);
+                gObjPourcentValue[line].SetActive(true);
                 switchCatCount++;
 
             }

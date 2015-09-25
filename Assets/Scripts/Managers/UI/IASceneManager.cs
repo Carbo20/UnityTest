@@ -110,7 +110,7 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.idCondition[line] = IaData.IaCondition.HEALTH;
 
                 //Stock value of %
-                Data.iaData.value[line] = gObjPourcentValue[line].GetComponent<Dropdown>().value;
+                Data.iaData.value[line] = (gObjPourcentValue[line].GetComponent<Dropdown>().value)*10;
 
                 
                 //Test which sign has been chosen
@@ -123,8 +123,6 @@ public class IASceneManager : MonoBehaviour
                     Data.iaData.idSigne[line] = 1;
                 }
                 //Stock which spell has been chosen
-                Debug.Log("Indice  : " + gObjHealthBis[line].GetComponent<Dropdown>().value);
-                Debug.Log("Valeur du skill dropdown : " + Data.heroData.skillAvailable[gObjHealthBis[line].GetComponent<Dropdown>().value]);
                 Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjHealthBis[line].GetComponent<Dropdown>().value];
 
             }
@@ -135,7 +133,7 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.idCondition[line] = IaData.IaCondition.MANA;
 
                 //Stock value of %
-                Data.iaData.value[line] = gObjPourcentValue[line].GetComponent<Dropdown>().value;
+                Data.iaData.value[line] = gObjPourcentValue[line].GetComponent<Dropdown>().value*10;
 
                 //Test which sign has been chosen
                 if (gObjSign[line].GetComponent<Dropdown>().value == 0)
@@ -155,7 +153,7 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYHEALTH;
 
                 //Stock value of %
-                Data.iaData.value[line] = gObjPourcentValue[line].GetComponent<Dropdown>().value;
+                Data.iaData.value[line] = gObjPourcentValue[line].GetComponent<Dropdown>().value*10;
 
                 //Test which sign has been chosen
                 if (gObjSign[line].GetComponent<Dropdown>().value == 0)
@@ -177,7 +175,7 @@ public class IASceneManager : MonoBehaviour
                 Data.iaData.idCondition[line] = IaData.IaCondition.ENEMYMANA;
 
                 //Stock value of %
-                Data.iaData.value[line] = gObjPourcentValue[line].GetComponent<Dropdown>().value;
+                Data.iaData.value[line] = gObjPourcentValue[line].GetComponent<Dropdown>().value*10;
 
                 //Test which sign has been chosen
                 if (gObjSign[line].GetComponent<Dropdown>().value == 0)

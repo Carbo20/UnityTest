@@ -42,12 +42,13 @@ public class Hero {
         if (hp - damage > 0)
         {
             Hp = Hp - damage;
-            HealthSlider.value = Hp;
+            UpdateHealthBar();
             Debug.Log("hp :" + Hp);
         }
         else
         {
             hp = 0;
+            UpdateHealthBar();
             Death();
         }
     }
@@ -75,6 +76,7 @@ public class Hero {
     {
         if (Hp + hpAmount < HpMax) Hp = Hp + hpAmount;
         else Hp = HpMax;
+        UpdateHealthBar();
     }
 
     private void Death()
@@ -97,6 +99,11 @@ public class Hero {
     public void LevelUP()
     {
         Data.heroData.LevelUP();
+    }
+
+    private void UpdateHealthBar()
+    {
+        HealthSlider.value = Hp;
     }
 
     /*** Getter and Setter ***/

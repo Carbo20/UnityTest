@@ -24,7 +24,7 @@ public class EnemySkill  {
 
         /* Test for put all the method in testAction Array */
         actionList[(int)Data.EnemySkillType.ATTACK] = Attack;
-        actionList[(int)Data.EnemySkillType.FIREBALL] = FakeDebuffTest;
+        actionList[(int)Data.EnemySkillType.FIREBALL] = Attack;
     }
 
     public void UpdateEManager(EnemiesManager enemies)

@@ -32,9 +32,10 @@ public class IA
                 switch (Data.iaData.idCondition[i])
                 {
                     case IaData.IaCondition.HEALTH:
+                        Debug.Log("Resultat du calcul : " + hManager.hero.Hp * 100 / hManager.hero.HpMax);
+                        Debug.Log("Value : " + Data.iaData.value[i]);
                         if (hManager.hero.Hp * 100 / hManager.hero.HpMax >= Data.iaData.value[i]) // If Current HP > X%
                         {
-
                             DoAnAction(i);
                         }
                         break;
@@ -53,6 +54,8 @@ public class IA
                     case IaData.IaCondition.HEALTH:
                         if (hManager.hero.Hp * 100 / hManager.hero.HpMax <= Data.iaData.value[i]) // If Current HP < X%
                         {
+                            Debug.Log("Hp when Heal : " + hManager.hero.Hp);
+                            Debug.Log("HpMax when Heal : " + hManager.hero.HpMax);
                             DoAnAction(i);
                         }
                         break;

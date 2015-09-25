@@ -31,7 +31,7 @@ public class Hero {
         isReady = false;
         isDead = false;
         HealthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
-
+        HealthSlider.maxValue = Data.heroData.hpMax;
         hp = (hp / 2) - 1;
     }
 

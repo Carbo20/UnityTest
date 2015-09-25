@@ -19,14 +19,7 @@ public class IA
         //Data.iaData.nbOrder = 8; // [TODO] Important to fixe it when we will have a dynamic nbOrder
         
         isValid = false;
-
-
-        /* Testing value for the moment 
-        Data.iaData.value[0] = 50;
-        Data.iaData.idTarget[0] = 0;
-        Data.iaData.idCondition[0] = IaData.IaCondition.HEALTH;
-        Data.iaData.idSkill[0] = Data.SkillType.ATTACK;
-        Data.iaData.idSigne[0] = 0; */
+        
     }
 
 

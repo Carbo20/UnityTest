@@ -59,15 +59,11 @@ public class LevelManager : MonoBehaviour {
         }
         if (hManager.hero.IsReady)
         {
-            /*[TODO] A lot of stuff
-            curently a testing stuff*/
-
+            /* Here we compute the IA to know wich skill the hero will use */
             ia.ConditionComputation();
 
-            /* End of the testing stuff */
-
             /*Use here the result of the IA computation to do something*/
-            eManager.enemyList[0].enemy.TakeDamage(hManager.hero.DoDammage(2));
+            Debug.Log("Hero Life : " + hManager.hero.Hp);
             enemyTextBar1.text = "-"+hManager.hero.DoDammage(2).ToString();
             hManager.hero.IsReady = false;
         }
@@ -89,18 +85,5 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-
-
-    public EnemiesManager EManager
-    {
-        get
-        {
-            return eManager;
-        }
-
-        set
-        {
-            eManager = value;
-        }
-    }
+    
 }

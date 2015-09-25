@@ -23,7 +23,7 @@ public class EnemySkill  {
         actionList = new Action[10];
 
         /* Test for put all the method in testAction Array */
-        actionList[(int)Data.EnemySkillType.ATTACK] = FakeBuffTest;
+        actionList[(int)Data.EnemySkillType.ATTACK] = Attack;
         actionList[(int)Data.EnemySkillType.FIREBALL] = FakeDebuffTest;
     }
 
@@ -54,6 +54,11 @@ public class EnemySkill  {
 
     /*Here we have to place all the skill methods*/
 
+    public void Attack()
+    {
+        hManager.hero.TakeDamage(eManager.enemyList[idEnemyWhoCast].enemy.DoDamage());
+    }
+
     public void FakeBuffTest()
     {
         Debug.Log("Skill 1");
@@ -63,5 +68,6 @@ public class EnemySkill  {
     {
         Debug.Log("Skill 2");
     }
+
 
 }

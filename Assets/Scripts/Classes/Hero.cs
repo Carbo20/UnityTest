@@ -36,9 +36,10 @@ public class Hero {
     public void TakeDamage(int damage)
     {
         /*[TODO] Put TakeDamage Animation here*/
-        Hp = Hp - damage;
-        if(Hp < 0)
+        if(hp - damage > 0)Hp = Hp - damage;
+        else
         {
+            hp = 0;
             Death();
         }
     }
@@ -58,12 +59,20 @@ public class Hero {
     public void RegainMana(int manaAmount)
     {
         /*[TODO]Put RegainMana animation here*/
-        mana = mana + manaAmount;
+        if (mana + manaAmount < ManaMax) mana = mana + manaAmount;
+        else mana = ManaMax;
+    }
+
+    public void RegainHp(int hpAmount)
+    {
+        if (Hp + hpAmount < HpMax) Hp = Hp + hpAmount;
+        else Hp = HpMax;
     }
 
     private void Death()
     {
         isDead = true;
+        //[TODO] Put the death animation here
         //[TODO] if we have to do something when the hero die
     }
 

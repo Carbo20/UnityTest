@@ -49,6 +49,7 @@ public class HeroData {
         /* Initialisation of skillAvailable juste for the begining of the game */
         skillAvailable[0] = Data.SkillType.ATTACK;
         skillAvailable[1] = Data.SkillType.FIREBALL;
+        skillAvailable[2] = Data.SkillType.HEAL;
     }
 
     public void LevelUP()

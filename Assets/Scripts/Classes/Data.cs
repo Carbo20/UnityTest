@@ -30,7 +30,7 @@ public class Data {
 
     //[TODO] To complete enum of action
 
-    public enum SkillType {ATTACK, USEITEM, TESTSKILL, FIREBALL } //Complete with all the skill
+    public enum SkillType {ATTACK, USEITEM, TESTSKILL, FIREBALL, HEAL } //Complete with all the skill
 
     public enum EnemySkillType {ATTACK, FIREBALL } // Complete with all the monster skill
 

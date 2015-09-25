@@ -25,6 +25,7 @@ public class Skill {
         actionList[(int)Data.SkillType.ATTACK] = FakeBuffTest;
         actionList[(int)Data.SkillType.TESTSKILL] = FakeDebuffTest;
         actionList[(int)Data.SkillType.FIREBALL] = FakeFireBall;
+        actionList[(int)Data.SkillType.HEAL] = Heal;
     }
 
     public void UpdateEManager(EnemiesManager enemies)
@@ -37,7 +38,7 @@ public class Skill {
     public void FakeFireBall()
     {
 
-        int FireBallDammage = 2;
+        int FireBallDammage = 5;
         int FireBallMana = 15;
 
         /*Example for skill wich could be up by a legendary item
@@ -56,6 +57,11 @@ public class Skill {
 
     /*Here we have to place all the skill methods*/
 
+    public void Attack()
+    {
+        eManager.enemyList[idTarget - 1].enemy.TakeDamage(hManager.hero.DoDammage(2));
+    }
+
     public void FakeBuffTest()
     {
         hManager.hero.Agility += 3;
@@ -66,7 +72,12 @@ public class Skill {
         eManager.enemyList[0].enemy.Strenght--;
     }
 
-  
+    public void Heal()
+    {
+        int healAmount = 10;
+
+        hManager.hero.RegainHp(healAmount);
+    }
 
     /* Getter and Setter*/
 

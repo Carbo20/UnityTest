@@ -32,6 +32,8 @@ public class Enemy
         this.agility = agility;
         this.vitality = vitality;
 
+        damage = 2;
+
         isReady = false;
         isDead = false;
         isCasting = false;
@@ -39,6 +41,7 @@ public class Enemy
 
     public void TakeDamage(int damage)
     {
+        Debug.Log("Enemy hp : " + hp);
         Hp = Hp - damage;
         if(Hp <= 0)
         {

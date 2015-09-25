@@ -14,9 +14,9 @@ public class EnemiesManager : MonoBehaviour {
         GameObject enemy = Instantiate(Resources.Load("Prefabs/Monsters/Mumy")) as GameObject;
         eManager = enemy.GetComponent<EnemyManager>();
         enemyList.Add(eManager);
-        GameObject enemy2 = Instantiate(Resources.Load("Prefabs/Monsters/Mumy")) as GameObject;
+        /*GameObject enemy2 = Instantiate(Resources.Load("Prefabs/Monsters/Mumy")) as GameObject;
         eManager = enemy2.GetComponent<EnemyManager>();
-        enemyList.Add(eManager);
+        enemyList.Add(eManager);*/
     }
 	
 	// Update is called once per frame
@@ -42,7 +42,6 @@ public class EnemiesManager : MonoBehaviour {
 
         if(enemyList.Count == 0) // Destroy the EnemiesManager if all enemies are dead
         {
-            Debug.Log("EnemiesManager est détruit");
             Destroy(gameObject);
         }
 

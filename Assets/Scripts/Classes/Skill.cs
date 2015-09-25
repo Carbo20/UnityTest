@@ -37,7 +37,7 @@ public class Skill {
     public void FakeFireBall()
     {
 
-        int FireBallDammage = 20;
+        int FireBallDammage = 2;
         int FireBallMana = 15;
 
         /*Example for skill wich could be up by a legendary item

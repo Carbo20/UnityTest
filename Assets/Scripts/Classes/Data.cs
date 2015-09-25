@@ -44,7 +44,7 @@ public class Data {
 
     public static int showItemId = 5;
     public static int nbOrder;
-    public static IaData iaData ;
+    public static IaData iaData = new IaData();
 
     public static int HeroStatsCount = 6;
     

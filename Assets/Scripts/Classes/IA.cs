@@ -16,7 +16,7 @@ public class IA
         eManager = _eManager;
         skill = _skill;
         
-        Data.iaData.nbOrder = 8; // [TODO] Important to fixe it when we will have a dynamic nbOrder
+        //Data.iaData.nbOrder = 8; // [TODO] Important to fixe it when we will have a dynamic nbOrder
         
         isValid = false;
 
@@ -104,7 +104,9 @@ public class IA
 
     public void DoAnAction(int i)
     {
-        skill.IdTarget = Data.iaData.idTarget[i];
+        skill.IdTarget = 1; // Here waiting the change for the bottom line
+        //skill.IdTarget = Data.iaData.idTarget[i]; [TODO] Change this or put it into the IaScene
+        Debug.Log((int)Data.iaData.idSkill[i]);
         skill.actionList[(int)Data.iaData.idSkill[i]]();
         isValid = true;
         Debug.Log("Do an action : " + Data.iaData.idSkill[i]);

@@ -99,7 +99,6 @@ public class IASceneManager : MonoBehaviour
     }
     public void CallbackApplyAndFarm()
     {
-        Data.iaData = new IaData(indexButtonCatMax);
         
         for (int line = 0; line < indexButtonCatMax; line++)
         {

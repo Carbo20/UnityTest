@@ -47,8 +47,8 @@ public class HeroData {
         legendaryEffectAvailable = new List<Data.LegendaryEffect>();
 
         /* Initialisation of skillAvailable juste for the begining of the game */
-        Data.heroData.skillAvailable[0] = Data.SkillType.ATTACK;
-        Data.heroData.skillAvailable[1] = Data.SkillType.FIREBALL;
+        skillAvailable[0] = Data.SkillType.ATTACK;
+        skillAvailable[1] = Data.SkillType.FIREBALL;
     }
 
     public void LevelUP()

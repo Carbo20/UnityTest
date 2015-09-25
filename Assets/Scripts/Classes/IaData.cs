@@ -12,10 +12,9 @@ public class IaData
     public int[] idSigne; // 0 for >, 1 for < and -1 for nothing;
     public int nbOrder; // Number of Order line into the IA 
 
-    public IaData(int _nbOrder)
+    public IaData()
     {
-        //nbOrder = 8; //Testing Value
-        nbOrder = _nbOrder;
+        nbOrder = 8; //Testing Value
         value = new int[nbOrder];
         idTarget = new int[nbOrder];
         idCondition = new IaCondition[nbOrder];

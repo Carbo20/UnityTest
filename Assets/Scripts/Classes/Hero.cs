@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class Hero {
 
@@ -9,6 +10,7 @@ public class Hero {
 
     private bool isReady;
     private bool isDead;
+    private Slider HealthSlider;
     
 
     public Hero(int _hp,int _mana,int _strenght,int _inteligence, int _agility, int _vitality)
@@ -28,15 +30,21 @@ public class Hero {
         Data.heroData.xpForNextLevel = 50; // [TODO] Maybe we have to search into a list wich amount of xp we need for the next lvl
         isReady = false;
         isDead = false;
-
+        HealthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
 
         hp = (hp / 2) - 1;
     }
 
     public void TakeDamage(int damage)
     {
+
         /*[TODO] Put TakeDamage Animation here*/
-        if(hp - damage > 0)Hp = Hp - damage;
+        if (hp - damage > 0)
+        {
+            Hp = Hp - damage;
+            HealthSlider.value = Hp;
+            Debug.Log("hp :" + Hp);
+        }
         else
         {
             hp = 0;

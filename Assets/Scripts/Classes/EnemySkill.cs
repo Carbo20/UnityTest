@@ -2,19 +2,16 @@
 using System.Collections;
 using System;
 
-public class EnemySkill  {
-
+public class EnemySkill
+{
     private HeroManager hManager; //Reference toward the hero
     private EnemiesManager eManager;
 
     public Action[] actionList;
 
-
-
     /*We can't use parameters with action, so i decide to stock them here*/
     private int idTarget;
     private int idEnemyWhoCast;
-
 
     public EnemySkill(HeroManager _hero, EnemiesManager _enemies)
     {
@@ -42,13 +39,13 @@ public class EnemySkill  {
     public void FakeFireBall()
     {
 
-        int FireBallDammage = 20;
+        int FireBallDammage = 50;
         int FireBallMana = 15;
 
         /*[TODO] Put a fireball animation here
           [TODO] Change this part of the code to be usable by ennemies*/
-        eManager.enemyList[idTarget - 1].enemy.TakeDamage(FireBallDammage);
-        hManager.hero.UseMana(FireBallMana);
+        hManager.hero.TakeDamage(FireBallDammage, eManager.enemyList[idEnemyWhoCast].enemy.Level);
+        eManager.enemyList[idEnemyWhoCast].enemy.UseMana(FireBallMana);
 
     }
 
@@ -56,7 +53,7 @@ public class EnemySkill  {
 
     public void Attack()
     {
-        hManager.hero.TakeDamage(eManager.enemyList[idEnemyWhoCast].enemy.DoDamage());
+        hManager.hero.TakeDamage(eManager.enemyList[idEnemyWhoCast].enemy.DoDamage(), eManager.enemyList[idEnemyWhoCast].enemy.Level);
     }
 
     public void FakeBuffTest()
@@ -68,6 +65,4 @@ public class EnemySkill  {
     {
         Debug.Log("Skill 2");
     }
-
-
 }

@@ -50,7 +50,7 @@ public class Skill {
         }
 
         /*[TODO] Put a fireball animation here*/
-        eManager.enemyList[idTarget - 1].enemy.TakeDamage(FireBallDammage);
+        eManager.enemyList[idTarget - 1].enemy.TakeDamage(FireBallDammage, 2); // TODO add hero's level instead of 2
         hManager.hero.UseMana(FireBallMana);
 
     }
@@ -59,7 +59,7 @@ public class Skill {
 
     public void Attack()
     {
-        eManager.enemyList[idTarget - 1].enemy.TakeDamage(hManager.hero.DoDammage(2));
+        eManager.enemyList[idTarget - 1].enemy.TakeDamage(hManager.hero.DoDammage(2), 2); // TODO add hero's level instead of 2
     }
 
     public void FakeBuffTest()

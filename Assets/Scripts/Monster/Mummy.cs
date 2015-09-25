@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Mummy : EnemyStatus {
+public class Mummy : EnemyStatus
+{
 
     public override void InitStatus()
     {
-        HpMax = 10;
+        Level = 2;
+        HpMax = 20;
         ManaMax = 30;
 
         RegenHp = 2;
@@ -37,7 +39,7 @@ public class Mummy : EnemyStatus {
         Data.EnemySkillType idSkill;
 
         int rnd = Random.Range(0, 2);
-        
+
 
         idSkill = SkillAvailable[rnd];
         return idSkill;

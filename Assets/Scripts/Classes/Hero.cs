@@ -2,7 +2,8 @@
 using System;
 using UnityEngine.UI;
 
-public class Hero {
+public class Hero
+{
 
     /* Principal Hero variable*/
     private int hp;
@@ -11,9 +12,9 @@ public class Hero {
     private bool isReady;
     private bool isDead;
     private Slider HealthSlider;
-    
 
-    public Hero(int _hp,int _mana,int _strenght,int _inteligence, int _agility, int _vitality)
+
+    public Hero(int _hp, int _mana, int _strenght, int _inteligence, int _agility, int _vitality)
     {
         hp = _hp;
         Data.heroData.hpMax = _hp;
@@ -35,13 +36,21 @@ public class Hero {
         hp = (hp / 2) - 1;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, int ennemyLevel)
     {
+        float damageReduc;
+        int trueDamage;
 
+        // TODO : don't forget to take dodge into account wherever takeDamage is called
         /*[TODO] Put TakeDamage Animation here*/
-        if (hp - damage > 0)
+
+        // Armor/EnnemyLevel
+        damageReduc = Data.heroData.armor / ennemyLevel;
+        trueDamage = (int)(damage * (1 - damageReduc));
+
+        if (Hp - trueDamage > 0)
         {
-            Hp = Hp - damage;
+            Hp = Hp - trueDamage;
             UpdateHealthBar();
             Debug.Log("hp :" + Hp);
         }

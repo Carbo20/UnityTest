@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class EnemyStatus : MonoBehaviour {
-    
+public abstract class EnemyStatus : MonoBehaviour
+{
+
+    private int level;
     private int hpMax;
     private int manaMax;
     private int hp;
@@ -266,6 +268,19 @@ public abstract class EnemyStatus : MonoBehaviour {
         set
         {
             skillAvailable = value;
+        }
+    }
+
+    public int Level
+    {
+        get
+        {
+            return level;
+        }
+
+        set
+        {
+            level = value;
         }
     }
 }

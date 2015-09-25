@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyManager : MonoBehaviour {
+public class EnemyManager : MonoBehaviour
+{
 
     public Enemy enemy;
 
@@ -15,28 +16,30 @@ public class EnemyManager : MonoBehaviour {
     {
         monsterStatus = GetComponent<EnemyStatus>();
         monsterStatus.InitStatus();
-        enemy = new Enemy(monsterStatus.HpMax, monsterStatus.ManaMax, monsterStatus.Strenght, monsterStatus.Intelligence, monsterStatus.Agility, monsterStatus.Vitality);
+        enemy = new Enemy(monsterStatus.Level, monsterStatus.HpMax, monsterStatus.ManaMax, monsterStatus.Strenght, monsterStatus.Intelligence, monsterStatus.Agility, monsterStatus.Vitality);
     }
 
     // Use this for initialization
-    void Start () {
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
         if (enemy.IsDead)
         {
             Debug.Log("I Diiiie !");
             Destroy(gameObject);
         }
-        
+
     }
-    
+
     public Data.EnemySkillType DoAnAction()
     {
-       return monsterStatus.DoAnAction();
+        return monsterStatus.DoAnAction();
     }
 
     public float EnemyDeltaTime

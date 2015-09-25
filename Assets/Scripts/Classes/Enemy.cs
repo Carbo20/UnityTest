@@ -5,6 +5,7 @@ public class Enemy
 {
 
     /* Principal Enemy variable*/
+    private int level;
     private int hp;
     private int mana;
     private int strenght;
@@ -23,30 +24,48 @@ public class Enemy
     private bool isDead;
     private bool isCasting;
 
-    public Enemy(int hp, int mana, int strenght, int inteligence, int agility, int vitality)
+    public Enemy(int _level, int _hp, int _mana, int _strenght, int _inteligence, int _agility, int _vitality)
     {
-        this.hp = hp;
-        this.mana = mana;
-        this.strenght = strenght;
-        this.inteligence = inteligence;
-        this.agility = agility;
-        this.vitality = vitality;
+        Level = _level;
+        hp = _hp;
+        mana = _mana;
+        strenght = _strenght;
+        inteligence = _inteligence;
+        agility = _agility;
+        vitality = _vitality;
 
-        damage = 2;
+        damage = 27;
 
         isReady = false;
         isDead = false;
         isCasting = false;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, int heroLevel)
     {
+        float damageReduc;
+        int trueDamage;
+
         Debug.Log("Enemy hp : " + hp);
-        Hp = Hp - damage;
-        if(Hp <= 0)
+
+        // TODO : don't forget to take dodge into account wherever takeDamage is called
+        /*[TODO] Put TakeDamage Animation here*/
+
+        // Armor/heroLevel
+        damageReduc = Data.heroData.armor / heroLevel;
+        trueDamage = (int)(damage * (1 - damageReduc));
+
+        Hp = Hp - trueDamage;
+        if (Hp <= 0)
         {
             Death();
         }
+    }
+
+    public void UseMana(int manaAmount)
+    {
+        /*[TODO]Put LostMana animation here*/
+        mana = mana - manaAmount;
     }
 
     public int DoDamage()
@@ -241,6 +260,19 @@ public class Enemy
         set
         {
             isCasting = value;
+        }
+    }
+
+    public int Level
+    {
+        get
+        {
+            return level;
+        }
+
+        set
+        {
+            level = value;
         }
     }
 }

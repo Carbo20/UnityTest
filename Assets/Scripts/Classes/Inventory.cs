@@ -1,5 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Serialization;
 
+[Serializable()]
 public class Inventory {
 
     public List<List<Item>> items;
@@ -197,18 +202,19 @@ public class Inventory {
     }
 
     //TODO
-    /*
-     public void LoadInventoryFromXML()
-     {
-      
-     }
-     */
+ 
 
     //TODO
-    /*
-     public void SaveInventoryFromXML()
+    
+     public void SaveInventoryFromXML(string path)
      {
-      
+         /*FileStream fs = new FileStream(path, FileMode.Create);
+         XmlSerializer xs = new XmlSerializer(GetType());
+         xs.Serialize(fs, this);*/
+         Stream stream = File.Create(path);
+         BinaryFormatter serializer = new BinaryFormatter();
+         serializer.Serialize(stream, this);
+         stream.Close();
      }
-     */
+     
 }

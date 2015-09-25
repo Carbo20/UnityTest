@@ -4,6 +4,8 @@ using System.Xml;
 using System.IO;
 using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class LoadingSceneManager : MonoBehaviour {
 
@@ -18,6 +20,7 @@ public class LoadingSceneManager : MonoBehaviour {
         LoadHeroData();
         LoadSprites();
         LoadItemsData();
+        LoadInventoryFromXML();
         ready = 0;
        // Debug.Log(Data.listOfItems);
 	}
@@ -71,7 +74,7 @@ public class LoadingSceneManager : MonoBehaviour {
                     case "ARMOR"         : Data.heroData.armor          = Int32.Parse(stat.InnerText); break;
                 }
             }
-
+            
             Data.heroData.LevelUP();
         }
     }
@@ -111,5 +114,22 @@ public class LoadingSceneManager : MonoBehaviour {
 
             Data.listOfItems[it.GetHashCode()].Add(new ItemData(name, id, desc, st, it));
         }
+        
     }
+
+   
+     public void LoadInventoryFromXML()
+     {
+         /*FileStream fs = new FileStream("inventory.xml", FileMode.Open);
+         XmlSerializer x = new XmlSerializer(typeof(Inventory));
+         Data.inventory = (Inventory)x.Deserialize(fs);*/
+         if (File.Exists("inventory"))
+         {
+             Stream stream = File.OpenRead("inventory");
+             BinaryFormatter deserializer = new BinaryFormatter();
+             Data.inventory = (Inventory)deserializer.Deserialize(stream);
+             stream.Close();
+         }
+     }
+     
 }

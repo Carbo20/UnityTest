@@ -7,6 +7,7 @@ using System.Collections.Generic;
 /// AUTHOR : Lucky
 ///                             
 /// </summary>
+[Serializable()]
 public class Item
 {
     /* Item's Variables */
@@ -22,7 +23,39 @@ public class Item
     private Data.ItemType itemType;
     private Data.ItemQuality itemQuality;
     private ItemData itemData;
+
+    public ItemData ItemData
+    {
+        get { return itemData; }
+        set { itemData = value; }
+    }
     private Data.LegendaryEffect legendaryEffect;
+
+    public Item()
+    {
+        attackValue = 0;
+        armor = 0;
+        cdAttack = 0;
+
+        strenBonus = 0;
+        intelBonus = 0;
+        agiBonus = 0;
+        vitalBonus = 0;
+        attackBonus = 0;
+        spellBonus = 0;
+        manaBonus = 0;
+        healthBonus = 0;
+        cdAttackBonus = 0;
+        castTimeBonus = 0;
+        regenManaBonus = 0;
+        regenHealthBonus = 0;
+        dodgeBonus = 0;
+        critBonus = 0;
+        LegendaryEffect = Data.LegendaryEffect.NONE;
+        level = 1;
+        GenerateItem(level, 0);
+        itemData = new ItemData();
+    }
 
     public Item(int _level, int _magicFind)
     {

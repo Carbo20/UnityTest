@@ -13,7 +13,7 @@ public class TitleScreenManager : MonoBehaviour {
 
         if (Input.touchCount > 0)
         {
-            Application.LoadLevel("MainMenu");
+            Application.LoadLevel("loadingScene");
         }
 	}
 }

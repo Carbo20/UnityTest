@@ -14,7 +14,7 @@ public class IaData
 
     public IaData()
     {
-        nbOrder = 8; //Testing Value
+        nbOrder = Data.heroData.nbIAOrderAvailable; 
         value = new int[nbOrder];
         idTarget = new int[nbOrder];
         idCondition = new IaCondition[nbOrder];

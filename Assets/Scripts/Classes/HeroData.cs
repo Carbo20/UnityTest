@@ -34,6 +34,7 @@ public class HeroData {
     public float cdAttackBonusTotal;
 
     public int nbSkillAvailable;
+    public int nbIAOrderAvailable;
 
     public int xp;
     public int xpForNextLevel;
@@ -46,6 +47,7 @@ public class HeroData {
     {
         //[TODO] update dat stuff!
         nbSkillAvailable = 6;
+        nbIAOrderAvailable = 3;
         skillAvailable = new Data.SkillType[nbSkillAvailable];
 
         legendaryEffectAvailable = new List<Data.LegendaryEffect>();

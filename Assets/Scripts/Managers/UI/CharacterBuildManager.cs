@@ -35,12 +35,12 @@ public class CharacterBuildManager : MonoBehaviour {
         heroStatsDraws = false;
         itemDescriptionDraws = false;
         //just for test
-       /* for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 100; i++)
         {
             it = new Item(UnityEngine.Random.Range(1, 101), 0);
             Data.inventory.items[it.SlotType.GetHashCode()].Add(it);
         }
-        */
+        
         //
 
 
@@ -681,6 +681,7 @@ public class CharacterBuildManager : MonoBehaviour {
         {
             Data.inventory.Equip(selectedSlotType, selectedItem);
             Data.inventory.SaveInventory("inventory");
+            Data.heroData.SaveHeroData();
             updateHeroEquipement();
             updateItemList();
             updateItemDesc();

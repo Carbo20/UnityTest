@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System;
 
+[Serializable()]
 public class HeroData {
 
     /* Principal Hero variable*/
@@ -67,4 +71,29 @@ public class HeroData {
     {
         cdAttackModified = cdAttackBase - (cdAttackBase * cdAttackBonusTotal);
     }
+
+    public void SaveHeroData()
+    {
+        Stream stream = File.Create("heroData");
+        BinaryFormatter serializer = new BinaryFormatter();
+        serializer.Serialize(stream, this);
+        stream.Close();
+    }
+
+    public void LoadHeroData()
+    {
+        if (File.Exists("heroData"))
+        {
+            Stream stream = File.OpenRead("heroData");
+            BinaryFormatter deserializer = new BinaryFormatter();
+            Data.heroData = (HeroData)deserializer.Deserialize(stream);
+            stream.Close();
+        }
+        else
+        {
+            LevelUP();
+            SaveHeroData();
+        }
+    }
+
 }

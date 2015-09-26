@@ -46,37 +46,7 @@ public class LoadingSceneManager : MonoBehaviour {
 
     void LoadHeroData()
     {
-        XmlDocument xmlDoc = new XmlDocument(); 
-        xmlDoc.Load(heroDataXMLFilename);
-        XmlNodeList heroStats = xmlDoc.GetElementsByTagName("ooo_row");
-
-        foreach (XmlNode heroStat in heroStats)
-        {
-            XmlNodeList stats = heroStat.ChildNodes;
-
-            foreach (XmlNode stat in stats)
-            {
-                switch (stat.Name)
-                {
-                    case "HPMAX"         : Data.heroData.hpMax          = Int32.Parse(stat.InnerText); break;
-                    case "MANAMAX"       : Data.heroData.manaMax        = Int32.Parse(stat.InnerText); break;
-                    case "STRENGHT"      : Data.heroData.strenght       = Int32.Parse(stat.InnerText); break;
-                    case "INTELLIGENCE"  : Data.heroData.intelligence   = Int32.Parse(stat.InnerText); break;
-                    case "AGILITY"       : Data.heroData.agility        = Int32.Parse(stat.InnerText); break;
-                    case "VITALITY"      : Data.heroData.vitality       = Int32.Parse(stat.InnerText); break;
-                    case "DAMAGE"        : Data.heroData.damage         = Int32.Parse(stat.InnerText); break;
-                    case "SPELLDAMAGE"   : Data.heroData.spellDamage    = Int32.Parse(stat.InnerText); break;
-                    case "DODGE"         : Data.heroData.dodge          = float.Parse(stat.InnerText); break;
-                    case "CRITICAL"      : Data.heroData.critical       = float.Parse(stat.InnerText); break;
-                    case "XP"            : Data.heroData.xp             = Int32.Parse(stat.InnerText); break;
-                    case "XPFORNEXTLEVEL": Data.heroData.xpForNextLevel = Int32.Parse(stat.InnerText); break;
-                    case "LEVEL"         : Data.heroData.level          = Int32.Parse(stat.InnerText); break;
-                    case "ARMOR"         : Data.heroData.armor          = Int32.Parse(stat.InnerText); break;
-                }
-            }
-            
-            Data.heroData.LevelUP();
-        }
+        Data.heroData.LoadHeroData();
     }
 
     void LoadItemsData()

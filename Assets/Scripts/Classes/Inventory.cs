@@ -201,16 +201,9 @@ public class Inventory {
 
     }
 
-    //TODO
- 
-
-    //TODO
-    
      public void SaveInventory(string path)
      {
-         /*FileStream fs = new FileStream(path, FileMode.Create);
-         XmlSerializer xs = new XmlSerializer(GetType());
-         xs.Serialize(fs, this);*/
+
          Stream stream = File.Create(path);
          BinaryFormatter serializer = new BinaryFormatter();
          serializer.Serialize(stream, this);

@@ -47,7 +47,5 @@ public class Data {
     public static IaData iaData = new IaData();
 
     public static int HeroStatsCount = 6;
-    
-    
-    
+   
 }

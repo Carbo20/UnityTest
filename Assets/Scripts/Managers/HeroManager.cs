@@ -14,7 +14,7 @@ public class HeroManager : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        hero = new Hero(10,10,2,2,2,2);
+        hero = new Hero(Data.heroData.hpMax, Data.heroData.manaMax,2,2,2,2);
         heroActionStatus = null;
 	}
 	

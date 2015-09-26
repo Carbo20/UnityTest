@@ -11,13 +11,15 @@ public class CharacterBuildManager : MonoBehaviour {
     //public List<Sprite> sprites;
     public Sprite redCrossSprite;
     RectTransform contentRectTransform;
-    Text LVLTxt, ATKTxt, ATStxt, DEFTxt;
+    Text LVLTxt, ATKTxt, CDtxt, DEFTxt;
     Color lowerSTATColor, upperSTATColor, equalSTATColor;
-    private GameObject heroStat, heroEquip, itemStat, itemDesc;
+    private GameObject heroStat, heroEquip, itemStat, itemDesc, itemBonus;
+    Image itemSelectIcon, dot0, dot1, dot2;
     private Text LVLStat, XPStat, HPStat, MANAStat, STRStat, INTStat, AGIStat, VITStat, DMGStat, SPDMGStat, DODStat, CRITStat, SPEStat, ARMORStat;
     bool heroStatTextLoad;
     bool heroStatsDraws;
     bool itemDescriptionDraws;
+    int itemDescState;
     //just for test
     Item it;
     
@@ -34,13 +36,14 @@ public class CharacterBuildManager : MonoBehaviour {
         equalSTATColor = Color.black;
         heroStatsDraws = false;
         itemDescriptionDraws = false;
+        itemDescState = 1;
         //just for test
-        for (int i = 0; i < 100; i++)
+        /*for (int i = 0; i < 100; i++)
         {
             it = new Item(UnityEngine.Random.Range(1, 101), 0);
             Data.inventory.items[it.SlotType.GetHashCode()].Add(it);
         }
-        
+        */
         //
 
 
@@ -55,9 +58,13 @@ public class CharacterBuildManager : MonoBehaviour {
     {
         heroStat  = GameObject.Find("Canvas/Canvas/HeroStats");
         itemDesc = GameObject.Find("Canvas/Canvas/Inventory/ItemDescriptionPanel");
+        itemBonus = GameObject.Find("Canvas/Canvas/Inventory/ItemStatBonusPanel");
         heroEquip = GameObject.Find("Hero");
         itemStat  = GameObject.Find("ItemStatPanel");
-
+        itemSelectIcon = GameObject.Find("SelectedItemIcon").GetComponent<Image>();
+        dot0 = GameObject.Find("Dot0").GetComponent<Image>();
+        dot1 = GameObject.Find("Dot1").GetComponent<Image>();
+        dot2 = GameObject.Find("Dot2").GetComponent<Image>();
     }
     void initHeroStatTxt()
     {
@@ -86,7 +93,7 @@ public class CharacterBuildManager : MonoBehaviour {
     {
         LVLTxt = GameObject.Find("LVLValueText").GetComponent<Text>();
         ATKTxt = GameObject.Find("ATKValueText").GetComponent<Text>();
-        ATStxt = GameObject.Find("ATSValueText").GetComponent<Text>();
+        CDtxt = GameObject.Find("CDValueText").GetComponent<Text>();
         DEFTxt = GameObject.Find("DEFValueText").GetComponent<Text>();
         initHeroStatTxt();
     }
@@ -215,7 +222,7 @@ public class CharacterBuildManager : MonoBehaviour {
 
     private void updateItemDesc()
     {
-        if (!itemDescriptionDraws) return;
+        if (itemDescState != 2) return;
 
         if (Data.inventory.items[selectedSlotType.GetHashCode()].Count > selectedItem)
         {
@@ -232,13 +239,14 @@ public class CharacterBuildManager : MonoBehaviour {
     /// </summary>
     private void updateItemStat()
     {
-        if (itemDescriptionDraws) return;
+        if (itemDescState != 1) return;
 
         if (Data.inventory.items[selectedSlotType.GetHashCode()].Count > selectedItem)
         {
             GameObject.Find("ItemNameText").GetComponent<Text>().text = Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Name;
             GameObject.Find("LVLValueText").GetComponent<Text>().text = Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Level.ToString();
-
+            itemSelectIcon.enabled = true;
+            itemSelectIcon.sprite = Data.sprites[Data.inventory.items[(int)selectedSlotType][selectedItem].SpriteID];
 
             switch (selectedSlotType)
             {
@@ -248,7 +256,7 @@ public class CharacterBuildManager : MonoBehaviour {
                     {
                         LVLTxt.color = upperSTATColor;
                         ATKTxt.color = upperSTATColor;
-                        ATStxt.color = upperSTATColor;
+                        CDtxt.color = upperSTATColor;
                         DEFTxt.color = upperSTATColor;
                         break;
                     }
@@ -268,11 +276,11 @@ public class CharacterBuildManager : MonoBehaviour {
                         ATKTxt.color = equalSTATColor;
 
                     if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].CdAttack < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HeadItemID].CdAttack)
-                        ATStxt.color = upperSTATColor;
+                        CDtxt.color = upperSTATColor;
                     else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].CdAttack > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HeadItemID].CdAttack)
-                        ATStxt.color = lowerSTATColor;
+                        CDtxt.color = lowerSTATColor;
                     else
-                        ATStxt.color = equalSTATColor;
+                        CDtxt.color = equalSTATColor;
 
                     if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HeadItemID].Armor)
                         DEFTxt.color = upperSTATColor;
@@ -288,7 +296,7 @@ public class CharacterBuildManager : MonoBehaviour {
                     {
                         LVLTxt.color = upperSTATColor;
                         ATKTxt.color = upperSTATColor;
-                        ATStxt.color = upperSTATColor;
+                        CDtxt.color = upperSTATColor;
                         DEFTxt.color = upperSTATColor;
                         break;
                     }
@@ -308,11 +316,11 @@ public class CharacterBuildManager : MonoBehaviour {
                         ATKTxt.color = equalSTATColor;
                     
                     if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].CdAttack < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.ChestItemID].CdAttack)
-                        ATStxt.color = upperSTATColor;
+                        CDtxt.color = upperSTATColor;
                     else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].CdAttack > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.ChestItemID].CdAttack)
-                        ATStxt.color = lowerSTATColor;
+                        CDtxt.color = lowerSTATColor;
                     else
-                        ATStxt.color = equalSTATColor;
+                        CDtxt.color = equalSTATColor;
                                         
                     if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.ChestItemID].Armor)
                         DEFTxt.color = upperSTATColor;
@@ -328,7 +336,7 @@ public class CharacterBuildManager : MonoBehaviour {
                     {
                         LVLTxt.color = upperSTATColor;
                         ATKTxt.color = upperSTATColor;
-                        ATStxt.color = upperSTATColor;
+                        CDtxt.color = upperSTATColor;
                         DEFTxt.color = upperSTATColor;
                         break;
                     }
@@ -348,11 +356,11 @@ public class CharacterBuildManager : MonoBehaviour {
                         ATKTxt.color = equalSTATColor;
                     
                     if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].CdAttack < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HandsItemID].CdAttack)
-                        ATStxt.color = upperSTATColor;
+                        CDtxt.color = upperSTATColor;
                     else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].CdAttack > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HandsItemID].CdAttack)
-                        ATStxt.color = lowerSTATColor;
+                        CDtxt.color = lowerSTATColor;
                     else
-                        ATStxt.color = equalSTATColor;
+                        CDtxt.color = equalSTATColor;
                     
                     if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.HandsItemID].Armor)
                         DEFTxt.color = upperSTATColor;
@@ -368,7 +376,7 @@ public class CharacterBuildManager : MonoBehaviour {
                     {
                         LVLTxt.color = upperSTATColor;
                         ATKTxt.color = upperSTATColor;
-                        ATStxt.color = upperSTATColor;
+                        CDtxt.color = upperSTATColor;
                         DEFTxt.color = upperSTATColor;
                         break;
                     }
@@ -388,11 +396,11 @@ public class CharacterBuildManager : MonoBehaviour {
                         ATKTxt.color = equalSTATColor;
 
                     if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].CdAttack < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LegsItemID].CdAttack)
-                        ATStxt.color = upperSTATColor;
+                        CDtxt.color = upperSTATColor;
                     else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].CdAttack > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LegsItemID].CdAttack)
-                        ATStxt.color = lowerSTATColor;
+                        CDtxt.color = lowerSTATColor;
                     else
-                        ATStxt.color = equalSTATColor;
+                        CDtxt.color = equalSTATColor;
 
                     if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LegsItemID].Armor)
                         DEFTxt.color = upperSTATColor;
@@ -408,7 +416,7 @@ public class CharacterBuildManager : MonoBehaviour {
                     {
                         LVLTxt.color = upperSTATColor;
                         ATKTxt.color = upperSTATColor;
-                        ATStxt.color = upperSTATColor;
+                        CDtxt.color = upperSTATColor;
                         DEFTxt.color = upperSTATColor;
                         break;
                     }
@@ -428,11 +436,11 @@ public class CharacterBuildManager : MonoBehaviour {
                         ATKTxt.color = equalSTATColor;
 
                     if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].CdAttack < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.FeetItemID].CdAttack)
-                        ATStxt.color = upperSTATColor;
+                        CDtxt.color = upperSTATColor;
                     else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].CdAttack > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.FeetItemID].CdAttack)
-                        ATStxt.color = lowerSTATColor;
+                        CDtxt.color = lowerSTATColor;
                     else
-                        ATStxt.color = equalSTATColor;
+                        CDtxt.color = equalSTATColor;
 
                     if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.FeetItemID].Armor)
                         DEFTxt.color = upperSTATColor;
@@ -449,7 +457,7 @@ public class CharacterBuildManager : MonoBehaviour {
                     {
                         LVLTxt.color = upperSTATColor;
                         ATKTxt.color = upperSTATColor;
-                        ATStxt.color = upperSTATColor;
+                        CDtxt.color = upperSTATColor;
                         DEFTxt.color = upperSTATColor;
                         break;
                     }
@@ -469,11 +477,11 @@ public class CharacterBuildManager : MonoBehaviour {
                         ATKTxt.color = equalSTATColor;
 
                     if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].CdAttack < Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LeftHandItemID].CdAttack)
-                        ATStxt.color = upperSTATColor;
+                        CDtxt.color = upperSTATColor;
                     else if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].CdAttack > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LeftHandItemID].CdAttack)
-                        ATStxt.color = lowerSTATColor;
+                        CDtxt.color = lowerSTATColor;
                     else
-                        ATStxt.color = equalSTATColor;
+                        CDtxt.color = equalSTATColor;
 
                     if (Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor > Data.inventory.items[selectedSlotType.GetHashCode()][Data.inventory.LeftHandItemID].Armor)
                         DEFTxt.color = upperSTATColor;
@@ -485,7 +493,7 @@ public class CharacterBuildManager : MonoBehaviour {
                     break;
             }
             GameObject.Find("ATKValueText").GetComponent<Text>().text = Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].AttackValue.ToString();
-            GameObject.Find("ATSValueText").GetComponent<Text>().text = Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].CdAttack.ToString();
+            GameObject.Find("CDValueText").GetComponent<Text>().text = Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].CdAttack.ToString();
             GameObject.Find("DEFValueText").GetComponent<Text>().text = Data.inventory.items[selectedSlotType.GetHashCode()][selectedItem].Armor.ToString();
         }
         else
@@ -493,9 +501,17 @@ public class CharacterBuildManager : MonoBehaviour {
             GameObject.Find("ItemNameText").GetComponent<Text>().text = "";
             GameObject.Find("LVLValueText").GetComponent<Text>().text = "";
             GameObject.Find("ATKValueText").GetComponent<Text>().text = "";
-            GameObject.Find("ATSValueText").GetComponent<Text>().text = "";
+            GameObject.Find("CDValueText").GetComponent<Text>().text = "";
             GameObject.Find("DEFValueText").GetComponent<Text>().text = "";
+            itemSelectIcon.enabled = false;
         }
+    }
+
+    private void updateItemBonus()
+    {
+        if (itemDescState != 0) return;
+        
+
     }
 
     /// <summary>
@@ -633,17 +649,37 @@ public class CharacterBuildManager : MonoBehaviour {
     public void showItemDescription()
     {
         
-        if (itemDescriptionDraws)
+        if (itemDescState == 0)
         {
             itemStat.SetActive(true);
             itemDesc.SetActive(false);
+            itemBonus.SetActive(false);
+            itemDescState = 1;
+            dot0.enabled = true;
+            dot1.enabled = false;
+            dot2.enabled = false;
             itemDescriptionDraws = false;
+        }
+        else if (itemDescState == 1)
+        {
+            itemStat.SetActive(false);
+            itemDesc.SetActive(false);
+            itemBonus.SetActive(true);
+            itemDescState = 2;
+            dot0.enabled = false;
+            dot1.enabled = true;
+            dot2.enabled = false;
+            itemDescriptionDraws = true;
         }
         else
         {
             itemStat.SetActive(false);
             itemDesc.SetActive(true);
-            itemDescriptionDraws = true;
+            itemBonus.SetActive(false);
+            itemDescState = 0;
+            dot0.enabled = false;
+            dot1.enabled = false;
+            dot2.enabled = true;
         }
 
         updateItemStat();
@@ -688,5 +724,10 @@ public class CharacterBuildManager : MonoBehaviour {
             updateItemStat();
             updateHeroStats();
         }
+    }
+
+    public void UnequipButtonPushed()
+    {
+        Debug.Log("Unequip TODO");
     }
 }

@@ -17,23 +17,12 @@ public class Hero
     public Hero(int _hp, int _mana, int _strenght, int _inteligence, int _agility, int _vitality)
     {
         hp = _hp;
-        Data.heroData.hpMax = _hp;
+        
         mana = _mana;
-        Data.heroData.manaMax = _mana;
-        Data.heroData.strenght = _strenght;
-        Data.heroData.intelligence = _inteligence;
-        Data.heroData.agility = _agility;
-        Data.heroData.vitality = _vitality;
-        Data.heroData.cdAttackBase = 3;
-
-        Data.heroData.xp = 0;
-        Data.heroData.level = 1;
-        Data.heroData.xpForNextLevel = 50; // [TODO] Maybe we have to search into a list wich amount of xp we need for the next lvl
         isReady = false;
         isDead = false;
         HealthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
         HealthSlider.maxValue = Data.heroData.hpMax;
-        hp = (hp / 2) - 1;
     }
 
     public void TakeDamage(int damage, int ennemyLevel)

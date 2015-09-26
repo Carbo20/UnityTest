@@ -82,6 +82,28 @@ public class HeroData {
         stream.Close();
     }
 
+    public void initLvl1()
+    {
+        hpMax = 20;
+        manaMax = 20;
+        regenHp = 0;
+        regenMana = 0;
+        armor = 10;
+        strenght = 10;
+        intelligence = 10;
+        agility = 10;
+        vitality = 10;
+        speed = 10;
+        damage = 10;
+        spellDamage = 10;
+        dodge = 5;
+        critical = 5;
+        cdAttackBase = 0;
+        cdAttackModified = 0;
+        cdAttackBonusTotal = 0;
+
+    }
+
     public void LoadHeroData()
     {
         if (File.Exists("heroData"))
@@ -94,6 +116,7 @@ public class HeroData {
         else
         {
             LevelUP();
+            Data.heroData.hpMax = 20;
             SaveHeroData();
         }
     }

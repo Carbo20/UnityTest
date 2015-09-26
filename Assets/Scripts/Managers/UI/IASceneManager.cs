@@ -156,6 +156,7 @@ public class IASceneManager : MonoBehaviour
                     Data.iaData.idSigne[line] = 1;
                 }
                 //Stock which spell has been chosen
+                Debug.Log("PAR ICI : " + Data.heroData.skillAvailable[0]);
                 Data.iaData.idSkill[line] = Data.heroData.skillAvailable[gObjHealthBis[line].GetComponent<Dropdown>().value];
 
             }

@@ -22,7 +22,6 @@ public class LoadingSceneManager : MonoBehaviour {
         LoadItemsData();
         LoadInventoryFromXML();
         ready = 0;
-       // Debug.Log(Data.listOfItems);
 	}
 	
 	// Update is called once per frame

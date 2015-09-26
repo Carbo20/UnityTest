@@ -38,15 +38,6 @@ public class CharacterBuildManager : MonoBehaviour {
         heroStatsDraws = false;
         itemDescriptionDraws = false;
         itemDescState = 1;
-        //just for test
-        /*
-        for (int i = 0; i < 100; i++)
-        {
-            it = new Item(UnityEngine.Random.Range(1, 101), 0);
-            Data.inventory.items[it.SlotType.GetHashCode()].Add(it);
-        }
-        */
-        //
 
 
         updateItemList();
@@ -54,6 +45,15 @@ public class CharacterBuildManager : MonoBehaviour {
         updateHeroEquipement();
         updateHeroStats();
 	}
+
+    private void generate10item()
+    {
+        for (int i = 0; i < 50; i++)
+        {
+            it = new Item(UnityEngine.Random.Range(1, 101), 0);
+            Data.inventory.items[it.SlotType.GetHashCode()].Add(it);
+        }
+    }
 
     void initGameobject()
     {
@@ -117,7 +117,12 @@ public class CharacterBuildManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            generate10item();
+            updateItemList();
+            updateItemArea();
+        }
 	}
 
     /// <summary>

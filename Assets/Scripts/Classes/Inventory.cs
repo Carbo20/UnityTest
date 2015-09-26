@@ -206,7 +206,7 @@ public class Inventory {
 
     //TODO
     
-     public void SaveInventoryFromXML(string path)
+     public void SaveInventory(string path)
      {
          /*FileStream fs = new FileStream(path, FileMode.Create);
          XmlSerializer xs = new XmlSerializer(GetType());

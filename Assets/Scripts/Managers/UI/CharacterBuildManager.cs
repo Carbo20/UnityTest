@@ -680,7 +680,7 @@ public class CharacterBuildManager : MonoBehaviour {
         if (Data.inventory.items[selectedSlotType.GetHashCode()].Count > selectedItem)
         {
             Data.inventory.Equip(selectedSlotType, selectedItem);
-            Data.inventory.SaveInventoryFromXML("inventory");
+            Data.inventory.SaveInventory("inventory");
             updateHeroEquipement();
             updateItemList();
             updateItemDesc();

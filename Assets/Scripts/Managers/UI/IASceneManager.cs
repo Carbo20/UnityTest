@@ -8,21 +8,14 @@ public class IASceneManager : MonoBehaviour
     private int nbButtonUnlocked = Data.iaData.nbOrder;
 
     private Dropdown[] categoryDropdown = new Dropdown[8];
-    private GameObject panelLocker;
+    //private GameObject panelLocker;
 
     private int indexButtonMax;
-    private int unchosenCount;
     private int line;
-    private Button button;
-
-    private GameObject[] gObjHealth = new GameObject[8];
+    
     private GameObject[] gObjHealthBis = new GameObject[8];
-    private GameObject[] gObjMana = new GameObject[8];
     private GameObject[] gObjManaBis = new GameObject[8];
-
-    private GameObject[] gObjHealthEn = new GameObject[8];
     private GameObject[] gObjHealthBisEn = new GameObject[8];
-    private GameObject[] gObjManaEn = new GameObject[8];
     private GameObject[] gObjManaBisEn = new GameObject[8];
 
     private GameObject[] gObjCast = new GameObject[8];
@@ -32,7 +25,7 @@ public class IASceneManager : MonoBehaviour
     private GameObject[] gObjPourcentValue = new GameObject[8];
     private GameObject[] gObjSign = new GameObject[8];
 
-    
+    public Text textDrop;
 
     private float switchCatCount;
     private IaData.IaCondition conditionNb;
@@ -40,18 +33,15 @@ public class IASceneManager : MonoBehaviour
     private RectTransform rectTransform;
     private float top;
     private int additionalButtons;
-
-
-
-
-    //Text textToChoose = "You have to choose one or more conditions and actions";
-
-
+    private GameObject textAlert;
 
     // Use this for initialization
     void Start()
     {
         indexButtonMax = 8;
+        switchCatCount = 0;
+
+        textAlert = GameObject.Find("TextAlert");
 
         for (int ind=0; ind< indexButtonMax; ind++)
         { 
@@ -71,18 +61,34 @@ public class IASceneManager : MonoBehaviour
        
         initAll();
 
-        panelLocker = GameObject.Find("PanelLocker");
+        //panelLocker = GameObject.Find("PanelLocker");
 
+        //textDrop = gameObject.GetComponent<Text>();
+        //textDrop.text = "Unlock at lvl 10";
         if (nbButtonUnlocked > 3)
+        {//ResizePanelLocker(nbButtonUnlocked);
+            for (int i = nbButtonUnlocked+1; i < indexButtonMax; i++)
+            {
+                //GameObject.Find("categoryDropdown(" + i + ")").GetComponent<Dropdown>().itemText = textDrop;
+                //GameObject.Find("categoryDropdown(" + i + ")").GetComponent<Dropdown>().options[0].text = "Unlock at lvl 10";
+                GameObject.Find("categoryDropdown(" + i + ")").GetComponent<Dropdown>().interactable = false;
+            }
+        }
+        else
         {
-            ResizePanelLocker(nbButtonUnlocked);
+            for (int i = 4; i < indexButtonMax + 1; i++)
+            {
+                //GameObject.Find("categoryDropdown(" + i + ")").GetComponent<Dropdown>().options[0].text = "Unlock at lvl 10";
+                GameObject.Find("categoryDropdown(" + i + ")").GetComponent<Dropdown>().interactable = false;
+            }
         }
     }
 
 
     void initAll()
     {
-        
+        textAlert.SetActive(false);
+
         for (int ind = 0; ind < indexButtonMax; ind++)
         {
             gObjHealthBis[ind].SetActive(false);
@@ -114,7 +120,7 @@ public class IASceneManager : MonoBehaviour
         gObjPourcentValue[ind].SetActive(false);
         gObjSign[ind].SetActive(false);
     }
-
+    /*
     public void ResizePanelLocker(int _indexButtonUnlocked)
     {//-130 => 4 buttons availables   -160 => 5 buttons
         additionalButtons = _indexButtonUnlocked - 3;//substract the 3 buttons unlocked by default to have the nb of additional buttons
@@ -123,7 +129,7 @@ public class IASceneManager : MonoBehaviour
         rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, top);
 
     }
-
+    */
     public void CallbackApplyAndFarm()
     {
         
@@ -258,7 +264,16 @@ public class IASceneManager : MonoBehaviour
             }
         }
         //Switch the current scene to the menu
-        Application.LoadLevel("mainScene");
+        if (switchCatCount < 1)
+        {
+            //TODO print text "Choose one condition or more please"
+            textAlert.SetActive(true);
+        }
+        else
+        {
+            Application.LoadLevel("mainScene");
+        }
+
     }
 
 
@@ -359,10 +374,7 @@ public class IASceneManager : MonoBehaviour
                 
                 initLine(line);
 
-                if (switchCatCount < 1)
-                {
-                    //TODO print text "Choose one condition or more please"
-                }
+                
             
 
             }

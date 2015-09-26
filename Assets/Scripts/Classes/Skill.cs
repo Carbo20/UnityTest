@@ -22,6 +22,7 @@ public class Skill {
         actionList = new Action[10];
         cdAction = new float[10];
 
+
         /* Put here all the callback into the ActionList */
         actionList[(int)Data.SkillType.ATTACK] = Attack;
         actionList[(int)Data.SkillType.TESTSKILL] = FakeDebuffTest;

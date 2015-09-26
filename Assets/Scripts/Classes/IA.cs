@@ -91,6 +91,7 @@ public class IA
                             {
                                 Data.iaData.idTarget[i] = enemyId;
                                 DoAnAction(i);
+
                             }
                             enemyId++;
                         }

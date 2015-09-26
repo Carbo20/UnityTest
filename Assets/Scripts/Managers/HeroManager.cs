@@ -52,6 +52,7 @@ public class HeroManager : MonoBehaviour {
                 hero.IsReady = false;
                 skill.actionList[(int)iaResult]();
                 heroDeltaTime = 0;
+
             }
         }
 

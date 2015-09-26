@@ -292,6 +292,7 @@ public class Enemy
 
     public int Level
     {
+
         get
         {
             return level;

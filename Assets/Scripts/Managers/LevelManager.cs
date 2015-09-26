@@ -50,7 +50,6 @@ public class LevelManager : MonoBehaviour {
 
         waitTime = 0;
         waitNewGroup = 2;
-        
     }
 	
 	// Update is called once per frame

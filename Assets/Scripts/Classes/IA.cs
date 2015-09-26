@@ -50,7 +50,7 @@ public class IA
                             if (e.enemy.Hp * 100 / e.enemy.HpMax >= Data.iaData.value[i])  // If Current Enemy Health > X%
                             {
                                 Data.iaData.idTarget[i] = enemyId;
-                                DoAnAction(i);
+                                return DoAnAction(i);
                             }
                             enemyId++;
                         }
@@ -61,7 +61,7 @@ public class IA
                             if(e.enemy.Mana * 100 / e.enemy.ManaMax >= Data.iaData.value[i])  // If Current Enemy Mana > X%
                             {
                                 Data.iaData.idTarget[i] = enemyId;
-                                DoAnAction(i);
+                                return DoAnAction(i);
                             }
                             enemyId++;
                         }
@@ -91,7 +91,7 @@ public class IA
                             {
                                 Data.iaData.idTarget[i] = enemyId;
                                 DoAnAction(i);
-
+                                
                             }
                             enemyId++;
                         }
@@ -102,7 +102,7 @@ public class IA
                             if (e.enemy.Mana * 100 / e.enemy.ManaMax <= Data.iaData.value[i])  // If Current Enemy Mana < X%
                             {
                                 Data.iaData.idTarget[i] = enemyId;
-                                DoAnAction(i);
+                                return DoAnAction(i);
                             }
                             enemyId++;
                         }

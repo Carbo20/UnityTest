@@ -100,7 +100,7 @@ public class HeroData
         critMultiplier = 2f;
 
         // TODO temporary? END
-
+        
         //[TODO] update dat stuff!
         nbSkillAvailable = 6;
         nbIAOrderAvailable = 4;
@@ -112,6 +112,8 @@ public class HeroData
         skillAvailable[0] = Data.SkillType.ATTACK;
         skillAvailable[1] = Data.SkillType.FIREBALL;
         skillAvailable[2] = Data.SkillType.HEAL;
+
+        Debug.Log(skillAvailable[0]);
     }
 
     public void LevelUP()

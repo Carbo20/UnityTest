@@ -47,7 +47,7 @@ public class Hero
         {
             Hp = Hp - trueDamage;
             UpdateHealthBar();
-            Debug.Log("hp :" + Hp);
+            Debug.Log("dammage :" + trueDamage);
         }
         else
         {

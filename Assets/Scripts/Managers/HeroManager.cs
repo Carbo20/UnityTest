@@ -5,12 +5,16 @@ using System.Collections.Generic;
 public class HeroManager : MonoBehaviour {
 
     public Hero hero;
+    private Skill skill;
+    private IA ia;
+
     private float heroActivation = 2;
     private float heroDeltaTime;
     private IA ia;
     private Skill skill;
     private Data.SkillType iaResult;
 
+    Data.SkillType iaResult;
 
     private string heroActionStatus;
 
@@ -39,9 +43,12 @@ public class HeroManager : MonoBehaviour {
             heroDeltaTime += Time.deltaTime;
             if (heroDeltaTime >= heroActivation)
             {
+                Debug.Log("ICI");
                 hero.IsReady = true;
                 iaResult = ia.ConditionComputation();
                 heroDeltaTime = 0;
+                iaResult = ia.ConditionComputation();
+                cdAction = skill.cdList[(int)iaResult];
             }
         }
         else
@@ -73,10 +80,9 @@ public class HeroManager : MonoBehaviour {
     {
         skill = _skill;
     }
-
+    
     public void SetPause(bool b)
     {
         gamePause = b;
     }
-
 }

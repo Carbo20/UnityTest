@@ -16,6 +16,7 @@ public class CharacterBuildManager : MonoBehaviour {
     private GameObject heroStat, heroEquip, itemStat, itemDesc, itemBonus;
     Image itemSelectIcon, dot0, dot1, dot2;
     private Text LVLStat, XPStat, HPStat, MANAStat, STRStat, INTStat, AGIStat, VITStat, DMGStat, SPDMGStat, DODStat, CRITStat, SPEStat, ARMORStat;
+    private Text STRBon, INTBon, AGIBon, VITBon, ATKBon, SPEATKBon, MANABon, HPBon, ATKCDBon, SPECDBon, REGHPBon, REGMANBon, DODBon, CRITBon;
     bool heroStatTextLoad;
     bool heroStatsDraws;
     bool itemDescriptionDraws;
@@ -38,7 +39,8 @@ public class CharacterBuildManager : MonoBehaviour {
         itemDescriptionDraws = false;
         itemDescState = 1;
         //just for test
-        /*for (int i = 0; i < 100; i++)
+        /*
+        for (int i = 0; i < 100; i++)
         {
             it = new Item(UnityEngine.Random.Range(1, 101), 0);
             Data.inventory.items[it.SlotType.GetHashCode()].Add(it);
@@ -48,8 +50,7 @@ public class CharacterBuildManager : MonoBehaviour {
 
 
         updateItemList();
-        updateItemStat();
-        updateItemDesc();
+        updateItemArea();
         updateHeroEquipement();
         updateHeroStats();
 	}
@@ -95,6 +96,22 @@ public class CharacterBuildManager : MonoBehaviour {
         ATKTxt = GameObject.Find("ATKValueText").GetComponent<Text>();
         CDtxt = GameObject.Find("CDValueText").GetComponent<Text>();
         DEFTxt = GameObject.Find("DEFValueText").GetComponent<Text>();
+
+        HPBon     = GameObject.Find("Canvas/Canvas/Inventory/ItemStatBonusPanel/Labels/Val0/HPValueText").GetComponent<Text>();
+        MANABon   = GameObject.Find("Canvas/Canvas/Inventory/ItemStatBonusPanel/Labels/Val0/MANAValueText").GetComponent<Text>();
+        ATKBon    = GameObject.Find("Canvas/Canvas/Inventory/ItemStatBonusPanel/Labels/Val0/DMGValueText").GetComponent<Text>();
+        SPEATKBon = GameObject.Find("Canvas/Canvas/Inventory/ItemStatBonusPanel/Labels/Val0/SPELLDMGValueText").GetComponent<Text>();
+        REGHPBon  = GameObject.Find("Canvas/Canvas/Inventory/ItemStatBonusPanel/Labels/Val1/REGHPValueText").GetComponent<Text>();
+        REGMANBon = GameObject.Find("Canvas/Canvas/Inventory/ItemStatBonusPanel/Labels/Val1/REGMANAValueText").GetComponent<Text>();
+        ATKCDBon  = GameObject.Find("Canvas/Canvas/Inventory/ItemStatBonusPanel/Labels/Val1/ATKCDValueText").GetComponent<Text>();
+        SPECDBon  = GameObject.Find("Canvas/Canvas/Inventory/ItemStatBonusPanel/Labels/Val1/SPELLCDValueText").GetComponent<Text>();
+        STRBon    = GameObject.Find("Canvas/Canvas/Inventory/ItemStatBonusPanel/Labels/Val2/STRValueText").GetComponent<Text>();
+        INTBon    = GameObject.Find("Canvas/Canvas/Inventory/ItemStatBonusPanel/Labels/Val2/INTValueText").GetComponent<Text>();
+        AGIBon    = GameObject.Find("Canvas/Canvas/Inventory/ItemStatBonusPanel/Labels/Val2/AGIValueText").GetComponent<Text>();
+        VITBon    = GameObject.Find("Canvas/Canvas/Inventory/ItemStatBonusPanel/Labels/Val2/VITValueText").GetComponent<Text>();
+        DODBon    = GameObject.Find("Canvas/Canvas/Inventory/ItemStatBonusPanel/Labels/Val3/DODValueText").GetComponent<Text>();
+        CRITBon   = GameObject.Find("Canvas/Canvas/Inventory/ItemStatBonusPanel/Labels/Val3/CRITValueText").GetComponent<Text>();
+
         initHeroStatTxt();
     }
 	
@@ -120,8 +137,7 @@ public class CharacterBuildManager : MonoBehaviour {
         selectedSlotType = (Data.SlotType) i;
         SelectFirstItem();
         updateItemList();
-        updateItemDesc();
-        updateItemStat();
+        updateItemArea();
         contentRectTransform.offsetMax = new Vector2(contentRectTransform.offsetMax.x, 0);
         contentRectTransform.offsetMin = new Vector2(contentRectTransform.offsetMin.x, -271);
     }
@@ -147,7 +163,7 @@ public class CharacterBuildManager : MonoBehaviour {
     public void ChangeSelectedItem(int i)
     {
         selectedItem = i;
-        updateItemStat();
+        updateItemArea();
     }
 
     /// <summary>
@@ -218,6 +234,13 @@ public class CharacterBuildManager : MonoBehaviour {
                 GameObject.Find("Slot (" + i + ")/EquipedIcon").GetComponent<Image>().enabled = false;
             }
         }
+    }
+
+    private void updateItemArea()
+    {
+        updateItemStat();
+        updateItemBonus();
+        updateItemDesc();
     }
 
     private void updateItemDesc()
@@ -509,9 +532,42 @@ public class CharacterBuildManager : MonoBehaviour {
 
     private void updateItemBonus()
     {
-        if (itemDescState != 0) return;
-        
+        if (itemDescState != 2) return;
 
+        if (Data.inventory.items[(int)selectedSlotType].Count > selectedItem)
+        {
+            STRBon.text    = Data.inventory.items[(int)selectedSlotType][selectedItem].StrenBonus.ToString();
+            INTBon.text    = Data.inventory.items[(int)selectedSlotType][selectedItem].IntelBonus.ToString();
+            AGIBon.text    = Data.inventory.items[(int)selectedSlotType][selectedItem].AgiBonus.ToString();
+            VITBon.text    = Data.inventory.items[(int)selectedSlotType][selectedItem].VitalBonus.ToString();
+            ATKBon.text    = Data.inventory.items[(int)selectedSlotType][selectedItem].AttackBonus.ToString();
+            SPEATKBon.text = Data.inventory.items[(int)selectedSlotType][selectedItem].SpellBonus.ToString();
+            MANABon.text   = Data.inventory.items[(int)selectedSlotType][selectedItem].ManaBonus.ToString();
+            HPBon.text     = Data.inventory.items[(int)selectedSlotType][selectedItem].HealthBonus.ToString();
+            ATKCDBon.text  = Data.inventory.items[(int)selectedSlotType][selectedItem].CdAttackBonus.ToString();
+            SPECDBon.text  = Data.inventory.items[(int)selectedSlotType][selectedItem].CastTimeBonus.ToString();
+            REGHPBon.text  = Data.inventory.items[(int)selectedSlotType][selectedItem].RegenHealthBonus.ToString();
+            REGMANBon.text = Data.inventory.items[(int)selectedSlotType][selectedItem].RegenManaBonus.ToString();
+            DODBon.text    = Data.inventory.items[(int)selectedSlotType][selectedItem].DodgeBonus.ToString();
+            CRITBon.text   = Data.inventory.items[(int)selectedSlotType][selectedItem].CritBonus.ToString();
+        }
+        else
+        {
+            STRBon.text    = "";
+            INTBon.text    = "";
+            AGIBon.text    = "";
+            VITBon.text    = "";
+            ATKBon.text    = "";
+            SPEATKBon.text = "";
+            MANABon.text   = "";
+            HPBon.text     = "";
+            ATKCDBon.text  = "";
+            SPECDBon.text  = "";
+            REGHPBon.text  = "";
+            REGMANBon.text = "";
+            DODBon.text    = "";
+            CRITBon.text   = "";
+        }
     }
 
     /// <summary>
@@ -682,8 +738,7 @@ public class CharacterBuildManager : MonoBehaviour {
             dot2.enabled = true;
         }
 
-        updateItemStat();
-        updateItemDesc();
+        updateItemArea();
     }
 
     /// <summary>
@@ -720,8 +775,7 @@ public class CharacterBuildManager : MonoBehaviour {
             Data.heroData.SaveHeroData();
             updateHeroEquipement();
             updateItemList();
-            updateItemDesc();
-            updateItemStat();
+            updateItemArea();
             updateHeroStats();
         }
     }

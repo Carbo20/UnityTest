@@ -5,12 +5,13 @@ using UnityEngine.UI;
 public class IASceneManager : MonoBehaviour
 {
 
-    private Dropdown[] categoryDropdown = new Dropdown[8];
+    private int nbButtonUnlocked = Data.iaData.nbOrder;
 
-    private int indexButtonCatMax;
-    private int indexCatMax;
+    private Dropdown[] categoryDropdown = new Dropdown[8];
+    private GameObject panelLocker;
+
+    private int indexButtonMax;
     private int unchosenCount;
-    private int valueInputfield = -1;
     private int line;
     private Button button;
 
@@ -31,20 +32,58 @@ public class IASceneManager : MonoBehaviour
     private GameObject[] gObjPourcentValue = new GameObject[8];
     private GameObject[] gObjSign = new GameObject[8];
 
+    
+
     private float switchCatCount;
     private IaData.IaCondition conditionNb;
     private GameObject gObjEnemiesNbBis;
+    private RectTransform rectTransform;
+    private float top;
+    private int additionalButtons;
+
 
 
 
     //Text textToChoose = "You have to choose one or more conditions and actions";
 
+
+
+    // Use this for initialization
+    void Start()
+    {
+        indexButtonMax = 8;
+
+        for (int ind=0; ind< indexButtonMax; ind++)
+        { 
+            gObjHealthBis[ind] = GameObject.Find("CondHealthBis" + ind);
+            gObjManaBis[ind] = GameObject.Find("CondManaBis" + ind);
+            
+            gObjHealthBisEn[ind] = GameObject.Find("CondHealthBisEn" + ind);
+            gObjManaBisEn[ind] = GameObject.Find("CondManaBisEn" + ind);
+
+            gObjCast[ind] = GameObject.Find("CondCast" + ind);
+            gObjEnemiesNb[ind] = GameObject.Find("CondEnemiesNb" + ind);
+            gObjEnemyClass[ind] = GameObject.Find("CondEnemyClass" + ind);
+
+            gObjPourcentValue[ind] = GameObject.Find("PourcentValue" + ind);
+            gObjSign[ind] = GameObject.Find("Sign" + ind);
+        }
+       
+        initAll();
+
+        panelLocker = GameObject.Find("PanelLocker");
+
+        if (nbButtonUnlocked > 3)
+        {
+            ResizePanelLocker(nbButtonUnlocked);
+        }
+    }
+
+
     void initAll()
     {
-        indexButtonCatMax = 8;
-        unchosenCount = 0;
-
-        for (int ind = 0; ind < indexButtonCatMax; ind++)
+        
+        for (int ind = 0; ind < indexButtonMax; ind++)
         {
             gObjHealthBis[ind].SetActive(false);
             gObjManaBis[ind].SetActive(false);
@@ -58,6 +97,7 @@ public class IASceneManager : MonoBehaviour
             gObjPourcentValue[ind].SetActive(false);
             gObjSign[ind].SetActive(false);
         }
+
     }
 
     void initLine(int ind)
@@ -75,32 +115,19 @@ public class IASceneManager : MonoBehaviour
         gObjSign[ind].SetActive(false);
     }
 
-    // Use this for initialization
-    void Start()
-    {
-        for (int ind=0; ind<8; ind++)
-        { 
-            gObjHealthBis[ind] = GameObject.Find("CondHealthBis" + ind);
-            gObjManaBis[ind] = GameObject.Find("CondManaBis" + ind);
-            
-            gObjHealthBisEn[ind] = GameObject.Find("CondHealthBisEn" + ind);
-            gObjManaBisEn[ind] = GameObject.Find("CondManaBisEn" + ind);
+    public void ResizePanelLocker(int _indexButtonUnlocked)
+    {//-130 => 4 buttons availables   -160 => 5 buttons
+        additionalButtons = _indexButtonUnlocked - 3;//substract the 3 buttons unlocked by default to have the nb of additional buttons
+        top = -100 + (additionalButtons * -30);// Offset of 30 for each button unlocked
+        rectTransform = panelLocker.GetComponent<RectTransform>();
+        rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, top);
 
-            gObjCast[ind] = GameObject.Find("CondCast" + ind);
-            gObjEnemiesNb[ind] = GameObject.Find("CondEnemiesNb" + ind);
-            gObjEnemyClass[ind] = GameObject.Find("CondEnemyClass" + ind);
-
-            gObjPourcentValue[ind] = GameObject.Find("PourcentValue" + ind);
-            gObjSign[ind] = GameObject.Find("Sign" + ind);
-        }
-       
-        initAll();
-        
     }
+
     public void CallbackApplyAndFarm()
     {
         
-        for (int line = 0; line < indexButtonCatMax; line++)
+        for (int line = 0; line < nbButtonUnlocked; line++)
         {
             int indName = line + 1;
             categoryDropdown[line] = GameObject.Find("categoryDropdown(" + indName + ")").GetComponent<Dropdown>();

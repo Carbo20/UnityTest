@@ -9,13 +9,16 @@ public class HeroManager : MonoBehaviour {
     private float heroDeltaTime;
 
     private string heroActionStatus;
-    
+
+    public HeroController heroController;
 
 	// Use this for initialization
 	void Start ()
     {
         hero = new Hero(Data.heroData.hpMax, Data.heroData.manaMax,2,2,2,2);
         heroActionStatus = null;
+
+        heroController = GetComponent<HeroController>();
 	}
 	
 	// Update is called once per frame

@@ -14,7 +14,7 @@ public class CharacterBuildManager : MonoBehaviour {
     Text LVLTxt, ATKTxt, CDtxt, DEFTxt;
     Color lowerSTATColor, upperSTATColor, equalSTATColor;
     private GameObject heroStat, heroEquip, itemStat, itemDesc, itemBonus;
-    Image itemSelectIcon, dot0, dot1, dot2;
+    Image itemSelectIcon, iemsDot0, iemsDot1, iemsDot2, heroDot0, heroDot1;
     private Text LVLStat, XPStat, HPStat, MANAStat, STRStat, INTStat, AGIStat, VITStat, DMGStat, SPDMGStat, DODStat, CRITStat, SPEStat, ARMORStat;
     private Text STRBon, INTBon, AGIBon, VITBon, ATKBon, SPEATKBon, MANABon, HPBon, ATKCDBon, SPECDBon, REGHPBon, REGMANBon, DODBon, CRITBon;
     bool heroStatTextLoad;
@@ -63,9 +63,11 @@ public class CharacterBuildManager : MonoBehaviour {
         heroEquip = GameObject.Find("Hero");
         itemStat  = GameObject.Find("ItemStatPanel");
         itemSelectIcon = GameObject.Find("SelectedItemIcon").GetComponent<Image>();
-        dot0 = GameObject.Find("Dot0").GetComponent<Image>();
-        dot1 = GameObject.Find("Dot1").GetComponent<Image>();
-        dot2 = GameObject.Find("Dot2").GetComponent<Image>();
+        iemsDot0 = GameObject.Find("ItemDescPages/Dot0").GetComponent<Image>();
+        iemsDot1 = GameObject.Find("ItemDescPages/Dot1").GetComponent<Image>();
+        iemsDot2 = GameObject.Find("ItemDescPages/Dot2").GetComponent<Image>();
+        heroDot0 = GameObject.Find("HeroDescPages/Dot0").GetComponent<Image>();
+        heroDot1 = GameObject.Find("HeroDescPages/Dot1").GetComponent<Image>();
     }
     void initHeroStatTxt()
     {
@@ -716,9 +718,9 @@ public class CharacterBuildManager : MonoBehaviour {
             itemDesc.SetActive(false);
             itemBonus.SetActive(false);
             itemDescState = 1;
-            dot0.enabled = true;
-            dot1.enabled = false;
-            dot2.enabled = false;
+            iemsDot0.enabled = true;
+            iemsDot1.enabled = false;
+            iemsDot2.enabled = false;
             itemDescriptionDraws = false;
         }
         else if (itemDescState == 1)
@@ -727,9 +729,9 @@ public class CharacterBuildManager : MonoBehaviour {
             itemDesc.SetActive(false);
             itemBonus.SetActive(true);
             itemDescState = 2;
-            dot0.enabled = false;
-            dot1.enabled = true;
-            dot2.enabled = false;
+            iemsDot0.enabled = false;
+            iemsDot1.enabled = true;
+            iemsDot2.enabled = false;
             itemDescriptionDraws = true;
         }
         else
@@ -738,9 +740,9 @@ public class CharacterBuildManager : MonoBehaviour {
             itemDesc.SetActive(true);
             itemBonus.SetActive(false);
             itemDescState = 0;
-            dot0.enabled = false;
-            dot1.enabled = false;
-            dot2.enabled = true;
+            iemsDot0.enabled = false;
+            iemsDot1.enabled = false;
+            iemsDot2.enabled = true;
         }
 
         updateItemArea();
@@ -755,12 +757,16 @@ public class CharacterBuildManager : MonoBehaviour {
         {
             heroStat.SetActive(false);
             heroEquip.SetActive(true);
+            heroDot0.enabled = true;
+            heroDot1.enabled = false;
             heroStatsDraws = false;
         }
         else
         {
             heroStat.SetActive(true);
             heroEquip.SetActive(false);
+            heroDot0.enabled = false;
+            heroDot1.enabled = true;
             heroStatsDraws = true;
         }
         updateHeroEquipement();

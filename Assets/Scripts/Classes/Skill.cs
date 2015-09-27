@@ -22,7 +22,7 @@ public class Skill {
         actionList = new Action[10];
 
         /* Test for put all the method in testAction Array */
-        actionList[(int)Data.SkillType.ATTACK] = FakeBuffTest;
+        actionList[(int)Data.SkillType.ATTACK] = Attack;
         actionList[(int)Data.SkillType.TESTSKILL] = FakeDebuffTest;
         actionList[(int)Data.SkillType.FIREBALL] = FakeFireBall;
         actionList[(int)Data.SkillType.HEAL] = Heal;
@@ -60,6 +60,8 @@ public class Skill {
     public void Attack()
     {
         eManager.enemyList[idTarget - 1].enemy.TakeDamage(hManager.hero.DoDammage(2), 2); // TODO add hero's level instead of 2
+        
+        hManager.heroController.triggerAttack(false, eManager.enemyList[idTarget - 1].transform.position, 0.8f); //declanchement de l'animation d'attaque <TODO: capter les coups critique, booleen à mettre en parametre
     }
 
     public void FakeBuffTest()

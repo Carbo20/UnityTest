@@ -19,17 +19,63 @@ public class Item
     private int strenBonus, intelBonus, agiBonus, vitalBonus, attackBonus, spellBonus, manaBonus,   healthBonus;
     private float cdAttackBonus, castTimeBonus, regenManaBonus, regenHealthBonus, dodgeBonus, critBonus;
 
-   // private Data.SlotType slotType;
     private Data.ItemType itemType;
     private Data.ItemQuality itemQuality;
     private ItemData itemData;
-
-    public ItemData ItemData
-    {
-        get { return itemData; }
-        set { itemData = value; }
-    }
     private Data.LegendaryEffect legendaryEffect;
+
+
+    ///////////////// Private data No getter No setter  BEGIN
+    private int maxMagicFind = 70;
+    private int itemDrop;
+    private int iconTypeId = -1;
+    private float levelFloat;
+    private int itemTypeInt = -1, itemQualityInt, numberOfBonus = 0, randomBonus;
+    private int NormalRange;
+    private int MagicRange;
+
+    //Normal stats for items
+    private int armorPerLevelMin = 8, armorPerLevelMax = 10;
+    private int attack1HPerLevelMin = 8, attack1HPerLevelMax = 10;
+    private float cdAttack1HMin = 1.75f, cdAttack1HMax = 2.25f;
+    private int attack2HPerLevelMin = 40, attack2HPerLevelMax = 50;
+    private float cdAttack2HMin = 2.625f, cdAttack2HMax = 3.375f;
+
+    // Semi-random number of bonuses and semi-random amout of bonus
+    private float strPerLevelMin = 0.80f, strPerLevelMax = 1;
+    private float intPerLevelMin = 0.80f, intPerLevelMax = 1;
+    private float agiPerLevelMin = 0.80f, agiPerLevelMax = 1;
+    private float vitalPerLevelMin = 0.80f, vitalPerLevelMax = 1;
+    private int attackPerLevelMin = 1, attackPerLevelMax = 2;
+    private int spellPerLevelMin = 1, spellPerLevelMax = 2;
+    private int manaPerLevelMin = 8, manaPerLevelMax = 10;
+    private int healthPerLevelMin = 8, healthPerLevelMax = 10;
+    //float dodgePerLevelMin, dodgePerLevelMax;                 // CF in generate
+    //float critPerLevelMin, critPerLevelMax;                   // CF in generate
+    private float regenManaPerLevelMin = 0.15f, regenManaPerLevelMax = 0.2f;
+    private float regenHealthPerLevelMin = 0.15f, regenHealthPerLevelMax = 0.2f;
+    //float cdAttackPerLevelMin, cdAttackPerLevelMax;           // CF BELOW
+    //float castTimePerLevelMin, castTimePerLevelMax;           // CF BELOW
+
+    // Peculiar restrictions
+    private float maxDodgePerItem = 0.07f;
+    private float maxCastTimeBonusPerItem = 0.07f;
+    private float maxCdAttackBonusPerItem = 0.07f;
+    private float maxCritBonusPerItem = 0.07f;
+    private float maxDodgeBonusPerItem = 0.07f;
+
+    // Drop rates
+    private int dropArmor = 50; // Drop rates 0-50 : armor & 50-75 : weapon 1h & 75-99 : weapon 2h
+    private int dropRangeArmor ;
+    private int dropHead;
+    private int dropChest;
+    private int dropHands;
+    private int dropLegs;
+    private int dropFeet;
+
+    private int drop1HWeapon = 75;
+    private int dropShield = 54;
+    ///////////////// Private data No getter No setter  END
 
     public Item()
     {
@@ -97,49 +143,20 @@ public class Item
     /// <param name="magicFind">Between 0 and 70, carefull with that one</param>
     void GenerateItem(int _level, int magicFind)
     {
-        int itemDrop;
-        int iconTypeId = -1;
-        float levelFloat = _level;
-        int slotTypeInt=-1, itemTypeInt=-1, itemQualityInt, numberOfBonus = 0, randomBonus;
-        int NormalRange = 70 - magicFind, MagicRange = 90 - (magicFind / 2); // when random 0-100 more than MagicRange the item is legendary
-
-        //Normal stats for items
-        int armorPerLevelMin = 8, armorPerLevelMax = 10;
-        int attack1HPerLevelMin = 8, attack1HPerLevelMax = 10;
-        float cdAttack1HMin = 1.75f, cdAttack1HMax = 2.25f;
-        int attack2HPerLevelMin = 40, attack2HPerLevelMax = 50;
-        float cdAttack2HMin = 2.625f, cdAttack2HMax = 3.375f;
-
-        // Semi-random number of bonuses and semi-random amout of bonus
-        float strPerLevelMin = 0.80f, strPerLevelMax = 1;
-        float intPerLevelMin = 0.80f, intPerLevelMax = 1;
-        float agiPerLevelMin = 0.80f, agiPerLevelMax = 1;
-        float vitalPerLevelMin = 0.80f, vitalPerLevelMax = 1;
-        int attackPerLevelMin = 1, attackPerLevelMax = 2;
-        int spellPerLevelMin = 1, spellPerLevelMax = 2;
-        int manaPerLevelMin = 8, manaPerLevelMax = 10;
-        int healthPerLevelMin = 8, healthPerLevelMax = 10;
-        //float dodgePerLevelMin, dodgePerLevelMax;                 // CF BELOW
-        //float critPerLevelMin, critPerLevelMax;                   // CF BELOW
-        float regenManaPerLevelMin = 0.15f, regenManaPerLevelMax = 0.2f;
-        float regenHealthPerLevelMin = 0.15f, regenHealthPerLevelMax = 0.2f;
-        //float cdAttackPerLevelMin, cdAttackPerLevelMax;           // CF BELOW
-        //float castTimePerLevelMin, castTimePerLevelMax;           // CF BELOW
-
-        // Peculiar restrictions
-        float maxDodgePerItem = 0.07f;
+        magicFind = Math.Min(magicFind, maxMagicFind);
+        magicFind = Math.Max(0, magicFind);
+        levelFloat = _level;
+        NormalRange = 70 - magicFind;
+        MagicRange = 90 - (magicFind / 2); // When random 0-100 more than MagicRange the item is legendary
 
         // Drop rates 0-50 : armor & 50-75 : weapon 1h & 75-99 : weapon 2h
-        int dropArmor = 50;
-        int dropRangeArmor = dropArmor / 5;
-        int dropHead = dropRangeArmor;
-        int dropChest = dropHead + dropRangeArmor;
-        int dropHands = dropChest + dropRangeArmor;
-        int dropLegs = dropHands + dropRangeArmor;
-        int dropFeet = dropLegs + dropRangeArmor;
+        dropRangeArmor = dropArmor / 5;
+        dropHead = dropRangeArmor;
+        dropChest = dropHead + dropRangeArmor;
+        dropHands = dropChest + dropRangeArmor;
+        dropLegs = dropHands + dropRangeArmor;
+        dropFeet = dropLegs + dropRangeArmor;
 
-        int drop1HWeapon = 75;
-        int dropShield = 54;
         itemDrop = UnityEngine.Random.Range(0, 100); 
 
         if (itemDrop < dropArmor)////////ARMOR
@@ -148,37 +165,20 @@ public class Item
 
             //0-10 HEAD, 10-20 CHEST, 20-30 HANDS, 30-40 LEGS, 40-50 FEET 
             if (itemDrop < dropHead)
-            {
-                slotTypeInt = Data.SlotType.HEAD.GetHashCode();
                 iconTypeId = Data.IconType.HEAD.GetHashCode();
-            }
             else if (itemDrop < dropChest)
-            {
-                slotTypeInt = Data.SlotType.CHEST.GetHashCode();
                 iconTypeId = Data.IconType.CHEST.GetHashCode();
-            }
             else if (itemDrop < dropHands)
-            {
-                slotTypeInt = Data.SlotType.HANDS.GetHashCode();
                 iconTypeId = Data.IconType.HANDS.GetHashCode();
-            }
             else if (itemDrop < dropLegs)
-            {
-                slotTypeInt = Data.SlotType.LEGS.GetHashCode();
                 iconTypeId = Data.IconType.LEGS.GetHashCode();
-            }
             else if (itemDrop < dropFeet)
-            {
-                slotTypeInt = Data.SlotType.FEET.GetHashCode();
                 iconTypeId = Data.IconType.FEET.GetHashCode();
-            }
 
             Armor = UnityEngine.Random.Range(Level * armorPerLevelMin, Level * armorPerLevelMax);
         }
         else if (itemDrop >= dropArmor && itemDrop < drop1HWeapon)//1H
         {
-            slotTypeInt = Data.SlotType.ONEHAND.GetHashCode();
-
             if (itemDrop < dropShield)      // SHIELD
             {
                 itemTypeInt = Data.ItemType.SHIELD.GetHashCode();
@@ -199,7 +199,6 @@ public class Item
         else if (itemDrop >= drop1HWeapon)    /////////////////// 2H
         {
             itemTypeInt = Data.ItemType.WEAPON.GetHashCode();
-            slotTypeInt = Data.SlotType.TWOHANDS.GetHashCode();
 
             AttackValue = UnityEngine.Random.Range(Level * attack2HPerLevelMin, Level * attack2HPerLevelMax);
             CdAttack = UnityEngine.Random.Range(cdAttack2HMin, cdAttack2HMax);
@@ -255,10 +254,10 @@ public class Item
                     break;
 
                 case Data.BonusType.DODGE:
-                    DodgeBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
+                    DodgeBonus += Math.Min(maxDodgeBonusPerItem, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
                     break;
                 case Data.BonusType.CRIT:
-                    CritBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
+                    CritBonus += Math.Min(maxCritBonusPerItem, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
                     break;
 
                 case Data.BonusType.REGENMANA:
@@ -268,10 +267,10 @@ public class Item
                     RegenHealthBonus += UnityEngine.Random.Range(regenHealthPerLevelMin * levelFloat, regenHealthPerLevelMax * levelFloat);
                     break;
                 case Data.BonusType.ATTACKSPEED:
-                    CdAttackBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100); // between 0 and 0.07
+                    CdAttackBonus += Math.Min(maxCdAttackBonusPerItem, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100); // between 0 and 0.07
                     break;
                 case Data.BonusType.CASTTIME:
-                    CastTimeBonus += Math.Min(0.07f, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100); // between 0 and 0.07
+                    CastTimeBonus += Math.Min(maxCastTimeBonusPerItem, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100); // between 0 and 0.07
                     break;
             }
         }
@@ -282,7 +281,133 @@ public class Item
         itemData = Data.listOfItems[iconTypeId][randomItemDataId];
     }
 
+    /// <summary>
+    /// Second version of GenerateItem in wich we can CHOOSE the type of item generated
+    /// </summary>
+    /// <param name="level"></param>
+    /// <param name="magicFind">Between 0 and 70, carefull with that one</param>
+    void GenerateItem(int _level, int magicFind, Data.IconType typeOfItemDropped)
+    {
+        magicFind = Math.Min(magicFind, maxMagicFind);
+        magicFind = Math.Max(0, magicFind);
+        levelFloat = _level;
+        NormalRange = 70 - magicFind;
+        MagicRange = 90 - (magicFind / 2); // When random 0-100 more than MagicRange the item is legendary
+
+        iconTypeId = (int)typeOfItemDropped;
+
+        if (typeOfItemDropped >= Data.IconType.HEAD && typeOfItemDropped < Data.IconType.SHIELD)////////// ARMOR
+        {
+            itemTypeInt = Data.ItemType.ARMOR.GetHashCode();
+            Armor = UnityEngine.Random.Range(Level * armorPerLevelMin, Level * armorPerLevelMax);
+        }
+        else if (typeOfItemDropped == Data.IconType.SHIELD)/////////////////////////////////////////////// 1H SHIELD
+        {
+            itemTypeInt = Data.ItemType.SHIELD.GetHashCode();
+            Armor = UnityEngine.Random.Range(Level * armorPerLevelMin, Level * armorPerLevelMax);
+            DodgeBonus += Math.Min(maxDodgePerItem, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
+            iconTypeId = Data.IconType.SHIELD.GetHashCode();
+        }
+        else if (typeOfItemDropped >= Data.IconType.AXE && typeOfItemDropped <= Data.IconType.WAND)/////// OTHER 1H
+        {
+            itemTypeInt = Data.ItemType.WEAPON.GetHashCode();
+            AttackValue = UnityEngine.Random.Range(Level * attack1HPerLevelMin, Level * attack1HPerLevelMax);
+            CdAttack = UnityEngine.Random.Range(cdAttack1HMin, cdAttack1HMax);
+        }
+        
+        else if (typeOfItemDropped >= Data.IconType.SWORD2H)    //////////////////////////////////////////// 2H
+        {
+            itemTypeInt = Data.ItemType.WEAPON.GetHashCode();
+            AttackValue = UnityEngine.Random.Range(Level * attack2HPerLevelMin, Level * attack2HPerLevelMax);
+            CdAttack = UnityEngine.Random.Range(cdAttack2HMin, cdAttack2HMax);
+        }
+        ItemType = (Data.ItemType)itemTypeInt;
+
+        itemQualityInt = UnityEngine.Random.Range(0, 100); // Qualite de l'item : normal, magic, legendaire
+
+        if (itemQualityInt > MagicRange)// the item is legendary
+        {
+            ItemQuality = Data.ItemQuality.LEGENDARY;
+            numberOfBonus = UnityEngine.Random.Range(3, 5);
+            LegendaryEffect = (Data.LegendaryEffect)UnityEngine.Random.Range(Data.LegendaryEffect.NONE.GetHashCode() + 1, Data.LegendaryEffect.LAST.GetHashCode());
+        }
+        else if (itemQualityInt > NormalRange)// the item is magical
+        {
+            ItemQuality = Data.ItemQuality.MAGIC;
+            numberOfBonus = UnityEngine.Random.Range(2, 4);
+        }
+        else
+            ItemQuality = Data.ItemQuality.NORMAL;
+
+        for (int i = 0; i < numberOfBonus; i++)
+        {
+            randomBonus = UnityEngine.Random.Range(0, Data.BonusTypeCount);
+
+            switch ((Data.BonusType)randomBonus)
+            {
+                case Data.BonusType.STREN:
+                    StrenBonus += UnityEngine.Random.Range((int)(strPerLevelMin * Level), (int)(Level * strPerLevelMax));
+                    break;
+                case Data.BonusType.INTEL:
+                    IntelBonus += UnityEngine.Random.Range((int)(intPerLevelMin * Level), (int)(Level * intPerLevelMax));
+                    break;
+                case Data.BonusType.AGI:
+                    AgiBonus += UnityEngine.Random.Range((int)(agiPerLevelMin * Level), (int)(Level * agiPerLevelMax));
+                    break;
+                case Data.BonusType.VITAL:
+                    VitalBonus += UnityEngine.Random.Range((int)(vitalPerLevelMin * Level), (int)(Level * vitalPerLevelMax));
+                    break;
+                case Data.BonusType.ATTACK:
+                    AttackBonus += UnityEngine.Random.Range(Level * attackPerLevelMin, Level * attackPerLevelMax);
+                    break;
+                case Data.BonusType.SPELL:
+                    SpellBonus += UnityEngine.Random.Range(Level * spellPerLevelMin, Level * spellPerLevelMax);
+                    break;
+                case Data.BonusType.MANA:
+                    ManaBonus += UnityEngine.Random.Range(Level * manaPerLevelMin, Level * manaPerLevelMax);
+                    break;
+                case Data.BonusType.HEALTH:
+                    HealthBonus += UnityEngine.Random.Range(Level * healthPerLevelMin, Level * healthPerLevelMax);//at lvl 100 : 1000 -> 10/lvl max
+                    break;
+
+                case Data.BonusType.DODGE:
+                    DodgeBonus += Math.Min(maxDodgeBonusPerItem, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
+                    break;
+                case Data.BonusType.CRIT:
+                    CritBonus += Math.Min(maxCritBonusPerItem, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
+                    break;
+
+                case Data.BonusType.REGENMANA:
+                    RegenManaBonus += UnityEngine.Random.Range(levelFloat * regenManaPerLevelMin, levelFloat * regenManaPerLevelMax); //  at lvl 100 : 20 -> 0.2/lvl max
+                    break;
+                case Data.BonusType.REGENHEALTH:
+                    RegenHealthBonus += UnityEngine.Random.Range(regenHealthPerLevelMin * levelFloat, regenHealthPerLevelMax * levelFloat);
+                    break;
+                case Data.BonusType.ATTACKSPEED:
+                    CdAttackBonus += Math.Min(maxCdAttackBonusPerItem, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100); // between 0 and 0.07
+                    break;
+                case Data.BonusType.CASTTIME:
+                    CastTimeBonus += Math.Min(maxCastTimeBonusPerItem, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100); // between 0 and 0.07
+                    break;
+            }
+        }
+
+        int randomItemDataId;
+        randomItemDataId = UnityEngine.Random.Range(0, Data.listOfItems[iconTypeId].Count);
+
+        itemData = Data.listOfItems[iconTypeId][randomItemDataId];
+    }
+
+
+
     /////////////////GETTERS AND SETTERS//////////////////////////////
+
+    public ItemData ItemData
+    {
+        get { return itemData; }
+        set { itemData = value; }
+    }
+
     public int AttackValue
     {
         get

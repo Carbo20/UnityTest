@@ -33,9 +33,9 @@ public class Hero
         // TODO : don't forget to take dodge into account wherever takeDamage is called
         /*[TODO] Put TakeDamage Animation here*/
 
-        // Armor/EnnemyLevel
-        damageReduc = Data.heroData.armor / ennemyLevel;
+        damageReduc = (float)Math.Min(80, Data.heroData.armor / ennemyLevel)/100;
         trueDamage = (int)(damage * (1 - damageReduc));
+        //Debug.Log("trueDamage :" + trueDamage + "  damage  " + damage + "   (1 - damageReduc/100) " + (1 - damageReduc / 100) + " damageReduc   "  + damageReduc*100 + " Data.heroData.armor  " + Data.heroData.armor + "  ennemyLevel " + ennemyLevel);
 
         if (Hp - trueDamage > 0)
         {

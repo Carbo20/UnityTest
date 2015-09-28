@@ -16,7 +16,7 @@ public class EnemyManager : MonoBehaviour
     {
         monsterStatus = GetComponent<EnemyStatus>();
         monsterStatus.InitStatus();
-        enemy = new Enemy(monsterStatus.Level, monsterStatus.HpMax, monsterStatus.ManaMax, monsterStatus.Strenght, monsterStatus.Intelligence, monsterStatus.Agility, monsterStatus.Vitality);
+        enemy = new Enemy(monsterStatus.Level, monsterStatus.HpMax, monsterStatus.ManaMax, monsterStatus.Strenght, monsterStatus.Intelligence, monsterStatus.Agility, monsterStatus.Vitality, monsterStatus.Armor);
     }
 
     // Use this for initialization

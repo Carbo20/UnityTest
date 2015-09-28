@@ -2,6 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Class made to store data that would be useful at any given time during the game.
+/// 
+/// IMPORTANT FACT CONCERNING ENUM : if you had a value to an enum make sure to add it inside its own sub-class
+///     ex: if you add a 1-handed weapon add it between AXE and WAND
+/// </summary>
 public class Data {
 
     public enum SlotType { HEAD, CHEST, HANDS, LEGS, FEET, ONEHAND, TWOHANDS };

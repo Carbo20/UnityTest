@@ -6,9 +6,11 @@ public class Mummy : EnemyStatus
 
     public override void InitStatus()
     {
-        Level = 2;
-        HpMax = 20;
+        Level = 1;
+        HpMax = 66;
         ManaMax = 30;
+
+        Armor = 30;
 
         RegenHp = 2;
         RegenMana = 0;
@@ -35,11 +37,10 @@ public class Mummy : EnemyStatus
     public override Data.EnemySkillType DoAnAction()
     {
         /* Here is an example for monster IA 
-        A Simple Random IA for example*/
+        A Simple Random IA for example */
         Data.EnemySkillType idSkill;
 
         int rnd = Random.Range(0, 2);
-
 
         idSkill = SkillAvailable[rnd];
         return idSkill;

@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class Enemy
 {
-
     /* Principal Enemy variable*/
     private int level;
+    private int armor;
     private int hp;
     private int mana;
     private int strenght;
@@ -24,7 +24,7 @@ public class Enemy
     private bool isDead;
     private bool isCasting;
 
-    public Enemy(int _level, int _hp, int _mana, int _strenght, int _inteligence, int _agility, int _vitality)
+    public Enemy(int _level, int _hp, int _mana, int _strenght, int _inteligence, int _agility, int _vitality, int _armor)
     {
         Level = _level;
         hp = _hp;
@@ -33,6 +33,7 @@ public class Enemy
         inteligence = _inteligence;
         agility = _agility;
         vitality = _vitality;
+        armor = _armor;
 
         damage = 27;
 
@@ -51,8 +52,7 @@ public class Enemy
         // TODO : don't forget to take dodge into account wherever takeDamage is called
         /*[TODO] Put TakeDamage Animation here*/
 
-        // Armor/heroLevel
-        damageReduc = Data.heroData.armor / heroLevel;
+        damageReduc = (float)Math.Min(80, Armor/ heroLevel) / 100;
         trueDamage = (int)(damage * (1 - damageReduc));
 
         Hp = Hp - trueDamage;
@@ -281,6 +281,19 @@ public class Enemy
         set
         {
             level = value;
+        }
+    }
+
+    public int Armor
+    {
+        get
+        {
+            return armor;
+        }
+
+        set
+        {
+            armor = value;
         }
     }
 }

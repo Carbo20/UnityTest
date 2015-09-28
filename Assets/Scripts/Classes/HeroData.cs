@@ -9,29 +9,50 @@ using System;
 public class HeroData {
 
     /* Principal Hero variable*/
-    public int hpMax;
-    public int manaMax;
+    
+    public int speed; // Base, nough' said!
+    public int strenght; // Base + Item bonus
+    public int intelligence; // Base + Item bonus
+    public int agility; // Base + Item bonus
+    public int vitality; // Base + Item bonus
 
-    public int regenHp;
-    public int regenMana;
-
-    public int armor;
-
-    public int strenght;
-    public int intelligence;
-    public int agility;
-    public int vitality;
+    public int armor; // Base + Item bonus
 
     /* Secondary Hero variable*/
-    public int speed;
-    public int damage;
-    public int spellDamage;
-    public float dodge;
-    public float critical;
+    public int hpMax; // Base + Item bonus
+    public int manaMax; // Base + Item bonus
 
-    public float cdAttackBase;
-    public float cdAttackModified;
-    public float cdAttackBonusTotal;
+    public int regenHp; // Base + Item bonus
+    public int regenMana; // Base + Item bonus
+
+    public int damage; // Base + Weapon damage + Item bonus
+    public int spellDamage; // Base + Item bonus
+    public float dodge; // Base + Item bonus
+    public float critical; // Base + Item bonus
+
+
+    // these float are going to up the different secondary stats by a certain percent
+    public float damageFromStats; //  damage Strength modification 2% per point
+    public float armorFromStats; //  armor Strength modification 1% per point
+    public float cdAttackFromStats; // cdAttack Strength modification 0.5% per point
+
+    public float spellDamageFromStats; // spellDamage intel modification 2% per point
+    public float manaMaxFromStats; // manaMax Intel modification 1% per point
+    public float regenManaFromStats; // regenMana Intel modification 0.5% per point
+    public float cdSpellReducFromStats; // cdSpell Intel modification 0.25% per point
+
+    public float criticalFromStats; // critical agility modification 2% per point
+    public float dodgeFromStats; // dodge agility modification 1% per point
+
+    public float hpMaxFromStats; // hpMax Vitality Modif 2% per point
+    public float regenHpFromStats; // regenHp Vitality Modif 1% per point
+
+
+    public float cdSpellReduc; // cdSpell Item bonus
+
+    public float cdAttackBase; // ItemBase 
+    public float cdAttackModified; // ItemBase modified by total amount of cdAttack bonus
+    public float cdAttackBonusTotal; // Item bonus
 
     public int nbSkillAvailable;
     public int nbIAOrderAvailable;
@@ -63,6 +84,7 @@ public class HeroData {
         level++;
         xpForNextLevel += GetXPForLevel(level);
     }
+
 
     public int GetXPForLevel(int lvl)
     {

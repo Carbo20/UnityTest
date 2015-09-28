@@ -6,7 +6,7 @@ public class EnemiesManager : MonoBehaviour {
 
     public List<EnemyManager> enemyList;
     private EnemyManager eManager;
-
+    private bool gamePaused;
 
 	// Use this for initialization
 	void Start () {
@@ -14,6 +14,7 @@ public class EnemiesManager : MonoBehaviour {
         GameObject enemy = Instantiate(Resources.Load("Prefabs/Monsters/Mumy")) as GameObject;
         eManager = enemy.GetComponent<EnemyManager>();
         enemyList.Add(eManager);
+        gamePaused = false;
         /*GameObject enemy2 = Instantiate(Resources.Load("Prefabs/Monsters/Mumy")) as GameObject;
         eManager = enemy2.GetComponent<EnemyManager>();
         enemyList.Add(eManager);*/
@@ -21,6 +22,8 @@ public class EnemiesManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (gamePaused) return;
+
         /* Speed computation, wait here the hero is ready to do something
         [TODO] Computation of the delta.time with the hero speed in heroActivation */
         foreach (EnemyManager e in enemyList)
@@ -49,5 +52,8 @@ public class EnemiesManager : MonoBehaviour {
 
     }
 
-
+    public void SetPause(bool b)
+    {
+        gamePaused = b;
+    }
 }

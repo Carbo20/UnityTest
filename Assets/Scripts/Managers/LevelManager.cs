@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour {
     private EnemiesManager eManager;
     private GameObject text;
 
+    private bool gamePaused;
 
     private TextMesh enemyTextBar1;
 
@@ -21,6 +22,8 @@ public class LevelManager : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        gamePaused = false;
+
         GameObject hero = Instantiate(Resources.Load("Prefabs/Hero")) as GameObject;
         hManager = hero.GetComponent<HeroManager>();
         GameObject enemies = Instantiate(Resources.Load("Prefabs/EnemiesManager")) as GameObject;
@@ -36,6 +39,8 @@ public class LevelManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        if (gamePaused) return;
+
         if (eManager) // if a monster is always alive
         {
             //Loop
@@ -86,5 +91,11 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-    
+    public void SetPause(bool b)
+    {
+        gamePaused = b;
+        hManager.SetPause(b);
+        hManager.heroController.SetPause(b);
+        eManager.SetPause(b);
+    }
 }

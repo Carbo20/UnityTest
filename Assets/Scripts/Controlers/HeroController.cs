@@ -14,6 +14,8 @@ public class HeroController : MonoBehaviour {
     private Vector3 target;
     private Vector3 pos;
 
+    private bool gamePaused;
+
 	// Use this for initialization
 	void Start () {
         isAttacking = false;
@@ -21,10 +23,12 @@ public class HeroController : MonoBehaviour {
         timeOfAttackBase = 1f;
         speedBase = 2f;
         pos = transform.position;
+        gamePaused = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        if (gamePaused) return;
         if (isAttacking) Attack();
 	}
 
@@ -72,4 +76,10 @@ public class HeroController : MonoBehaviour {
         crit = _crit;
         target = Vector3.Lerp(pos, _target, esp);
     }
+
+    public void SetPause(bool b)
+    {
+        gamePaused = b;
+    }
+
 }

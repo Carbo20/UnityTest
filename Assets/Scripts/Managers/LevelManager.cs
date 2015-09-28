@@ -44,11 +44,10 @@ public class LevelManager : MonoBehaviour {
         }
         else // else we have to create a new bunch of enemies
         {
-            Debug.Log("NEW ENEMIES");
             GameObject enemies = Instantiate(Resources.Load("Prefabs/EnemiesManager")) as GameObject;
             eManager = enemies.GetComponent<EnemiesManager>();
             skill.UpdateEManager(eManager); //We have to update the new eManager into the skill class
-            mSkill.UpdateEManager(eManager);
+            mSkill.UpdateEManager(eManager); // Same for monster Skill list
         }
 
     }

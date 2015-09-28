@@ -76,6 +76,14 @@ public class Enemy
     private void Death()
     {
         isDead = true;
+
+        if (true) //TODO: conditions de loot
+        {
+            Item it = new Item(level, 1); //TODO: level de l'item et magicFind
+            Data.inventory.AddItem(it);
+            Data.inventory.SaveInventory();
+            Debug.Log("item looted : " + it.Name + " (" + it.SlotType.ToString() + ") lvl:" + it.Level);
+        }
     }
 
 

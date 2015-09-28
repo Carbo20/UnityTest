@@ -42,6 +42,11 @@ public class Inventory {
         LeftHandItemID  = -1;
     }
 
+    public void AddItem(Item it)
+    {
+        items[(int)it.ItemData.slotType].Add(it);
+    }
+
     private  void unequipItem(Item it)
     {
         Data.heroData.hpMax -= it.HealthBonus;

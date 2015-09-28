@@ -41,6 +41,8 @@ public class Data {
     public static List<Sprite> sprites;
 
     public static HeroData heroData = new HeroData();
+    public static int levelMax = 100;
+
 
     public static int showItemId = 5;
     public static int nbOrder;

@@ -86,6 +86,7 @@ public class Hero
 
     public void GetXp(int xp)
     {
+        if (Data.heroData.level == Data.levelMax) return;
         /*[TODO] Put GetXp animation here*/
         Data.heroData.xp = Data.heroData.xp + xp;
         if (xp >= Data.heroData.xpForNextLevel)
@@ -96,6 +97,8 @@ public class Hero
 
     public void LevelUP()
     {
+        if (Data.heroData.level == Data.levelMax) return;
+
         Data.heroData.LevelUP();
         if (Data.heroData.level % Data.iaData.nbLvlRequireToAquireNewOrder == 0)
         {

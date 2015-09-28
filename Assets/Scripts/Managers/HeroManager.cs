@@ -33,6 +33,12 @@ public class HeroManager : MonoBehaviour {
             heroDeltaTime = 0;
         }
 
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            hero.LevelUP();
+            Debug.Log("hero level " + Data.heroData.level);
+        }
+
 	}
     
 }

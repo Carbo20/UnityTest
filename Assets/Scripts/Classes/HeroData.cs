@@ -78,6 +78,9 @@ public class HeroData {
 
     public void initLvl1()
     {
+        level = 1;
+        xp = 0;
+        xpForNextLevel = GetXPForLevel(level);
         hpMax = 20;
         manaMax = 20;
         regenHp = 0;
@@ -95,6 +98,8 @@ public class HeroData {
         cdAttackBase = 0;
         cdAttackModified = 0;
         cdAttackBonusTotal = 0;
+        Data.iaData.nbOrder = 3;
+
 
     }
 
@@ -111,8 +116,7 @@ public class HeroData {
         }
         else
         {
-            LevelUP();
-            Data.heroData.hpMax = 20;
+            initLvl1();
             SaveHeroData();
         }
     }

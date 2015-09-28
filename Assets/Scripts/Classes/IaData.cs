@@ -11,9 +11,13 @@ public class IaData
     public Data.SkillType[] idSkill; // ID of the skill
     public int[] idSigne; // 0 for >, 1 for < and -1 for nothing;
     public int nbOrder; // Number of Order line into the IA 
+    public int nbOrderMax;
+    public int nbLvlRequireToAquireNewOrder;
 
     public IaData()
     {
+        nbOrderMax = 8; //TODO 10!
+        nbLvlRequireToAquireNewOrder = 25;
         nbOrder = Data.heroData.nbIAOrderAvailable; 
         value = new int[nbOrder];
         idTarget = new int[nbOrder];

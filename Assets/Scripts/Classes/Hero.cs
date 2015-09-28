@@ -97,6 +97,12 @@ public class Hero
     public void LevelUP()
     {
         Data.heroData.LevelUP();
+        if (Data.heroData.level % Data.iaData.nbLvlRequireToAquireNewOrder == 0)
+        {
+            if (Data.iaData.nbOrder < Data.iaData.nbOrderMax)
+                Data.iaData.nbOrder++;
+            Debug.Log("Slot d'ia gagné! (" + Data.iaData.nbOrder + ")");
+        }
     }
 
     private void UpdateHealthBar()

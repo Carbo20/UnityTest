@@ -27,6 +27,7 @@ public class EnemiesManager : MonoBehaviour {
         {
             if(e == null)
             {
+                Debug.Log("Enemy destroy");
                 enemyList.Remove(e);
                 enemyList.Sort();
                 break;
@@ -42,6 +43,7 @@ public class EnemiesManager : MonoBehaviour {
 
         if(enemyList.Count == 0) // Destroy the EnemiesManager if all enemies are dead
         {
+            Debug.Log("No more enemies");
             Destroy(gameObject);
         }
 

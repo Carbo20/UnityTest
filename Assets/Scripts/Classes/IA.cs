@@ -83,7 +83,7 @@ public class IA
                         {
                             if (e.enemy.IsCasting)
                             {
-                                Data.iaData.idTarget[i] = enemyId;
+                                Data.iaData.idTarget[i] = enemyId+1;
                                 DoAnAction(i);
                             }
                             enemyId++;
@@ -101,7 +101,7 @@ public class IA
     public void DoAnAction(int i)
     {
         skill.IdTarget = 1; // Here waiting the change for the bottom line
-        //skill.IdTarget = Data.iaData.idTarget[i]; [TODO] Change this or put it into the IaScene
+        //skill.IdTarget = Data.iaData.idTarget[i]; 
         Debug.Log((int)Data.iaData.idSkill[i]);
         skill.actionList[(int)Data.iaData.idSkill[i]]();
         isValid = true;

@@ -26,6 +26,7 @@ public class EnemySkill
 
     public void UpdateEManager(EnemiesManager enemies)
     {
+        Debug.Log("Ennemies Update in Skill : " + enemies);
         eManager = enemies;
     }
 
@@ -53,6 +54,9 @@ public class EnemySkill
 
     public void Attack()
     {
+        Debug.Log("Enemy who cast : " + idEnemyWhoCast);
+        Debug.Log("EnemyList Strenght : " + eManager.enemyList.Count);
+        Debug.Log("This enemy exist ? : " + eManager.enemyList[idEnemyWhoCast]);
         hManager.hero.TakeDamage(eManager.enemyList[idEnemyWhoCast].enemy.DoDamage(), eManager.enemyList[idEnemyWhoCast].enemy.Level);
     }
 

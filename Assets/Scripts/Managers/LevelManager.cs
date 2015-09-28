@@ -44,19 +44,21 @@ public class LevelManager : MonoBehaviour {
         }
         else // else we have to create a new bunch of enemies
         {
+            Debug.Log("NEW ENEMIES");
             GameObject enemies = Instantiate(Resources.Load("Prefabs/EnemiesManager")) as GameObject;
             eManager = enemies.GetComponent<EnemiesManager>();
             skill.UpdateEManager(eManager); //We have to update the new eManager into the skill class
+            mSkill.UpdateEManager(eManager);
         }
 
     }
 
     private void HeroLoop()
     {
-        if (hManager.hero.IsDead)
+        /*if (hManager.hero.IsDead)
         {
-            /*[TODO] if we have to do something fot the death of the hero*/
-        }
+            /*[TODO] if we have to do something fot the death of the hero
+        }*/
         if (hManager.hero.IsReady)
         {
             /* Here we compute the IA to know wich skill the hero will use */

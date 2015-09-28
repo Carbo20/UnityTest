@@ -30,6 +30,7 @@ public class Skill {
 
     public void UpdateEManager(EnemiesManager enemies)
     {
+        Debug.Log("Ennemies Update in Skill : " + enemies);
         eManager = enemies;
     }
 

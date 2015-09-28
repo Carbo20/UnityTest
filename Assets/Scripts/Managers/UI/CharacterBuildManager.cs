@@ -782,7 +782,7 @@ public class CharacterBuildManager : MonoBehaviour {
         if (Data.inventory.items[selectedSlotType.GetHashCode()].Count > selectedItem)
         {
             Data.inventory.Equip(selectedSlotType, selectedItem);
-            Data.inventory.SaveInventory("inventory");
+            Data.inventory.SaveInventory();
             Data.heroData.SaveHeroData();
             updateHeroEquipement();
             updateItemList();
@@ -793,6 +793,16 @@ public class CharacterBuildManager : MonoBehaviour {
 
     public void UnequipButtonPushed()
     {
-        Debug.Log("Unequip TODO");
+        if (Data.inventory.items[(int)selectedSlotType].Count > selectedItem)
+        {
+            Data.inventory.Unequip(selectedSlotType, selectedItem);
+            Data.inventory.SaveInventory();
+            Data.heroData.SaveHeroData();
+            updateHeroEquipement();
+            updateItemList();
+            updateItemArea();
+            updateHeroStats();
+        }
+
     }
 }

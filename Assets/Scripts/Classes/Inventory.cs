@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
+using UnityEngine;
 
+/// <summary>
+/// Par default les armes à deux mains sont équipées dans la main gauche
+/// </summary>
 [Serializable()]
 public class Inventory {
 
@@ -38,7 +42,7 @@ public class Inventory {
         LeftHandItemID  = -1;
     }
 
-    public void unequipeItem(Item it)
+    private  void unequipItem(Item it)
     {
         Data.heroData.hpMax -= it.HealthBonus;
         Data.heroData.manaMax -= it.ManaBonus;
@@ -70,7 +74,7 @@ public class Inventory {
        
     }
 
-    public void equipItem(Item it)
+    private void equipItem(Item it)
     {
         Data.heroData.hpMax += it.HealthBonus;
         Data.heroData.manaMax += it.ManaBonus;
@@ -118,42 +122,42 @@ public class Inventory {
 
             case Data.SlotType.HEAD: 
                 if (HeadItemID != -1) 
-                    unequipeItem(items[(int)Data.SlotType.HEAD][HeadItemID]);
+                    unequipItem(items[(int)Data.SlotType.HEAD][HeadItemID]);
                 HeadItemID = it; 
                 equipItem(items[(int)Data.SlotType.HEAD][HeadItemID]);
                 break;
             case Data.SlotType.CHEST:
                 if (ChestItemID != -1)
-                    unequipeItem(items[(int)Data.SlotType.CHEST][ChestItemID]);
+                    unequipItem(items[(int)Data.SlotType.CHEST][ChestItemID]);
                 ChestItemID = it;
                 equipItem(items[(int)Data.SlotType.CHEST][ChestItemID]);
                 break;
             case Data.SlotType.HANDS:
                 if (HandsItemID != -1)
-                    unequipeItem(items[(int)Data.SlotType.HANDS][HandsItemID]);
+                    unequipItem(items[(int)Data.SlotType.HANDS][HandsItemID]);
                 HandsItemID = it; 
                 equipItem(items[(int)Data.SlotType.HANDS][HandsItemID]);
                 break;
             case Data.SlotType.LEGS: 
                 if(LegsItemID != -1)
-                    unequipeItem(items[(int)Data.SlotType.LEGS][LegsItemID]);                    
+                    unequipItem(items[(int)Data.SlotType.LEGS][LegsItemID]);                    
                 LegsItemID = it;
                 equipItem(items[(int)Data.SlotType.LEGS][LegsItemID]);
                 break;
             case Data.SlotType.FEET: 
                 if(FeetItemID != -1)
-                    unequipeItem(items[(int)Data.SlotType.FEET][FeetItemID]);
+                    unequipItem(items[(int)Data.SlotType.FEET][FeetItemID]);
                 FeetItemID = it;
                 equipItem(items[(int)Data.SlotType.FEET][FeetItemID]);
                 break;
             case Data.SlotType.TWOHANDS:
                 if (!gotTwoHandWeapon)
                 {
-                    if (RightHandItemID != -1) unequipeItem(items[(int)Data.SlotType.ONEHAND][RightHandItemID]);
-                    if (LeftHandItemID != -1) unequipeItem(items[(int)Data.SlotType.ONEHAND][LeftHandItemID]);
+                    if (RightHandItemID != -1) unequipItem(items[(int)Data.SlotType.ONEHAND][RightHandItemID]);
+                    if (LeftHandItemID != -1) unequipItem(items[(int)Data.SlotType.ONEHAND][LeftHandItemID]);
                 }
                 else
-                    if (LeftHandItemID != -1) unequipeItem(items[(int)Data.SlotType.TWOHANDS][LeftHandItemID]);
+                    if (LeftHandItemID != -1) unequipItem(items[(int)Data.SlotType.TWOHANDS][LeftHandItemID]);
                 gotTwoHandWeapon = true;
                 RightHandItemID = -1;
                 LeftHandItemID = it;
@@ -162,7 +166,7 @@ public class Inventory {
             case Data.SlotType.ONEHAND:
                 if (gotTwoHandWeapon)
                 {
-                    if (LeftHandItemID != -1) unequipeItem(items[(int)Data.SlotType.TWOHANDS][LeftHandItemID]);
+                    if (LeftHandItemID != -1) unequipItem(items[(int)Data.SlotType.TWOHANDS][LeftHandItemID]);
                     LeftHandItemID = -1;
                     RightHandItemID = it;
                     equipItem(items[(int)Data.SlotType.ONEHAND][RightHandItemID]);
@@ -182,14 +186,14 @@ public class Inventory {
                     }
                     else if (fillRightHand)
                     {
-                        unequipeItem(items[(int)Data.SlotType.ONEHAND][RightHandItemID]);
+                        unequipItem(items[(int)Data.SlotType.ONEHAND][RightHandItemID]);
                         RightHandItemID = it;
                         equipItem(items[(int)Data.SlotType.ONEHAND][RightHandItemID]);
                         fillRightHand = false;
                     }
                     else 
                     {
-                        unequipeItem(items[(int)Data.SlotType.ONEHAND][LeftHandItemID]);
+                        unequipItem(items[(int)Data.SlotType.ONEHAND][LeftHandItemID]);
                         LeftHandItemID = it;
                         equipItem(items[(int)Data.SlotType.ONEHAND][LeftHandItemID]);
                         fillRightHand = true; 
@@ -201,13 +205,92 @@ public class Inventory {
 
     }
 
-     public void SaveInventory(string path)
+    /// <summary>
+    /// Desequip l'item it de type st
+    /// </summary>
+    /// <param name="st">Type de l'item</param>
+    /// <param name="it">indice d'item</param>
+    public void Unequip(Data.SlotType st, int it)
+    {
+        switch (st)
+        {
+            case Data.SlotType.HEAD:
+                if (HeadItemID == it)
+                {
+                    unequipItem(items[(int)Data.SlotType.HEAD][HeadItemID]);
+                    HeadItemID = -1;
+                }
+                break;
+            case Data.SlotType.CHEST:
+                if (ChestItemID == it)
+                {
+                    unequipItem(items[(int)Data.SlotType.CHEST][ChestItemID]);
+                    ChestItemID = -1;
+                }
+                break;
+            case Data.SlotType.HANDS:
+                if (HandsItemID == it)
+                {
+                    unequipItem(items[(int)Data.SlotType.HANDS][HandsItemID]);
+                    HandsItemID = -1;
+                }
+                break;
+            case Data.SlotType.LEGS:
+                if (LegsItemID == it)
+                {
+                    unequipItem(items[(int)Data.SlotType.LEGS][LegsItemID]);
+                    LegsItemID = -1;
+                }
+                break;
+            case Data.SlotType.FEET:
+                if (FeetItemID == it)
+                {
+                    unequipItem(items[(int)Data.SlotType.FEET][FeetItemID]);
+                    FeetItemID = -1;
+                }
+                break;
+            case Data.SlotType.ONEHAND:
+                if (!gotTwoHandWeapon && RightHandItemID == it)
+                {
+                    unequipItem(items[(int)Data.SlotType.ONEHAND][RightHandItemID]);
+                    RightHandItemID = -1;
+                }
+                else if (!gotTwoHandWeapon && LeftHandItemID == it)
+                {
+                    unequipItem(items[(int)Data.SlotType.ONEHAND][LeftHandItemID]);
+                    LeftHandItemID = -1;
+                }
+                break;
+            case Data.SlotType.TWOHANDS:
+                if (gotTwoHandWeapon && LeftHandItemID == it)
+                {
+                    unequipItem(items[(int)Data.SlotType.TWOHANDS][LeftHandItemID]);
+                    LeftHandItemID = -1;
+                }
+                break;
+        }
+    }
+
+     public void SaveInventory()
      {
 
-         Stream stream = File.Create(path);
+         Stream stream = File.Create(Application.persistentDataPath + "/inventory");
          BinaryFormatter serializer = new BinaryFormatter();
          serializer.Serialize(stream, this);
          stream.Close();
+         Debug.Log("inventaire sauvegardé dans " + Application.persistentDataPath + "/inventory");
+     }
+
+     public void LoadInventory()
+     {
+         string path = Application.persistentDataPath + "/inventory";
+         if (File.Exists(path))
+         {
+             Stream stream = File.OpenRead(path);
+             BinaryFormatter deserializer = new BinaryFormatter();
+             Data.inventory = (Inventory)deserializer.Deserialize(stream);
+             stream.Close();
+         }
      }
      
 }

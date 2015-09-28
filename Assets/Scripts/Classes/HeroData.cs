@@ -74,13 +74,7 @@ public class HeroData {
         cdAttackModified = cdAttackBase - (cdAttackBase * cdAttackBonusTotal);
     }
 
-    public void SaveHeroData()
-    {
-        Stream stream = File.Create("heroData");
-        BinaryFormatter serializer = new BinaryFormatter();
-        serializer.Serialize(stream, this);
-        stream.Close();
-    }
+    
 
     public void initLvl1()
     {
@@ -106,9 +100,11 @@ public class HeroData {
 
     public void LoadHeroData()
     {
-        if (File.Exists("heroData"))
+        string path = Application.persistentDataPath + "/heroData";
+
+        if (File.Exists(path))
         {
-            Stream stream = File.OpenRead("heroData");
+            Stream stream = File.OpenRead(path);
             BinaryFormatter deserializer = new BinaryFormatter();
             Data.heroData = (HeroData)deserializer.Deserialize(stream);
             stream.Close();
@@ -121,4 +117,12 @@ public class HeroData {
         }
     }
 
+    public void SaveHeroData()
+    {
+        Stream stream = File.Create(Application.persistentDataPath + "/heroData");
+        BinaryFormatter serializer = new BinaryFormatter();
+        serializer.Serialize(stream, this);
+        stream.Close();
+        Debug.Log("heroData sauvegardé dans " + Application.persistentDataPath + "/heroData");
+    }
 }

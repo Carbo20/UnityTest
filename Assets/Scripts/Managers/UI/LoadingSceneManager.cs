@@ -20,7 +20,7 @@ public class LoadingSceneManager : MonoBehaviour {
         LoadHeroData();
         LoadSprites();
         LoadItemsData();
-        LoadInventoryFromXML();
+        LoadInventory();
         ready = 0;
 	}
 	
@@ -87,18 +87,9 @@ public class LoadingSceneManager : MonoBehaviour {
     }
 
    
-     public void LoadInventoryFromXML()
+     public void LoadInventory()
      {
-         /*FileStream fs = new FileStream("inventory.xml", FileMode.Open);
-         XmlSerializer x = new XmlSerializer(typeof(Inventory));
-         Data.inventory = (Inventory)x.Deserialize(fs);*/
-         if (File.Exists("inventory"))
-         {
-             Stream stream = File.OpenRead("inventory");
-             BinaryFormatter deserializer = new BinaryFormatter();
-             Data.inventory = (Inventory)deserializer.Deserialize(stream);
-             stream.Close();
-         }
+         Data.inventory.LoadInventory();
      }
      
 }

@@ -71,4 +71,9 @@ public class EnemySkill
     {
         Debug.Log("Skill 2");
     }
+
+    public void Heal()
+    {
+
+    }
 }

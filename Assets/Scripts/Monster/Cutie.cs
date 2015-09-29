@@ -34,8 +34,6 @@ public class Cutie : EnemyStatus
 
     public override Data.EnemySkillType DoAnAction()
     {
-        /* Here is an example for monster IA 
-        A Simple Random IA for example*/
         Data.EnemySkillType idSkill;
 
         int rnd = Random.Range(0, 2);

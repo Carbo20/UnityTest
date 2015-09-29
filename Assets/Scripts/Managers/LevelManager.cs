@@ -13,11 +13,14 @@ public class LevelManager : MonoBehaviour {
     private HeroManager hManager;
     private EnemiesManager eManager;
     private GameObject text;
+    private BackgroundControler background;
 
     private bool gamePaused;
 
     private TextMesh enemyTextBar1;
 
+    private float waitNewGroup;
+    private float waitTime;
 
     // Use this for initialization
     void Start ()
@@ -31,12 +34,19 @@ public class LevelManager : MonoBehaviour {
         GameObject textBox = Instantiate(Resources.Load("Prefabs/Text")) as GameObject;
         enemyTextBar1 = textBox.GetComponent<TextMesh>();
 
+        background = GameObject.Find("Background").GetComponent<BackgroundControler>();
+        Debug.Log(background);
+
         skill = new Skill(hManager,eManager);
         mSkill = new EnemySkill(hManager, eManager);
         ia = new IA(hManager, eManager, skill);
         hManager.GetIA(ia);
         hManager.GetSkill(skill);
         eManager.GetSkill(mSkill);
+
+        waitTime = 0;
+        waitNewGroup = 2;
+        
     }
 	
 	// Update is called once per frame
@@ -52,10 +62,17 @@ public class LevelManager : MonoBehaviour {
         }
         else // else we have to create a new bunch of enemies
         {
-            GameObject enemies = Instantiate(Resources.Load("Prefabs/EnemiesManager")) as GameObject;
-            eManager = enemies.GetComponent<EnemiesManager>();
-            skill.UpdateEManager(eManager); //We have to update the new eManager into the skill class
-            mSkill.UpdateEManager(eManager); // Same for monster Skill list
+            background.IsScrolling = true;
+            waitTime += Time.deltaTime;
+            if(waitNewGroup >= waitTime)
+            {
+                background.IsScrolling = false;
+                waitTime = 0;
+                GameObject enemies = Instantiate(Resources.Load("Prefabs/EnemiesManager")) as GameObject;
+                eManager = enemies.GetComponent<EnemiesManager>();
+                skill.UpdateEManager(eManager); //We have to update the new eManager into the skill class
+                mSkill.UpdateEManager(eManager); // Same for monster Skill list
+            }
         }
 
     }

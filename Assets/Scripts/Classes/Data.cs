@@ -36,6 +36,8 @@ public class Data {
 
     //[TODO] To complete enum of action
 
+
+    public static float[] cdList; // To know the cd of the all the skills
     public enum SkillType {ATTACK, USEITEM, TESTSKILL, FIREBALL, HEAL } //Complete with all the skill
 
     public enum EnemySkillType {ATTACK, FIREBALL } // Complete with all the monster skill

@@ -11,6 +11,7 @@ public class HeroManager : MonoBehaviour {
     private Skill skill;
     private Data.SkillType iaResult;
 
+
     private string heroActionStatus;
 
     public HeroController heroController;

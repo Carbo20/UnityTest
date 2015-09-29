@@ -13,7 +13,9 @@ public class Enemy
     private int level;
     private int armor;
     private int hp;
+    private int hpMax;
     private int mana;
+    private int manaMax;
     private int strenght;
     private int inteligence;
     private int agility;
@@ -42,7 +44,9 @@ public class Enemy
         isBoss = false; // TODO temporary just a reminder it now exists and should be used
         Level = _level;
         hp = _hp;
+        hpMax = _hp;
         mana = _mana;
+        manaMax = _mana;
         strenght = _strenght;
         inteligence = _inteligence;
         agility = _agility;
@@ -298,7 +302,7 @@ public class Enemy
             level = value;
         }
     }
-
+    
     public int Armor
     {
         get
@@ -374,6 +378,32 @@ public class Enemy
         set
         {
             isBoss = value;
+        }
+    }
+
+    public int HpMax
+    {
+        get
+        {
+            return hpMax;
+        }
+
+        set
+        {
+            hpMax = value;
+        }
+    }
+
+    public int ManaMax
+    {
+        get
+        {
+            return manaMax;
+        }
+
+        set
+        {
+            manaMax = value;
         }
     }
 }

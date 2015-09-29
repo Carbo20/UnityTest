@@ -14,11 +14,11 @@ public class Skill {
     private int idTarget;
 
 
-    public Skill(HeroManager _hero,EnemiesManager _enemies)
+    public Skill(HeroManager _hero, EnemiesManager _enemies)
     {
         hManager = _hero;
         eManager = _enemies;
-
+        
         actionList = new Action[10];
         cdAction = new float[10];
 

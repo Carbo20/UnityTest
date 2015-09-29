@@ -27,6 +27,7 @@ public class IA
     {
         for (int i = 0; i < Data.iaData.nbOrder; i++)
         {
+            int enemyId = 1; // To know wich enemy is the target
             if (Data.iaData.idSigne[i] == 0)
             {
                 switch (Data.iaData.idCondition[i])
@@ -41,6 +42,28 @@ public class IA
                         if (hManager.hero.Mana * 100 / hManager.hero.ManaMax >= Data.iaData.value[i]) // If Current Mana > X%
                         {
                             return DoAnAction(i);
+                        }
+                        break;
+                    case IaData.IaCondition.ENEMYHEALTH:
+                        foreach (EnemyManager e in eManager.enemyList)
+                        {
+                            if (e.enemy.Hp * 100 / e.enemy.HpMax >= Data.iaData.value[i])  // If Current Enemy Health > X%
+                            {
+                                Data.iaData.idTarget[i] = enemyId;
+                                DoAnAction(i);
+                            }
+                            enemyId++;
+                        }
+                        break;
+                    case IaData.IaCondition.ENEMYMANA:
+                        foreach (EnemyManager e in eManager.enemyList)
+                        {
+                            if(e.enemy.Mana * 100 / e.enemy.ManaMax >= Data.iaData.value[i])  // If Current Enemy Mana > X%
+                            {
+                                Data.iaData.idTarget[i] = enemyId;
+                                DoAnAction(i);
+                            }
+                            enemyId++;
                         }
                         break;
                 }
@@ -61,6 +84,28 @@ public class IA
                             return DoAnAction(i);
                         }
                         break;
+                    case IaData.IaCondition.ENEMYHEALTH:
+                        foreach (EnemyManager e in eManager.enemyList)
+                        {
+                            if (e.enemy.Hp * 100 / e.enemy.HpMax <= Data.iaData.value[i])  // If Current Enemy Health < X%
+                            {
+                                Data.iaData.idTarget[i] = enemyId;
+                                DoAnAction(i);
+                            }
+                            enemyId++;
+                        }
+                        break;
+                    case IaData.IaCondition.ENEMYMANA:
+                        foreach (EnemyManager e in eManager.enemyList)
+                        {
+                            if (e.enemy.Mana * 100 / e.enemy.ManaMax <= Data.iaData.value[i])  // If Current Enemy Mana < X%
+                            {
+                                Data.iaData.idTarget[i] = enemyId;
+                                DoAnAction(i);
+                            }
+                            enemyId++;
+                        }
+                        break;
                 }
             }
             if(Data.iaData.idSigne[i] == -1) //Here the stuff who don't need to know < or >
@@ -74,7 +119,6 @@ public class IA
                         }
                         break;
                     case IaData.IaCondition.ENEMYCAST:
-                        int enemyId = 1;
                         foreach(EnemyManager e in eManager.enemyList)
                         {
                             if (e.enemy.IsCasting)

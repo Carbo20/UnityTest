@@ -6,10 +6,11 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System;
 
 [Serializable()]
-public class HeroData {
+public class HeroData
+{
 
     /* Principal Hero variable*/
-    
+
     public int speed; // Base, nough' said!
     public int strenght; // Base + Item bonus
     public int intelligence; // Base + Item bonus
@@ -31,22 +32,28 @@ public class HeroData {
     public float critical; // Base + Item bonus
 
 
-    // these float are going to up the different secondary stats by a certain percent
-    public float damageFromStats; //  damage Strength modification 2% per point
-    public float armorFromStats; //  armor Strength modification 1% per point
-    public float cdAttackFromStats; // cdAttack Strength modification 0.5% per point
+    /// these float are going to up the different secondary stats by a certain percent
+    /// each secondary stat receive a % bonus based on the points in their corresponding primary stat
 
-    public float spellDamageFromStats; // spellDamage intel modification 2% per point
-    public float manaMaxFromStats; // manaMax Intel modification 1% per point
-    public float regenManaFromStats; // regenMana Intel modification 0.5% per point
-    public float cdSpellReducFromStats; // cdSpell Intel modification 0.25% per point
+    public float BonusPerStats1; // ex 2%
+    public float BonusPerStats2; // ex 1%
+    public float BonusPerStats3; // ex 0.5%
+    public float BonusPerStats4; // ex 0.25%
 
-    public float criticalFromStats; // critical agility modification 2% per point
-    public float dodgeFromStats; // dodge agility modification 1% per point
+    public float damagePerStats; //  damage Strength modification Bonus%1
+    public float armorPerStats; //  armor Strength modification Bonus%2
+    public float cdAttackPerStats; // cdAttack Strength modification Bonus%3
 
-    public float hpMaxFromStats; // hpMax Vitality Modif 2% per point
-    public float regenHpFromStats; // regenHp Vitality Modif 1% per point
+    public float spellDamagePerStats; // spellDamage intel modification Bonus%1
+    public float manaMaxPerStats; // manaMax Intel modification Bonus%2
+    public float regenManaPerStats; // regenMana Intel modification Bonus%3
+    public float cdSpellReducPerStats; // cdSpell Intel modification Bonus%4
 
+    public float criticalPerStats; // critical agility modification Bonus%1
+    public float dodgePerStats; // dodge agility modification Bonus%2
+
+    public float hpMaxPerStats; // hpMax Vitality Modif Bonus%1
+    public float regenHpPerStats; // regenHp Vitality Modif Bonus%2
 
     public float cdSpellReduc; // cdSpell Item bonus
 
@@ -96,7 +103,7 @@ public class HeroData {
         cdAttackModified = cdAttackBase - (cdAttackBase * cdAttackBonusTotal);
     }
 
-    
+
 
     public void initLvl1()
     {

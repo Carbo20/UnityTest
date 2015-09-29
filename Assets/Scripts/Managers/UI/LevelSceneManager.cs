@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class LevelSceneManager : MonoBehaviour {
 
     LevelManager lm;
     GameObject pauseMenu, pauseButton;
-
 	// Use this for initialization
 	void Start () {
         lm = GameObject.Find("LevelManager").GetComponent<LevelManager>();
         pauseMenu = GameObject.Find("Canvas/MenuPausePanel");
         pauseButton = GameObject.Find("Canvas/PauseButton");
         pauseMenu.SetActive(false);
+
 	}
 	
 	// Update is called once per frame

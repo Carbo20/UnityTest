@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour {
     private IA ia; //Here is the IA manager
 
 
-    private GameObject hero;
+    public  GameObject hero;
     private HeroManager hManager;
     private EnemiesManager eManager;
     private GameObject text;

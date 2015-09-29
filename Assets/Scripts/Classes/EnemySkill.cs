@@ -8,6 +8,7 @@ public class EnemySkill
     private EnemiesManager eManager;
 
     public Action[] actionList;
+    public float[] cdList;
 
     /*We can't use parameters with action, so i decide to stock them here*/
     private int idTarget;
@@ -18,10 +19,15 @@ public class EnemySkill
         hManager = _hero;
         eManager = _enemies;
         actionList = new Action[10];
+        cdList = new float[10];
 
         /* Test for put all the method in testAction Array */
         actionList[(int)Data.EnemySkillType.ATTACK] = Attack;
         actionList[(int)Data.EnemySkillType.FIREBALL] = Attack;
+
+        /* Put all the cd Skill here */
+        cdList[(int)Data.EnemySkillType.ATTACK] = 1.5f;
+        cdList[(int)Data.EnemySkillType.FIREBALL] = 3f;
     }
 
     public void UpdateEManager(EnemiesManager enemies)

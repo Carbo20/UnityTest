@@ -7,6 +7,8 @@ public class EnemiesManager : MonoBehaviour {
     public List<EnemyManager> enemyList;
     private EnemyManager eManager;
     private bool gamePaused;
+    private EnemySkill mSkill;
+    private Data.EnemySkillType eAction;
 
 	// Use this for initialization
 	void Start () {
@@ -28,20 +30,36 @@ public class EnemiesManager : MonoBehaviour {
         [TODO] Computation of the delta.time with the hero speed in heroActivation */
         foreach (EnemyManager e in enemyList)
         {
+            int idEnemy = 0;
             if(e == null)
             {
-                Debug.Log("Enemy destroy");
                 enemyList.Remove(e);
                 enemyList.Sort();
                 break;
             }
 
-            e.EnemyDeltaTime += Time.deltaTime;
-            if (e.EnemyDeltaTime >= e.EnnemyActivation)
+            if(e.enemy.IsReady == false)
             {
-                e.enemy.IsReady = true;
-                e.EnemyDeltaTime = 0;
+                e.EnemyDeltaTime += Time.deltaTime;
+                if (e.EnemyDeltaTime >= e.EnnemyActivation)
+                {
+                    e.enemy.IsReady = true;
+                    e.EnemyDeltaTime = 0;
+                    eAction = e.DoAnAction();
+                }
             }
+            else
+            {
+                e.EnemyDeltaTime += Time.deltaTime;
+                if (e.EnemyDeltaTime >= mSkill.cdList[(int)eAction])
+                {
+                    mSkill.UpdateWhoIsCasting(idEnemy);
+                    mSkill.actionList[(int)eAction]();
+                    e.enemy.IsReady = false;
+                }
+            }
+            idEnemy++;
+            
         }
 
         if(enemyList.Count == 0) // Destroy the EnemiesManager if all enemies are dead
@@ -50,6 +68,11 @@ public class EnemiesManager : MonoBehaviour {
             Destroy(gameObject);
         }
 
+    }
+
+    public void GetSkill(EnemySkill _mSkill)
+    {
+        mSkill = _mSkill;
     }
 
     public void SetPause(bool b)

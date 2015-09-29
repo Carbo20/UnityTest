@@ -35,20 +35,16 @@ public class HeroManager : MonoBehaviour {
         
         if(hero.IsReady == false)
         {
-            Debug.Log("ICI : " + heroDeltaTime);
             heroDeltaTime += Time.deltaTime;
             if (heroDeltaTime >= heroActivation)
             {
                 hero.IsReady = true;
-                Debug.Log("IsReady : " + hero.IsReady);
                 iaResult = ia.ConditionComputation();
                 heroDeltaTime = 0;
             }
-            Debug.Log("IsReady : " + hero.IsReady);
         }
         else
         {
-            skill.actionList[0]();
             heroDeltaTime += Time.deltaTime;
             if(heroDeltaTime >= skill.cdAction[(int)iaResult])
             {

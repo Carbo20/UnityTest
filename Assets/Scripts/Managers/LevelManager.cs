@@ -109,5 +109,6 @@ public class LevelManager : MonoBehaviour {
         hManager.SetPause(b);
         hManager.heroController.SetPause(b);
         eManager.SetPause(b);
+        background.SetPause(b);
     }
 }

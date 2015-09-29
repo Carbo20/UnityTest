@@ -1,9 +1,15 @@
 ﻿using System;
 using UnityEngine;
 
+
+/// <summary>
+/// To know how enemy secondary stats should look like don't forget to check the STATS calc document
+/// NB : concerning the primary stats, an enemy shouldn't have those as they are not useful in anyway to balance the game nor are they useful from a gameplay standpoint.  TO DISCUSS
+/// </summary>
 public class Enemy
 {
     /* Principal Enemy variable*/
+    private Boolean isBoss; //TODO add it to the creation of the enemy
     private int level;
     private int armor;
     private int hp;
@@ -24,8 +30,16 @@ public class Enemy
     private bool isDead;
     private bool isCasting;
 
+    private int magicFind;
+    private int numberOfItemLootedMax;
+    private int bonusGold;
+
     public Enemy(int _level, int _hp, int _mana, int _strenght, int _inteligence, int _agility, int _vitality, int _armor)
     {
+        bonusGold = 1;// TODO temporary just a reminder it now exists and should be used
+        numberOfItemLootedMax = 2;// TODO temporary just a reminder it now exists and should be used
+        magicFind = 0;  // TODO temporary just a reminder it now exists and should be used
+        isBoss = false; // TODO temporary just a reminder it now exists and should be used
         Level = _level;
         hp = _hp;
         mana = _mana;
@@ -77,13 +91,14 @@ public class Enemy
     {
         isDead = true;
 
-        if (true) //TODO: conditions de loot
-        {
-            Item it = new Item(level, 1); //TODO: level de l'item et magicFind
-            Data.inventory.AddItem(it);
-            Data.inventory.SaveInventory();
-            Debug.Log("item looted : " + it.Name + " (" + it.SlotType.ToString() + ") lvl:" + it.Level);
-        }
+        //loot gold
+        Data.inventory.LootGold(level, isBoss, bonusGold);
+
+        //loot item(s)
+        int numberOfItemLooted = UnityEngine.Random.Range(0, numberOfItemLootedMax+1);
+        Data.inventory.LootItem(numberOfItemLooted, magicFind, level);
+
+        //give xp            // TODO use GetXpFromEnemy(int level, Boolean isBoss) from hero
     }
 
 
@@ -294,6 +309,71 @@ public class Enemy
         set
         {
             armor = value;
+        }
+    }
+
+    public bool IsBoss
+    {
+        get
+        {
+            return isBoss;
+        }
+
+        set
+        {
+            isBoss = value;
+        }
+    }
+
+    public int MagicFind
+    {
+        get
+        {
+            return magicFind;
+        }
+
+        set
+        {
+            magicFind = value;
+        }
+    }
+
+    public int NumberOfItemLootedMax
+    {
+        get
+        {
+            return numberOfItemLootedMax;
+        }
+
+        set
+        {
+            numberOfItemLootedMax = value;
+        }
+    }
+
+    public int BonusGold
+    {
+        get
+        {
+            return bonusGold;
+        }
+
+        set
+        {
+            bonusGold = value;
+        }
+    }
+
+    public bool IsBoss1
+    {
+        get
+        {
+            return isBoss;
+        }
+
+        set
+        {
+            isBoss = value;
         }
     }
 }

@@ -40,26 +40,28 @@ public class HeroData
     public float BonusPerStats3; // ex 0.5%
     public float BonusPerStats4; // ex 0.25%
 
-    public float damagePerStats; //  damage Strength modification Bonus%1
-    public float armorPerStats; //  armor Strength modification Bonus%2
-    public float cdAttackPerStats; // cdAttack Strength modification Bonus%3
+    public float damagePerStrength; //  damage Strength modification Bonus1
+    public float armorPerStrength; //  armor Strength modification Bonus2
+    public float cdAttackPerStrength; // cdAttack Strength modification Bonus3
 
-    public float spellDamagePerStats; // spellDamage intel modification Bonus%1
-    public float manaMaxPerStats; // manaMax Intel modification Bonus%2
-    public float regenManaPerStats; // regenMana Intel modification Bonus%3
-    public float cdSpellReducPerStats; // cdSpell Intel modification Bonus%4
+    public float spellDamagePerIntel; // spellDamage intel modification Bonus1
+    public float manaMaxPerIntel; // manaMax Intel modification Bonus2
+    public float regenManaPerIntel; // regenMana Intel modification Bonus3
+    public float cdSpellReducPerIntel; // cdSpell Intel modification Bonus4
 
-    public float criticalPerStats; // critical agility modification Bonus%1
-    public float dodgePerStats; // dodge agility modification Bonus%2
+    public float criticalPerAgil; // critical agility modification Bonus1
+    public float dodgePerAgil; // dodge agility modification Bonus2
 
-    public float hpMaxPerStats; // hpMax Vitality Modif Bonus%1
-    public float regenHpPerStats; // regenHp Vitality Modif Bonus%2
+    public float hpMaxPerVital; // hpMax Vitality Modif Bonus1
+    public float regenHpPerVital; // regenHp Vitality Modif Bonus2
 
     public float cdSpellReduc; // cdSpell Item bonus
 
     public float cdAttackBase; // ItemBase 
     public float cdAttackModified; // ItemBase modified by total amount of cdAttack bonus
     public float cdAttackBonusTotal; // Item bonus
+
+    public float critMultiplier; // % of a crit attack ex : 200%
 
     public int nbSkillAvailable;
     public int nbIAOrderAvailable;
@@ -73,6 +75,32 @@ public class HeroData
 
     public HeroData()
     {
+        // TODO temporary? BEGIN
+        critMultiplier = 2f;
+        BonusPerStats1 = 0.02f; 
+        BonusPerStats2 = 0.01f;
+        BonusPerStats3 = 0.005f;
+        BonusPerStats4 = 0.0025f;
+
+        damagePerStrength = BonusPerStats1;
+        armorPerStrength = BonusPerStats2;
+        cdAttackPerStrength = BonusPerStats3;
+
+        spellDamagePerIntel = BonusPerStats1;
+        manaMaxPerIntel = BonusPerStats2;
+        regenManaPerIntel = BonusPerStats3;
+        cdSpellReducPerIntel = BonusPerStats4;
+
+        criticalPerAgil = BonusPerStats1; 
+        dodgePerAgil = BonusPerStats2;
+
+        hpMaxPerVital = BonusPerStats1;
+        regenHpPerVital = BonusPerStats2;
+
+        critMultiplier = 2f;
+
+        // TODO temporary? END
+
         //[TODO] update dat stuff!
         nbSkillAvailable = 6;
         nbIAOrderAvailable = 4;
@@ -90,8 +118,13 @@ public class HeroData
     {
         level++;
         xpForNextLevel += GetXPForLevel(level);
-    }
 
+        //TODO it should change when classes will be added but it is here for test purposes of the progression system if any can occur:
+        strenght = UnityEngine.Random.Range(1, Data.maxStatUpgradePerLevel);
+        intelligence = UnityEngine.Random.Range(1, Data.maxStatUpgradePerLevel);
+        agility = UnityEngine.Random.Range(1, Data.maxStatUpgradePerLevel);
+        vitality = UnityEngine.Random.Range(1, Data.maxStatUpgradePerLevel);
+    }
 
     public int GetXPForLevel(int lvl)
     {
@@ -102,8 +135,6 @@ public class HeroData
     {
         cdAttackModified = cdAttackBase - (cdAttackBase * cdAttackBonusTotal);
     }
-
-
 
     public void initLvl1()
     {

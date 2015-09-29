@@ -55,5 +55,20 @@ public class Data {
     public static IaData iaData = new IaData();
 
     public static int HeroStatsCount = 6;
-   
+
+    public static int normalItemValueLvl1 = 50;
+    public static int magicItemValueMultiplier = 4;
+    public static int legendaryItemValueMultiplier = 10;
+
+    public static float standardEnemyGoldMultiplier = 0.20f;
+    public static float bossEnemyGoldMultiplier = 2;
+
+    public static int maxStatUpgradePerLevel = 3;
+
+
+    public static int numberOfStdEnemyForLvl1 = 10;
+    public static int numberOfBossEnemyForLvl1 = 1;
+    public static float riseInNumberOfEnemyToNextLvl = 0.05f;
+
+
 }

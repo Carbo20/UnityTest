@@ -25,16 +25,22 @@ public class Hero
         HealthSlider.maxValue = Data.heroData.hpMax;
     }
 
+
+    /// <summary>
+    /// Uses the reduction of damage from the armor         // TODO : don't forget to take dodge into account wherever takeDamage is called
+    /// </summary>
+    /// <param name="damage"></param>
+    /// <param name="ennemyLevel"></param>
     public void TakeDamage(int damage, int ennemyLevel)
     {
         float damageReduc;
         int trueDamage;
 
-        // TODO : don't forget to take dodge into account wherever takeDamage is called
+        
         /*[TODO] Put TakeDamage Animation here*/
 
         damageReduc = (float)Math.Min(80, Data.heroData.armor / ennemyLevel)/100;
-        trueDamage = (int)(damage * (1 - damageReduc));
+        trueDamage = (int)(damage * (1f - damageReduc));
         //Debug.Log("trueDamage :" + trueDamage + "  damage  " + damage + "   (1 - damageReduc/100) " + (1 - damageReduc / 100) + " damageReduc   "  + damageReduc*100 + " Data.heroData.armor  " + Data.heroData.armor + "  ennemyLevel " + ennemyLevel);
 
         if (Hp - trueDamage > 0)
@@ -51,10 +57,56 @@ public class Hero
         }
     }
 
-    public int DoDammage(int damage)
+    /// <summary>
+    /// Used to decide if a physical is gonna do damage or not
+    /// </summary>
+    /// <returns></returns>
+    public Boolean IsDodge()
     {
-        int value = damage; //[TODO] Use the formula here
-        return value;
+        int randomDodge;
+        randomDodge = UnityEngine.Random.Range(0, 100);
+        float chancesOfDodge = (Data.heroData.dodge * (1f + Data.heroData.dodgePerAgil * Data.heroData.agility));
+
+        if (randomDodge < chancesOfDodge)
+            return true;
+
+        return false;
+    }
+
+    /// <summary>
+    /// Used to decide if a hit is a critical or not
+    /// </summary>
+    /// <returns></returns>
+    public Boolean IsCritical()
+    {
+        int randomCrit = UnityEngine.Random.Range(0, 100);
+        float chancesOfCrit = (Data.heroData.critical * (1f + Data.heroData.criticalPerAgil * Data.heroData.agility));
+
+        if (randomCrit < chancesOfCrit)
+            return true;
+        return false;
+    }
+
+    /// <summary>
+    /// Attack damage of the hero
+    /// </summary>
+    /// <param name="isItACrit"></param>
+    /// <returns></returns>
+    public int DoDammage(bool isItACrit)
+    {
+        int damageSent;
+        if (isItACrit)
+            damageSent = (int)(Data.heroData.damage * Data.heroData.damagePerStrength * Data.heroData.strenght * Data.heroData.critMultiplier) ;
+        else
+        {
+            Debug.Log(" damageSentBefore = " + Data.heroData.damage);
+            Debug.Log(" Data.heroData.damage * (1f + Data.heroData.damagePerStrength * Data.heroData.strenght) " + Data.heroData.damage * (1f + Data.heroData.damagePerStrength * Data.heroData.strenght));
+            Debug.Log(" (int)(Data.heroData.damage * (1f + Data.heroData.damagePerStrength * Data.heroData.strenght)) " +(int)(Data.heroData.damage * (1f + Data.heroData.damagePerStrength * Data.heroData.strenght)));
+            damageSent = (int)(Data.heroData.damage * (1f + Data.heroData.damagePerStrength * Data.heroData.strenght));
+            Debug.Log(" damageSentAfter = " + damageSent);
+        }
+
+        return damageSent;
     }
 
     public void UseMana(int manaAmount)
@@ -63,11 +115,37 @@ public class Hero
         mana = mana - manaAmount;
     }
 
+    /// <summary>
+    /// Total regen mana of the hero, to be used every x second(s)
+    /// </summary>
+    public void RegenMana()
+    {
+        // TODO animation here if needed
+        int amountOfManaRecovered = (int)( Data.heroData.regenMana * (1f + Data.heroData.regenManaPerIntel*Data.heroData.intelligence));
+
+        if (mana + amountOfManaRecovered < ManaMax)
+            mana = mana + amountOfManaRecovered;
+        else mana = ManaMax;
+    }
+
     public void RegainMana(int manaAmount)
     {
         /*[TODO]Put RegainMana animation here*/
         if (mana + manaAmount < ManaMax) mana = mana + manaAmount;
         else mana = ManaMax;
+    }
+
+    /// <summary>
+    /// Total regen mana of the hero, to be used every x second(s)
+    /// </summary>
+    public void RegenHp()
+    {
+        // TODO animation here if needed
+        int amountOfHpRecovered = (int)(Data.heroData.regenHp * (1f + Data.heroData.regenHpPerVital * Data.heroData.vitality));
+
+        if (Hp + amountOfHpRecovered < HpMax)
+            Hp = Hp + amountOfHpRecovered;
+        else Hp = HpMax;
     }
 
     public void RegainHp(int hpAmount)
@@ -81,11 +159,27 @@ public class Hero
     {
         isDead = true;
         //[TODO] Put the death animation here
-        //[TODO] if we have to do something when the hero die
+        //[TODO] if we have to do something when the hero die  // YES lose stuff
     }
 
     public void GetXp(int xp)
     {
+        if (Data.heroData.level == Data.levelMax) return;
+        /*[TODO] Put GetXp animation here*/
+        Data.heroData.xp = Data.heroData.xp + xp;
+        if (xp >= Data.heroData.xpForNextLevel)
+        {
+            LevelUP();
+        }
+    }
+
+    public void GetXpFromEnemy(int level, Boolean isBoss)
+    {
+        int xp;
+        if (!isBoss)
+            xp = (int) ( ((level * (level - 1) * 10) + 100) / Data.numberOfStdEnemyForLvl1 * (1 + level * Data.riseInNumberOfEnemyToNextLvl) );
+        else
+            xp = (int)(((level * (level - 1) * 10) + 100) / Data.numberOfBossEnemyForLvl1 * (1 + level * Data.riseInNumberOfEnemyToNextLvl)); ;
         if (Data.heroData.level == Data.levelMax) return;
         /*[TODO] Put GetXp animation here*/
         Data.heroData.xp = Data.heroData.xp + xp;

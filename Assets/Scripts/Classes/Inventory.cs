@@ -12,6 +12,7 @@ using UnityEngine;
 public class Inventory {
 
     public List<List<Item>> items;
+    public int gold;
 
     public bool gotTwoHandWeapon;
     public bool fillRightHand;
@@ -276,7 +277,37 @@ public class Inventory {
         }
     }
 
-     public void SaveInventory()
+    public void LootItem (int numberOfItemLooted, int magicFind, int level)
+    {
+        for (int i = 0; i < numberOfItemLooted; i++)
+        {
+            Item it = new Item(level, magicFind);
+            Data.inventory.AddItem(it);
+            Data.inventory.SaveInventory();
+            Debug.Log("item looted : " + it.Name + " (" + it.SlotType.ToString() + ") lvl:" + it.Level);
+        }
+    }
+
+    public void LootGold(int level, Boolean isBoss, int bonus)
+    {
+        if(!isBoss)
+            gold += (int) (Data.normalItemValueLvl1 * level * Data.standardEnemyGoldMultiplier);
+        else
+            gold += (int)(Data.normalItemValueLvl1 * level * Data.bossEnemyGoldMultiplier);
+    }
+
+    public int ItemValue(int level, Data.ItemQuality itemQuality)
+    {
+        if(itemQuality == Data.ItemQuality.NORMAL)
+            return Data.normalItemValueLvl1 * level;
+
+        if (itemQuality == Data.ItemQuality.MAGIC)
+            return Data.normalItemValueLvl1 * level * Data.magicItemValueMultiplier;
+
+        return Data.normalItemValueLvl1 * level * Data.legendaryItemValueMultiplier;
+    }
+
+    public void SaveInventory()
      {
 
          Stream stream = File.Create(Application.persistentDataPath + "/inventory");

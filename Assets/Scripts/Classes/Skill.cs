@@ -47,7 +47,7 @@ public class Skill {
     public void FakeFireBall()
     {
 
-        int FireBallDammage = 5;
+        int FireBallDammage = 100;
         int FireBallMana = 15;
 
         /*Example for skill wich could be up by a legendary item
@@ -55,22 +55,23 @@ public class Skill {
 
         if (isFireCapEquip)
         {
-            FireBallDammage = 50;
+            FireBallDammage += 50;
         }
 
         /*[TODO] Put a fireball animation here*/
-        eManager.enemyList[idTarget - 1].enemy.TakeDamage(FireBallDammage, 2); // TODO add hero's level instead of 2
+        eManager.enemyList[idTarget - 1].enemy.TakeDamage(FireBallDammage, Data.heroData.level); 
         hManager.hero.UseMana(FireBallMana);
-
     }
 
     /*Here we have to place all the skill methods*/
 
     public void Attack()
     {
-        eManager.enemyList[idTarget - 1].enemy.TakeDamage(hManager.hero.DoDammage(2), 2); // TODO add hero's level instead of 2
+        Boolean isACrit = hManager.hero.IsCritical();
+
+        eManager.enemyList[idTarget - 1].enemy.TakeDamage(hManager.hero.DoDammage(isACrit), Data.heroData.level);
         
-        hManager.heroController.triggerAttack(false, eManager.enemyList[idTarget - 1].transform.position, 0.8f); //declanchement de l'animation d'attaque <TODO: capter les coups critique, booleen à mettre en parametre
+        hManager.heroController.triggerAttack(false, eManager.enemyList[idTarget - 1].transform.position, 0.8f); //declenchement de l'animation d'attaque <TODO: capter les coups critique, booleen à mettre en parametre
     }
 
     public void FakeBuffTest()

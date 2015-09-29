@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour {
     private EnemiesManager eManager;
     private GameObject text;
     private BackgroundControler background;
+    private FarmingStats stats;
 
     private bool gamePaused;
 
@@ -21,6 +22,7 @@ public class LevelManager : MonoBehaviour {
 
     private float waitNewGroup;
     private float waitTime;
+
 
     // Use this for initialization
     void Start ()
@@ -36,6 +38,8 @@ public class LevelManager : MonoBehaviour {
 
         background = GameObject.Find("Background").GetComponent<BackgroundControler>();
         Debug.Log(background);
+
+        stats = new FarmingStats();
 
         skill = new Skill(hManager,eManager);
         mSkill = new EnemySkill(hManager, eManager);

@@ -23,7 +23,7 @@ public class IA
     }
 
 
-    public void ConditionComputation()
+    public Data.SkillType ConditionComputation()
     {
         for (int i = 0; i < Data.iaData.nbOrder; i++)
         {
@@ -34,13 +34,13 @@ public class IA
                     case IaData.IaCondition.HEALTH:
                         if (hManager.hero.Hp * 100 / hManager.hero.HpMax >= Data.iaData.value[i]) // If Current HP > X%
                         {
-                            DoAnAction(i);
+                            return DoAnAction(i);
                         }
                         break;
                     case IaData.IaCondition.MANA:
                         if (hManager.hero.Mana * 100 / hManager.hero.ManaMax >= Data.iaData.value[i]) // If Current Mana > X%
                         {
-                            DoAnAction(i);
+                            return DoAnAction(i);
                         }
                         break;
                 }
@@ -52,13 +52,13 @@ public class IA
                     case IaData.IaCondition.HEALTH:
                         if (hManager.hero.Hp * 100 / hManager.hero.HpMax <= Data.iaData.value[i]) // If Current HP < X%
                         {
-                            DoAnAction(i);
+                            return DoAnAction(i);
                         }
                         break;
                     case IaData.IaCondition.MANA:
                         if (hManager.hero.Mana * 100 / hManager.hero.ManaMax <= Data.iaData.value[i]) // If Current Mana < X%
                         {
-                            DoAnAction(i);
+                            return DoAnAction(i);
                         }
                         break;
                 }
@@ -70,7 +70,7 @@ public class IA
                     case IaData.IaCondition.ENEMYNB:
                         if(eManager.enemyList.Count == Data.iaData.value[i])
                         {
-                            DoAnAction(i);
+                            return DoAnAction(i);
                         }
                         break;
                     case IaData.IaCondition.ENEMYCAST:
@@ -79,8 +79,8 @@ public class IA
                         {
                             if (e.enemy.IsCasting)
                             {
-                                Data.iaData.idTarget[i] = enemyId+1;
-                                DoAnAction(i);
+                                Data.iaData.idTarget[i] = enemyId;
+                                return DoAnAction(i);
                             }
                             enemyId++;
                         }
@@ -92,16 +92,16 @@ public class IA
             if (isValid) break; // We stop the loop if we found a valid condition
         }
         isValid = false;
+        return Data.SkillType.ATTACK; // By default the hero is attacking
     }
 
-    public void DoAnAction(int i)
+    public Data.SkillType DoAnAction(int i)
     {
         skill.IdTarget = 1; // Here waiting the change for the bottom line
-        //skill.IdTarget = Data.iaData.idTarget[i]; 
-        Debug.Log((int)Data.iaData.idSkill[i]);
-        skill.actionList[(int)Data.iaData.idSkill[i]]();
+                            //skill.IdTarget = Data.iaData.idTarget[i];
+
         isValid = true;
-        Debug.Log("Do an action : " + Data.iaData.idSkill[i]);
+        return Data.iaData.idSkill[i];
     }
 
 }

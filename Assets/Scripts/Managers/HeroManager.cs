@@ -7,6 +7,9 @@ public class HeroManager : MonoBehaviour {
     public Hero hero;
     private float heroActivation = 2;
     private float heroDeltaTime;
+    private IA ia;
+    private Skill skill;
+    private Data.SkillType iaResult;
 
     private string heroActionStatus;
 
@@ -29,11 +32,30 @@ public class HeroManager : MonoBehaviour {
         if (gamePause) return;
         /* Speed computation, wait here the hero is ready to do something
         [TODO] Computation of the delta.time with the hero speed in heroActivation */
-        heroDeltaTime += Time.deltaTime;
-        if(heroDeltaTime >= heroActivation)
+        
+        if(hero.IsReady == false)
         {
-            hero.IsReady = true;
-            heroDeltaTime = 0;
+            Debug.Log("ICI : " + heroDeltaTime);
+            heroDeltaTime += Time.deltaTime;
+            if (heroDeltaTime >= heroActivation)
+            {
+                hero.IsReady = true;
+                Debug.Log("IsReady : " + hero.IsReady);
+                iaResult = ia.ConditionComputation();
+                heroDeltaTime = 0;
+            }
+            Debug.Log("IsReady : " + hero.IsReady);
+        }
+        else
+        {
+            skill.actionList[0]();
+            heroDeltaTime += Time.deltaTime;
+            if(heroDeltaTime >= skill.cdAction[(int)iaResult])
+            {
+                hero.IsReady = false;
+                skill.actionList[(int)iaResult]();
+                heroDeltaTime = 0;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.L))
@@ -43,6 +65,16 @@ public class HeroManager : MonoBehaviour {
         }
 
 	}
+
+    public void GetIA(IA _ia)
+    {
+        ia = _ia;
+    }
+
+    public void GetSkill(Skill _skill)
+    {
+        skill = _skill;
+    }
 
     public void SetPause(bool b)
     {

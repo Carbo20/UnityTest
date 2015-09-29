@@ -8,7 +8,7 @@ public class Skill {
     private bool isFireCapEquip; //Bool of example
 
     public Action[] actionList;
-    
+    public float[] cdAction;
 
     /*We can't use parameters with action, so i decide to stock them here*/
     private int idTarget;
@@ -20,12 +20,20 @@ public class Skill {
         eManager = _enemies;
 
         actionList = new Action[10];
+        cdAction = new float[10];
 
-        /* Test for put all the method in testAction Array */
+        /* Put here all the callback into the ActionList */
         actionList[(int)Data.SkillType.ATTACK] = Attack;
         actionList[(int)Data.SkillType.TESTSKILL] = FakeDebuffTest;
         actionList[(int)Data.SkillType.FIREBALL] = FakeFireBall;
         actionList[(int)Data.SkillType.HEAL] = Heal;
+
+        /* Put here all the cd Skill */
+        cdAction[(int)Data.SkillType.ATTACK] = 1.5f;
+        cdAction[(int)Data.SkillType.FIREBALL] = 3f;
+        cdAction[(int)Data.SkillType.HEAL] = 3f;
+
+        Debug.Log("Skill cd : " + cdAction[0]);
     }
 
     public void UpdateEManager(EnemiesManager enemies)

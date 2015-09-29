@@ -34,6 +34,8 @@ public class LevelManager : MonoBehaviour {
         skill = new Skill(hManager,eManager);
         mSkill = new EnemySkill(hManager, eManager);
         ia = new IA(hManager, eManager, skill);
+        hManager.GetIA(ia);
+        hManager.GetSkill(skill);
     }
 	
 	// Update is called once per frame
@@ -65,13 +67,9 @@ public class LevelManager : MonoBehaviour {
         }*/
         if (hManager.hero.IsReady)
         {
-            /* Here we compute the IA to know wich skill the hero will use */
-            ia.ConditionComputation();
-
             /*Use here the result of the IA computation to do something*/
             Debug.Log("Hero Life : " + hManager.hero.Hp);
             enemyTextBar1.text = "-"+hManager.hero.DoDammage(2).ToString();
-            hManager.hero.IsReady = false;
         }
     }
 

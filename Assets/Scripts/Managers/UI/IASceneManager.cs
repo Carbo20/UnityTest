@@ -34,10 +34,12 @@ public class IASceneManager : MonoBehaviour
     private float top;
     private int additionalButtons;
     private GameObject textAlert;
+    private int nbConditionChosen;
 
     // Use this for initialization
     void Start()
     {
+        nbConditionChosen = 0;
         indexButtonMax = 8;
         switchCatCount = 0;
 
@@ -67,7 +69,7 @@ public class IASceneManager : MonoBehaviour
         //textDrop.text = "Unlock at lvl 10";
         if (nbButtonUnlocked > 3)
         {//ResizePanelLocker(nbButtonUnlocked);
-            for (int i = nbButtonUnlocked+1; i < indexButtonMax; i++)
+            for (int i = nbButtonUnlocked+1; i < indexButtonMax + 1; i++)
             {
                 //GameObject.Find("categoryDropdown(" + i + ")").GetComponent<Dropdown>().itemText = textDrop;
                 //GameObject.Find("categoryDropdown(" + i + ")").GetComponent<Dropdown>().options[0].text = "Unlock at lvl 10";
@@ -89,7 +91,17 @@ public class IASceneManager : MonoBehaviour
     {
         textAlert.SetActive(false);
 
-        for (int ind = 0; ind < indexButtonMax; ind++)
+
+        for (int ind = 0; ind < nbButtonUnlocked; ind++)
+        {
+
+            if (Data.iaData.idCondition[ind] != IaData.IaCondition.NULL)
+            {
+                nbConditionChosen++;
+            }
+        }
+
+        for (int ind= nbButtonUnlocked; ind<indexButtonMax ;ind++)
         {
             gObjHealthBis[ind].SetActive(false);
             gObjManaBis[ind].SetActive(false);
@@ -102,8 +114,28 @@ public class IASceneManager : MonoBehaviour
 
             gObjPourcentValue[ind].SetActive(false);
             gObjSign[ind].SetActive(false);
-        }
 
+            
+
+        }
+        if (nbConditionChosen == 0)
+        { 
+            for (int ind = 0; ind < nbButtonUnlocked; ind++)
+            {
+                gObjHealthBis[ind].SetActive(false);
+                gObjManaBis[ind].SetActive(false);
+                gObjHealthBisEn[ind].SetActive(false);
+                gObjManaBisEn[ind].SetActive(false);
+
+                gObjCast[ind].SetActive(false);
+                gObjEnemiesNb[ind].SetActive(false);
+                gObjEnemyClass[ind].SetActive(false);
+
+                gObjPourcentValue[ind].SetActive(false);
+                gObjSign[ind].SetActive(false);
+                
+            }
+        }
     }
 
     void initLine(int ind)

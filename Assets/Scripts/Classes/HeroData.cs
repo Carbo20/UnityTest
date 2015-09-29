@@ -47,7 +47,7 @@ public class HeroData {
     {
         //[TODO] update dat stuff!
         nbSkillAvailable = 6;
-        nbIAOrderAvailable = 3;
+        nbIAOrderAvailable = 4;
         skillAvailable = new Data.SkillType[nbSkillAvailable];
 
         legendaryEffectAvailable = new List<Data.LegendaryEffect>();

@@ -51,6 +51,7 @@ public class EnemiesManager : MonoBehaviour {
             else
             {
                 e.EnemyDeltaTime += Time.deltaTime;
+                Debug.Log(mSkill.cdList[(int)eAction]);
                 if (e.EnemyDeltaTime >= mSkill.cdList[(int)eAction])
                 {
                     mSkill.UpdateWhoIsCasting(idEnemy);

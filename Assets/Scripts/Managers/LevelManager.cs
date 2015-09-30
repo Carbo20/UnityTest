@@ -75,6 +75,7 @@ public class LevelManager : MonoBehaviour {
                 eManager = enemies.GetComponent<EnemiesManager>();
                 skill.UpdateEManager(eManager); //We have to update the new eManager into the skill class
                 mSkill.UpdateEManager(eManager); // Same for monster Skill list
+                eManager.GetSkill(mSkill); // Update the mSkill into the new eManager
             }
         }
 

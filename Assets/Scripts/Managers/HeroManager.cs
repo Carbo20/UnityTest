@@ -10,11 +10,7 @@ public class HeroManager : MonoBehaviour {
 
     private float heroActivation = 2;
     private float heroDeltaTime;
-    private IA ia;
-    private Skill skill;
     private Data.SkillType iaResult;
-
-    Data.SkillType iaResult;
 
     private string heroActionStatus;
 
@@ -47,8 +43,6 @@ public class HeroManager : MonoBehaviour {
                 hero.IsReady = true;
                 iaResult = ia.ConditionComputation();
                 heroDeltaTime = 0;
-                iaResult = ia.ConditionComputation();
-                cdAction = skill.cdList[(int)iaResult];
             }
         }
         else

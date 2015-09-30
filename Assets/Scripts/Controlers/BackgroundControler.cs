@@ -29,10 +29,11 @@ public class BackgroundControler : MonoBehaviour {
     {
         if (gamePaused) return;
 
+        
         if (isScrolling)
         {
             float newPosition = Mathf.Repeat(Time.time * scrollSpeed, tileSize);
-            transform.position = startPosition + Vector3.right * newPosition;
+            transform.position = startPosition + Vector3.left * newPosition;
         }
     }
 

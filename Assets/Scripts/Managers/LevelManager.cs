@@ -67,7 +67,7 @@ public class LevelManager : MonoBehaviour {
         {
             background.IsScrolling = true;
             waitTime += Time.deltaTime;
-            if(waitNewGroup >= waitTime)
+            if(waitTime >= waitNewGroup)
             {
                 background.IsScrolling = false;
                 waitTime = 0;

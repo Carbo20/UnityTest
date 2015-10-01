@@ -61,7 +61,7 @@ public class LevelManager : MonoBehaviour {
         {
             //Loop
             //HeroLoop();
-            EnemiesLoop();
+            //EnemiesLoop();
         }
         else // else we have to create a new bunch of enemies
         {

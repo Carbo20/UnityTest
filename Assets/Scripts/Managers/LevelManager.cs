@@ -57,7 +57,7 @@ public class LevelManager : MonoBehaviour {
     {
         if (gamePaused) return;
 
-        stats.Time(Time.deltaTime);
+        FarmingStats.time += Time.deltaTime; // For the farming stats !
 
         if (eManager) // if a monster is always alive
         {

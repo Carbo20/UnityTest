@@ -8,6 +8,7 @@ public class BackgroundControler : MonoBehaviour {
 
     private float scrollSpeed;
     private float tileSize;
+    private float time;
 
     private bool isScrolling, scrollAllow;
     private bool gamePaused;
@@ -32,7 +33,8 @@ public class BackgroundControler : MonoBehaviour {
         
         if (scrollAllow && isScrolling)
         {
-            float newPosition = Mathf.Repeat(Time.time * scrollSpeed, tileSize);
+            time = time + Time.deltaTime;
+            float newPosition = Mathf.Repeat(time * scrollSpeed, tileSize);
             transform.position = startPosition + Vector3.left * newPosition;
         }
     }

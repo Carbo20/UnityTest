@@ -21,7 +21,7 @@ public class Data {
 
     public static int inventorySlotPerItemType = 49;
 
-    public static Inventory inventory = new Inventory();
+    public static Inventory inventory;
 
     public enum BonusType { STREN, INTEL, AGI, VITAL, ATTACK, SPELL, MANA, REGENMANA, DODGE, CRIT, REGENHEALTH, HEALTH, ATTACKSPEED, CASTTIME };
     public static int BonusTypeCount = 14;

@@ -55,7 +55,7 @@ public class Enemy
         vitality = _vitality;
         armor = _armor;
 
-        damage = 27;
+        damage = 5;
 
         isReady = false;
         isDead = false;

@@ -29,6 +29,7 @@ public class HeroManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        Debug.Log("HP: " + hero.Hp + " / " + hero.HpMax);
         if (gamePause) return;
         /* Speed computation, wait here the hero is ready to do something
         [TODO] Computation of the delta.time with the hero speed in heroActivation */

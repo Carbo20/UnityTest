@@ -12,7 +12,7 @@ public class Hero
     private bool isReady;
     private bool isDead;
     private Slider HealthSlider;
-    private Slider xpSlider, hpSlider, manaSlider;
+    private SliderController xpSlider, hpSlider, manaSlider;
     private Text levelText;
     public Hero(int _hp, int _mana, int _strenght, int _inteligence, int _agility, int _vitality)
     {
@@ -22,15 +22,17 @@ public class Hero
         isReady = false;
         isDead = false;
         initGameobject();
+        hpSlider.SetBrutValue(hp);
+        manaSlider.SetBrutValue(mana);
         updateAllUI();
     }
 
     private void initGameobject()
     {
-        xpSlider  = GameObject.Find("XPSlider").GetComponent<Slider>();
+        xpSlider  = GameObject.Find("XPSlider").GetComponent<SliderController>();
         levelText = GameObject.Find("LevelText").GetComponent<Text>();
-        hpSlider  = GameObject.Find("HeroHPSlider").GetComponent<Slider>();
-        manaSlider = GameObject.Find("HeroManaSlider").GetComponent<Slider>();
+        hpSlider = GameObject.Find("HeroHPSlider").GetComponent<SliderController>();
+        manaSlider = GameObject.Find("HeroManaSlider").GetComponent<SliderController>();
     }
 
 
@@ -143,7 +145,7 @@ public class Hero
         int amountOfManaRecovered = (int)( Data.heroData.regenMana * (1f + Data.heroData.regenManaPerIntel*Data.heroData.intelligence));
 
         if (mana + amountOfManaRecovered < ManaMax)
-            mana = mana + amountOfManaRecovered;
+            RegainMana(amountOfManaRecovered);
         else mana = ManaMax;
     }
 
@@ -152,6 +154,7 @@ public class Hero
         /*[TODO]Put RegainMana animation here*/
         if (mana + manaAmount < ManaMax) mana = mana + manaAmount;
         else mana = ManaMax;
+        updateAllUI();
     }
 
     /// <summary>
@@ -163,7 +166,7 @@ public class Hero
         int amountOfHpRecovered = (int)(Data.heroData.regenHp * (1f + Data.heroData.regenHpPerVital * Data.heroData.vitality));
 
         if (Hp + amountOfHpRecovered < HpMax)
-            Hp = Hp + amountOfHpRecovered;
+            RegainHp(amountOfHpRecovered);
         else Hp = HpMax;
     }
 
@@ -228,17 +231,17 @@ public class Hero
         UpdateLevelText();
         UpdateXPBar();
         UpdateHPBar();
+        UpdateManaBar();
     }
 
     private void UpdateXPBar()
     {
-        xpSlider.wholeNumbers = true;
         if (Data.heroData.level == 1)
-            xpSlider.minValue = 0;
+            xpSlider.SetMinValue(0);
         else
-            xpSlider.minValue = Data.heroData.GetXPForLevelCumulated(Data.heroData.level - 1);
-        xpSlider.maxValue = Data.heroData.GetXPForLevelCumulated(Data.heroData.level);
-        xpSlider.value = Data.heroData.xp;
+            xpSlider.SetMinValue(Data.heroData.GetXPForLevelCumulated(Data.heroData.level - 1));
+        xpSlider.SetMaxValue(Data.heroData.GetXPForLevelCumulated(Data.heroData.level));
+        xpSlider.SetValue(Data.heroData.xp);
     }
 
     private void UpdateLevelText()
@@ -248,10 +251,16 @@ public class Hero
 
     private void UpdateHPBar()
     {
-        hpSlider.wholeNumbers = true;
-        hpSlider.minValue = 0;
-        hpSlider.maxValue = Data.heroData.hpMax;
-        hpSlider.value = hp;
+        hpSlider.SetMinValue(0);
+        hpSlider.SetMaxValue(Data.heroData.hpMax);
+        hpSlider.SetValue(hp);
+    }
+
+    private void UpdateManaBar()
+    {
+        manaSlider.SetMinValue(0);
+        manaSlider.SetMaxValue(Data.heroData.manaMax);
+        manaSlider.SetValue(mana);
     }
 
     /*** Getter and Setter ***/

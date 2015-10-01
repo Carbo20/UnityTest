@@ -357,6 +357,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 342599820}
   - 114: {fileID: 342599821}
+  - 114: {fileID: 342599822}
   m_Layer: 5
   m_Name: HeroHPSlider
   m_TagString: Untagged
@@ -417,7 +418,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 214767721}
   m_HandleRect: {fileID: 0}
@@ -431,6 +432,17 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &342599822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 342599819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59c3d3f03cb5d00429d62dc625ce0f7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &416381026
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,6 +1128,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 867602430}
   - 114: {fileID: 867602431}
+  - 114: {fileID: 867602432}
   m_Layer: 5
   m_Name: XPSlider
   m_TagString: Untagged
@@ -1176,7 +1189,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 663560204}
   m_HandleRect: {fileID: 0}
@@ -1190,6 +1203,17 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &867602432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 867602429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59c3d3f03cb5d00429d62dc625ce0f7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &893345887
 GameObject:
   m_ObjectHideFlags: 0
@@ -2187,6 +2211,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 1668589640}
   - 114: {fileID: 1668589641}
+  - 114: {fileID: 1668589642}
   m_Layer: 5
   m_Name: HeroManaSlider
   m_TagString: Untagged
@@ -2247,7 +2272,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1221303428}
   m_HandleRect: {fileID: 0}
@@ -2261,6 +2286,17 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &1668589642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1668589639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59c3d3f03cb5d00429d62dc625ce0f7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1672482194
 GameObject:
   m_ObjectHideFlags: 0

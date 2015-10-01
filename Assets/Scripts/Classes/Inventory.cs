@@ -33,6 +33,8 @@ public class Inventory {
         gotTwoHandWeapon = false;
         fillRightHand = true;
 
+        
+
         //un emplacement vide est symbolisé par -1
         HeadItemID      = -1;
         ChestItemID     = -1;
@@ -41,6 +43,26 @@ public class Inventory {
         FeetItemID      = -1;
         RightHandItemID = -1;
         LeftHandItemID  = -1;
+    }
+
+    private void InventoryLvl1()
+    {
+        AddItem(new Item(1, 0, Data.IconType.HEAD));
+        AddItem(new Item(1, 0, Data.IconType.CHEST));
+        AddItem(new Item(1, 0, Data.IconType.HANDS));
+        AddItem(new Item(1, 0, Data.IconType.LEGS));
+        AddItem(new Item(1, 0, Data.IconType.FEET));
+        AddItem(new Item(1, 0, Data.IconType.SWORD));
+        AddItem(new Item(1, 0, Data.IconType.SHIELD));
+        AddItem(new Item(1, 0, Data.IconType.AXE2H));
+        Equip(Data.SlotType.HEAD, 0);
+        Equip(Data.SlotType.CHEST, 0);
+        Equip(Data.SlotType.HANDS, 0);
+        Equip(Data.SlotType.LEGS, 0);
+        Equip(Data.SlotType.FEET, 0);
+        Equip(Data.SlotType.ONEHAND, 0);
+        Equip(Data.SlotType.ONEHAND, 1);
+        gotTwoHandWeapon = false;
     }
 
     public void AddItem(Item it)
@@ -326,6 +348,12 @@ public class Inventory {
              BinaryFormatter deserializer = new BinaryFormatter();
              Data.inventory = (Inventory)deserializer.Deserialize(stream);
              stream.Close();
+         }
+         else
+         {
+             InventoryLvl1();
+             Debug.Log(items[(int)Data.SlotType.TWOHANDS].Count);
+             SaveInventory();
          }
      }
      

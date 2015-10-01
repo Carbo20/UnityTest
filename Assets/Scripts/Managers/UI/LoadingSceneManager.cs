@@ -17,9 +17,10 @@ public class LoadingSceneManager : MonoBehaviour {
     private float ready;
 	// Use this for initialization
 	void Start () {
-        LoadHeroData();
+
         LoadSprites();
         LoadItemsData();
+        LoadHeroData();
         LoadInventory();
         ready = 0;
 	}
@@ -89,6 +90,7 @@ public class LoadingSceneManager : MonoBehaviour {
    
      public void LoadInventory()
      {
+         Data.inventory = new Inventory();
          Data.inventory.LoadInventory();
      }
      

@@ -113,7 +113,6 @@ public class HeroData
         skillAvailable[1] = Data.SkillType.FIREBALL;
         skillAvailable[2] = Data.SkillType.HEAL;
 
-        Debug.Log(skillAvailable[0]);
     }
 
     public void LevelUP()
@@ -166,8 +165,6 @@ public class HeroData
         cdAttackModified = 0;
         cdAttackBonusTotal = 0;
         Data.iaData.nbOrder = 3;
-
-
     }
 
     public void LoadHeroData()

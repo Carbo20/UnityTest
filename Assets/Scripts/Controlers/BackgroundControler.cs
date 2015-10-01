@@ -6,11 +6,10 @@ public class BackgroundControler : MonoBehaviour {
     private Vector3 startPosition;
     private SpriteRenderer sprite;
 
-
     private float scrollSpeed;
     private float tileSize;
 
-    private bool isScrolling;
+    private bool isScrolling, scrollAllow;
     private bool gamePaused;
 
     // Use this for initialization
@@ -22,6 +21,7 @@ public class BackgroundControler : MonoBehaviour {
         isScrolling = false;
         scrollSpeed = 3f;
         gamePaused = false;
+        scrollAllow = true;
 	}
 	
 	// Update is called once per frame
@@ -30,7 +30,7 @@ public class BackgroundControler : MonoBehaviour {
         if (gamePaused) return;
 
         
-        if (isScrolling)
+        if (scrollAllow && isScrolling)
         {
             float newPosition = Mathf.Repeat(Time.time * scrollSpeed, tileSize);
             transform.position = startPosition + Vector3.left * newPosition;
@@ -56,6 +56,11 @@ public class BackgroundControler : MonoBehaviour {
         {
             isScrolling = value;
         }
+    }
+
+    public void SetScrollAllow(bool b)
+    {
+        scrollAllow = b;
     }
     
 }

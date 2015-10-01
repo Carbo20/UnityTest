@@ -13,7 +13,7 @@ public class HeroController : MonoBehaviour {
 
     private Vector3 target;
     private Vector3 pos;
-
+    private BackgroundControler backgrdController;
     private bool gamePaused;
 
 	// Use this for initialization
@@ -24,6 +24,7 @@ public class HeroController : MonoBehaviour {
         speedBase = 2f;
         pos = transform.position;
         gamePaused = false;
+        backgrdController = GameObject.Find("Background").GetComponent<BackgroundControler>();
 	}
 	
 	// Update is called once per frame
@@ -48,6 +49,7 @@ public class HeroController : MonoBehaviour {
         else
         {
             isAttacking = false;
+            backgrdController.SetScrollAllow(true);
         }
 
         timeAttacking += Time.deltaTime;
@@ -73,6 +75,7 @@ public class HeroController : MonoBehaviour {
             speed = speedBase;
         }
         isAttacking = true;
+        backgrdController.SetScrollAllow(false);
         crit = _crit;
         target = Vector3.Lerp(pos, _target, esp);
     }
@@ -80,6 +83,11 @@ public class HeroController : MonoBehaviour {
     public void SetPause(bool b)
     {
         gamePaused = b;
+    }
+
+    public bool IsAttacking()
+    {
+        return isAttacking;
     }
 
 }

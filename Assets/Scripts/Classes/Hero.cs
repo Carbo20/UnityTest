@@ -22,9 +22,10 @@ public class Hero
         isReady = false;
         isDead = false;
         initGameobject();
+        
+        updateAllUI();
         hpSlider.SetBrutValue(hp);
         manaSlider.SetBrutValue(mana);
-        updateAllUI();
     }
 
     private void initGameobject()

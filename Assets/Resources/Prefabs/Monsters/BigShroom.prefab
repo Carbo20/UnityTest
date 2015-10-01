@@ -12,7 +12,7 @@ GameObject:
   - 114: {fileID: 11470674}
   - 114: {fileID: 11442236}
   m_Layer: 0
-  m_Name: 'BigShroom '
+  m_Name: BigShroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -192,6 +192,7 @@ public class Hero
         if (Data.heroData.level == Data.levelMax) return;
         /*[TODO] Put GetXp animation here*/
         Data.heroData.xp = Data.heroData.xp + xp;
+        FarmingStats.xp += xp;                   // Fot the stats at the end of the farm
         if (xp >= Data.heroData.xpForNextLevel)
         {
             LevelUP();

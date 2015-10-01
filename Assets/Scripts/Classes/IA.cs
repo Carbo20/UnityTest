@@ -148,6 +148,7 @@ public class IA
                             //skill.IdTarget = Data.iaData.idTarget[i];
 
         isValid = true;
+        Debug.Log(Data.iaData.idSkill[i]);
         return Data.iaData.idSkill[i];
     }
 

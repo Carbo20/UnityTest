@@ -57,6 +57,8 @@ public class LevelManager : MonoBehaviour {
     {
         if (gamePaused) return;
 
+        stats.Time(Time.deltaTime);
+
         if (eManager) // if a monster is always alive
         {
             //Loop

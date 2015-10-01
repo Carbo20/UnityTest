@@ -3,14 +3,14 @@ using System.Collections;
 
 public class FarmingStats {
 
-    private int xp;
-    private int eKill;
-    private int dInflicted;
-    private int dEndured;
-    private int skillUsed;
-    private int itemUsed;
-    private int level;
-    private float time;
+    public static int xp;
+    public static int eKill;
+    public static int dInflicted;
+    public static int dEndured;
+    public static int skillUsed;
+    public static int itemUsed;
+    public static int level;
+    public static float time;
 
     public FarmingStats()
     {
@@ -24,32 +24,4 @@ public class FarmingStats {
         time = 0;
     }
     
-    public void AddXp(int _xp)
-    {
-        xp += _xp;
-    }
-    public void AddEKill()
-    {
-        eKill++;
-    }
-    public void AddDInflicted(int _dInflicted)
-    {
-        dInflicted += _dInflicted;
-    }
-    public void AddDEndured(int _dEndured)
-    {
-        dEndured += _dEndured;
-    }
-    public void AddSkill()
-    {
-        skillUsed++;
-    }
-    public void ItemUsed()
-    {
-        itemUsed++;
-    }
-    public void Time(float _time)
-    {
-        time += _time;
-    }
 }

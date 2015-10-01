@@ -116,6 +116,7 @@ public class IA
                     case IaData.IaCondition.ENEMYNB:
                         if(eManager.enemyList.Count == Data.iaData.value[i])
                         {
+                            Debug.Log("Test");
                             return DoAnAction(i);
                         }
                         break;
@@ -137,6 +138,7 @@ public class IA
             if (isValid) break; // We stop the loop if we found a valid condition
         }
         isValid = false;
+        skill.IdTarget = 1;
         return Data.SkillType.ATTACK; // By default the hero is attacking
     }
 

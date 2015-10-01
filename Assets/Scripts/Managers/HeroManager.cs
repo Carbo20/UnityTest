@@ -59,10 +59,16 @@ public class HeroManager : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.L))
         {
+            Data.heroData.xp = Data.heroData.GetXPForLevelCumulated(Data.heroData.level);
             hero.LevelUP();
+            Data.heroData.xpForNextLevel = Data.heroData.GetXPForLevelCumulated(Data.heroData.level);
             Debug.Log("hero level " + Data.heroData.level);
         }
-
+        if (Input.GetKey(KeyCode.X))
+        {
+            hero.GetXp(1);
+            Debug.Log("hero xp " + Data.heroData.xp + " xpGoal " + Data.heroData.xpForNextLevel );
+        }
 	}
 
     public void GetIA(IA _ia)

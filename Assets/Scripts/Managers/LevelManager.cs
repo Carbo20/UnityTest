@@ -60,7 +60,7 @@ public class LevelManager : MonoBehaviour {
         if (eManager) // if a monster is always alive
         {
             //Loop
-            HeroLoop();
+            //HeroLoop();
             EnemiesLoop();
         }
         else // else we have to create a new bunch of enemies

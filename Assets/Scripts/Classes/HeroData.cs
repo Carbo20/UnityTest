@@ -133,6 +133,12 @@ public class HeroData
         return (lvl * (lvl - 1) * 10) + 100;
     }
 
+    public int GetXPForLevelCumulated(int lvl)
+    {
+        if (lvl == 1) return 100;
+        else return GetXPForLevel(lvl) + GetXPForLevelCumulated(lvl - 1);
+    }
+
     public void UpdateCdAttackModified()
     {
         cdAttackModified = cdAttackBase - (cdAttackBase * cdAttackBonusTotal);

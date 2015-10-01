@@ -12,8 +12,8 @@ public class Hero
     private bool isReady;
     private bool isDead;
     private Slider HealthSlider;
-
-
+    private Slider xpSlider, hpSlider, manaSlider;
+    private Text levelText;
     public Hero(int _hp, int _mana, int _strenght, int _inteligence, int _agility, int _vitality)
     {
         hp = _hp;
@@ -21,8 +21,16 @@ public class Hero
         mana = _mana;
         isReady = false;
         isDead = false;
-        HealthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
-        HealthSlider.maxValue = Data.heroData.hpMax;
+        initGameobject();
+        updateAllUI();
+    }
+
+    private void initGameobject()
+    {
+        xpSlider  = GameObject.Find("XPSlider").GetComponent<Slider>();
+        levelText = GameObject.Find("LevelText").GetComponent<Text>();
+        hpSlider  = GameObject.Find("HeroHPSlider").GetComponent<Slider>();
+        manaSlider = GameObject.Find("HeroManaSlider").GetComponent<Slider>();
     }
 
 
@@ -46,15 +54,15 @@ public class Hero
         if (Hp - trueDamage > 0)
         {
             Hp = Hp - trueDamage;
-            UpdateHealthBar();
             Debug.Log("dammage :" + trueDamage);
+            Debug.Log("hp :" + Hp);
         }
         else
         {
             hp = 0;
-            UpdateHealthBar();
             Death();
         }
+        updateAllUI();
     }
 
     /// <summary>
@@ -152,7 +160,7 @@ public class Hero
     {
         if (Hp + hpAmount < HpMax) Hp = Hp + hpAmount;
         else Hp = HpMax;
-        UpdateHealthBar();
+        updateAllUI();
     }
 
     private void Death()
@@ -167,10 +175,11 @@ public class Hero
         if (Data.heroData.level == Data.levelMax) return;
         /*[TODO] Put GetXp animation here*/
         Data.heroData.xp = Data.heroData.xp + xp;
-        if (xp >= Data.heroData.xpForNextLevel)
+        if (Data.heroData.xp >= Data.heroData.xpForNextLevel)
         {
             LevelUP();
         }
+        UpdateXPBar();
     }
 
     public void GetXpFromEnemy(int level, Boolean isBoss)
@@ -194,17 +203,46 @@ public class Hero
         if (Data.heroData.level == Data.levelMax) return;
 
         Data.heroData.LevelUP();
+        
         if (Data.heroData.level % Data.iaData.nbLvlRequireToAquireNewOrder == 0)
         {
             if (Data.iaData.nbOrder < Data.iaData.nbOrderMax)
                 Data.iaData.nbOrder++;
             Debug.Log("Slot d'ia gagné! (" + Data.iaData.nbOrder + ")");
         }
+        updateAllUI();
     }
 
-    private void UpdateHealthBar()
+    private void updateAllUI()
     {
-        HealthSlider.value = Hp;
+        //UpdateHealthBar();
+        UpdateLevelText();
+        UpdateXPBar();
+        UpdateHPBar();
+    }
+
+    private void UpdateXPBar()
+    {
+        xpSlider.wholeNumbers = true;
+        if (Data.heroData.level == 1)
+            xpSlider.minValue = 0;
+        else
+            xpSlider.minValue = Data.heroData.GetXPForLevelCumulated(Data.heroData.level - 1);
+        xpSlider.maxValue = Data.heroData.GetXPForLevelCumulated(Data.heroData.level);
+        xpSlider.value = Data.heroData.xp;
+    }
+
+    private void UpdateLevelText()
+    {
+        levelText.text = Data.heroData.level.ToString();
+    }
+
+    private void UpdateHPBar()
+    {
+        hpSlider.wholeNumbers = true;
+        hpSlider.minValue = 0;
+        hpSlider.maxValue = Data.heroData.hpMax;
+        hpSlider.value = hp;
     }
 
     /*** Getter and Setter ***/

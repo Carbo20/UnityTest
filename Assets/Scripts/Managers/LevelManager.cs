@@ -8,12 +8,7 @@ public class LevelManager : MonoBehaviour {
     private EnemySkill mSkill;// All the monster skill are here
     private IA ia; //Here is the IA manager
 
-<<<<<<< 3c6f50b13728c6ffd383415ee2997721a3f37931
-
     public  GameObject hero;
-=======
-    private GameObject hero;
->>>>>>> Adding 10 mobs
     private HeroManager hManager;
     private EnemiesManager eManager;
     private GameObject text;

@@ -103,6 +103,7 @@ public class Hero
     public int DoDammage(bool isItACrit)
     {
         int damageSent;
+
         if (isItACrit)
             damageSent = (int)(Data.heroData.damage * Data.heroData.damagePerStrength * Data.heroData.strenght * Data.heroData.critMultiplier) ;
         else
@@ -114,6 +115,14 @@ public class Hero
             Debug.Log(" damageSentAfter = " + damageSent);
         }
 
+        return damageSent;
+    }
+
+    public int DoDamageMagic(int damageMagic)
+    {
+        int damageSent;
+
+        damageSent = (int)(damageMagic * (1f+(Data.heroData.spellDamage*(1f+Data.heroData.spellDamagePerIntel*Data.heroData.intelligence))));
         return damageSent;
     }
 

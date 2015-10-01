@@ -1,41 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Mummy : EnemyStatus
+public class MiniShroom : EnemyStatus
 {
-
     public override void InitStatus()
     {
-        Level = 1;
-        HpMax = 66;
-        ManaMax = 30;
+        IsBoss = false;
+        Level = 7;
+        Damage = 97;
+        CdAttack = 2.5f;
+        HpMax = 323;
+        Armor = 315;
+        ManaMax = 0;
 
-        Armor = 30;
-
-        RegenHp = 2;
+        RegenHp = 20;
         RegenMana = 0;
 
-        Damage = 5;
-        SpellDamage = 7;
+        SpellDamage = 0;
         Dodge = 0;
         Critical = 0;
-
-        CdAttack = 1.5f;
-        NumberOfSkills = 2;
+        NumberOfSkills = 1;
 
         /* List here all the skill the monster can use */
         SkillAvailable = new Data.EnemySkillType[NumberOfSkills];
         SkillAvailable[0] = Data.EnemySkillType.ATTACK;
-        SkillAvailable[1] = Data.EnemySkillType.FIREBALL;
     }
 
     public override Data.EnemySkillType DoAnAction()
     {
-        /* Here is an example for monster IA 
-        A Simple Random IA for example */
         Data.EnemySkillType idSkill;
-
-        //int rnd = Random.Range(0, NumberOfSkills);
+        // REPEAT
+        // Attack  
+        //Data.EnemySkillType idSkill;
 
         idSkill = SkillAvailable[0];
         return idSkill;

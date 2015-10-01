@@ -1,38 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Mummy : EnemyStatus
+public class SpikedTurtle : EnemyStatus
 {
-
     public override void InitStatus()
     {
-        Level = 1;
-        HpMax = 66;
-        ManaMax = 30;
+        IsBoss = true;
+        Level = 10;
+        Damage = 178;
+        CdAttack = 2.5f;
+        HpMax = 3520;
+        Armor = 495;
+        ManaMax = 1760;
 
-        Armor = 30;
-
-        RegenHp = 2;
+        RegenHp = 50;
         RegenMana = 0;
 
-        Damage = 5;
-        SpellDamage = 7;
+        SpellDamage = 0;
         Dodge = 0;
         Critical = 0;
-
-        CdAttack = 1.5f;
-        NumberOfSkills = 2;
+        NumberOfSkills = 3;
 
         /* List here all the skill the monster can use */
         SkillAvailable = new Data.EnemySkillType[NumberOfSkills];
         SkillAvailable[0] = Data.EnemySkillType.ATTACK;
-        SkillAvailable[1] = Data.EnemySkillType.FIREBALL;
+        SkillAvailable[0] = Data.EnemySkillType.SPIKE;
+        SkillAvailable[0] = Data.EnemySkillType.BUTTSTOMP;
     }
 
     public override Data.EnemySkillType DoAnAction()
     {
-        /* Here is an example for monster IA 
-        A Simple Random IA for example */
+        // REPEAT
+        // Spike (+50% damage, + 50% armor, 5 sec, 10 secCd), ButtStomp (0xdamage, stun 3sec, 5secCd)
+        // Attack  
         Data.EnemySkillType idSkill;
 
         //int rnd = Random.Range(0, NumberOfSkills);
@@ -40,4 +40,5 @@ public class Mummy : EnemyStatus
         idSkill = SkillAvailable[0];
         return idSkill;
     }
+
 }

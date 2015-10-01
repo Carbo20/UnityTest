@@ -9,7 +9,7 @@ using UnityEngine;
 public class Enemy
 {
     /* Principal Enemy variable*/
-    private Boolean isBoss; //TODO add it to the creation of the enemy
+    private bool isBoss; //TODO add it to the creation of the enemy
     private int level;
     private int armor;
     private int hp;
@@ -35,6 +35,8 @@ public class Enemy
     private int magicFind;
     private int numberOfItemLootedMax;
     private int bonusGold;
+
+    private int numberOfSkills;
 
     public Enemy(int _level, int _hp, int _mana, int _strenght, int _inteligence, int _agility, int _vitality, int _armor)
     {
@@ -405,6 +407,32 @@ public class Enemy
         set
         {
             manaMax = value;
+        }
+    }
+
+    public bool IsBoss2
+    {
+        get
+        {
+            return isBoss;
+        }
+
+        set
+        {
+            isBoss = value;
+        }
+    }
+
+    public int NumberOfSkills
+    {
+        get
+        {
+            return numberOfSkills;
+        }
+
+        set
+        {
+            numberOfSkills = value;
         }
     }
 }

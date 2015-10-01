@@ -182,21 +182,15 @@ public class Hero
         UpdateXPBar();
     }
 
-    public void GetXpFromEnemy(int level, Boolean isBoss)
+    public int XpFromEnemy(int level, Boolean isBoss)
     {
         int xp;
         if (!isBoss)
             xp = (int) ( ((level * (level - 1) * 10) + 100) / Data.numberOfStdEnemyForLvl1 * (1 + level * Data.riseInNumberOfEnemyToNextLvl) );
         else
-            xp = (int)(((level * (level - 1) * 10) + 100) / Data.numberOfBossEnemyForLvl1 * (1 + level * Data.riseInNumberOfEnemyToNextLvl)); ;
-        if (Data.heroData.level == Data.levelMax) return;
-        /*[TODO] Put GetXp animation here*/
-        Data.heroData.xp = Data.heroData.xp + xp;
-        FarmingStats.xp += xp;                   // Fot the stats at the end of the farm
-        if (xp >= Data.heroData.xpForNextLevel)
-        {
-            LevelUP();
-        }
+            xp = (int)(((level * (level - 1) * 10) + 100) / Data.numberOfBossEnemyForLvl1 * (1 + level * Data.riseInNumberOfEnemyToNextLvl)); 
+
+        return xp;
     }
 
     public void LevelUP()

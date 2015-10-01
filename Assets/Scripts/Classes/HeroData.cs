@@ -10,8 +10,7 @@ public class HeroData
 {
 
     /* Principal Hero variable*/
-
-    public int speed; // Base, nough' said!
+    public float heroActivation;
     public int strenght; // Base + Item bonus
     public int intelligence; // Base + Item bonus
     public int agility; // Base + Item bonus
@@ -76,6 +75,7 @@ public class HeroData
     public HeroData()
     {
         // TODO temporary? BEGIN
+        heroActivation = 2;
         critMultiplier = 2f;
         BonusPerStats1 = 0.02f; 
         BonusPerStats2 = 0.01f;
@@ -158,7 +158,6 @@ public class HeroData
         intelligence = 10;
         agility = 10;
         vitality = 10;
-        speed = 10;
         damage = 10;
         spellDamage = 10;
         dodge = 5;

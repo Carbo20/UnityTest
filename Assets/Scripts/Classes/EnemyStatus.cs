@@ -3,7 +3,7 @@ using System.Collections;
 
 public abstract class EnemyStatus : MonoBehaviour
 {
-
+    private bool isBoss;
     private int level;
     private int hpMax;
     private int manaMax;
@@ -28,6 +28,7 @@ public abstract class EnemyStatus : MonoBehaviour
 
     private float cdAttack;
     private Data.EnemySkillType[] skillAvailable;
+    private int numberOfSkills;
 
     /* We have to put the IA monster into DoAnAction wich choose wich action
     the monster will do --------------------------------------------------*/
@@ -281,6 +282,32 @@ public abstract class EnemyStatus : MonoBehaviour
         set
         {
             level = value;
+        }
+    }
+
+    public bool IsBoss
+    {
+        get
+        {
+            return isBoss;
+        }
+
+        set
+        {
+            isBoss = value;
+        }
+    }
+
+    public int NumberOfSkills
+    {
+        get
+        {
+            return numberOfSkills;
+        }
+
+        set
+        {
+            numberOfSkills = value;
         }
     }
 }

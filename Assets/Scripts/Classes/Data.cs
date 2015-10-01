@@ -37,9 +37,9 @@ public class Data {
     //[TODO] To complete enum of action
 
 
-    public enum SkillType {NULL, ATTACK, USEITEM, TESTSKILL, FIREBALL, HEAL } //Complete with all the skill
+    public enum SkillType {NULL, ATTACK, USEITEM, TESTSKILL, FIREBALL, HEAL} //Complete with all the skill
 
-    public enum EnemySkillType {ATTACK, FIREBALL } // Complete with all the monster skill
+    public enum EnemySkillType {ATTACK, FIREBALL, DIVIDE, HARDSKIN, STOMP, BITE, BLEED, RAGE, GLUE, POISON, MINISTUN, SPIKE, BUTTSTOMP } // Complete with all the monster skill
 
     //[TODO] Complete the list of legendary effects
     public enum LegendaryEffect { NONE, FIREBALL1, FIREBAL2, LAST}; // NONE and LAST don't have any effect

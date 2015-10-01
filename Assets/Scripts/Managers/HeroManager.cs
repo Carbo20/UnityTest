@@ -53,6 +53,7 @@ public class HeroManager : MonoBehaviour {
                 hero.IsReady = false;
                 skill.actionList[(int)iaResult]();
                 heroDeltaTime = 0;
+                FarmingStats.skillUsed++; // For the farming stats ! 
             }
         }
 

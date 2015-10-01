@@ -32,6 +32,7 @@ public class EnemyManager : MonoBehaviour
         if (enemy.IsDead)
         {
             Debug.Log("I Diiiie !");
+            FarmingStats.eKill++;    // For the farming stats !
             Destroy(gameObject);
         }
 

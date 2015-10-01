@@ -34,11 +34,20 @@ public class StatsSceneManager : MonoBehaviour {
         level.text = FarmingStats.level.ToString();
 
         Text time = GameObject.Find("Time").GetComponent<Text>();
-        time.text = FarmingStats.time.ToString() + "sec";
+        TimeConvertion(time, FarmingStats.time);
 
 
     }
 	
+    private void TimeConvertion(Text timeText, float time)
+    {
+        int sec = (int)time % 60;
+        int min = (int)time / 60 % 60;
+        int hour = (int)time / 3600;
+
+        timeText.text = hour + "h : " + min + "min : " + sec + "sec";
+    }
+
     public void CallbackButtonContinue()
     {
         //Switch the current scene to the menu

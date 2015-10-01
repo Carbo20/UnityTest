@@ -54,6 +54,7 @@ public class Hero
         if (Hp - trueDamage > 0)
         {
             Hp = Hp - trueDamage;
+            FarmingStats.dEndured += trueDamage; // For the farming stats !
             Debug.Log("dammage :" + trueDamage);
             Debug.Log("hp :" + Hp);
         }
@@ -115,6 +116,7 @@ public class Hero
             Debug.Log(" damageSentAfter = " + damageSent);
         }
 
+        FarmingStats.dInflicted += damageSent; // For the farming stats ! 
         return damageSent;
     }
 
@@ -184,8 +186,10 @@ public class Hero
         if (Data.heroData.level == Data.levelMax) return;
         /*[TODO] Put GetXp animation here*/
         Data.heroData.xp = Data.heroData.xp + xp;
+        FarmingStats.xp += xp;                   // Fot the stats at the end of the farm
         if (Data.heroData.xp >= Data.heroData.xpForNextLevel)
         {
+            FarmingStats.level++; // For the farming stats ! 
             LevelUP();
         }
         UpdateXPBar();
@@ -200,6 +204,7 @@ public class Hero
             xp = (int)(((level * (level - 1) * 10) + 100) / Data.numberOfBossEnemyForLvl1 * (1 + level * Data.riseInNumberOfEnemyToNextLvl)); 
 
         return xp;
+
     }
 
     public void LevelUP()

@@ -103,6 +103,7 @@ public class Enemy
         //loot item(s)
         int numberOfItemLooted = UnityEngine.Random.Range(0, numberOfItemLootedMax+1);
         Data.inventory.LootItem(numberOfItemLooted, magicFind, level);
+        
 
         //give xp            // TODO use GetXpFromEnemy(int level, Boolean isBoss) from hero
     }

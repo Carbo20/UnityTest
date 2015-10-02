@@ -17,7 +17,6 @@ public class LoadingSceneManager : MonoBehaviour {
     private float ready;
 	// Use this for initialization
 	void Start () {
-
         LoadSprites();
         LoadItemsData();
         LoadHeroData();

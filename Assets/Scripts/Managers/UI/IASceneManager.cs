@@ -34,12 +34,12 @@ public class IASceneManager : MonoBehaviour
     private float top;
     private int additionalButtons;
     private GameObject textAlert;
-    private int nbConditionChosen;
+    private int nbConditionChosen = Data.iaData.nbConditionChosen;
 
     // Use this for initialization
     void Start()
     {
-        nbConditionChosen = 0;
+        
         indexButtonMax = 8;
         switchCatCount = 0;
 
@@ -63,25 +63,23 @@ public class IASceneManager : MonoBehaviour
        
         initAll();
 
-        //panelLocker = GameObject.Find("PanelLocker");
-
         //textDrop = gameObject.GetComponent<Text>();
         //textDrop.text = "Unlock at lvl 10";
-        if (nbButtonUnlocked > 3)
-        {//ResizePanelLocker(nbButtonUnlocked);
+
             for (int i = nbButtonUnlocked+1; i < indexButtonMax + 1; i++)
             {
                 //GameObject.Find("categoryDropdown(" + i + ")").GetComponent<Dropdown>().itemText = textDrop;
                 //GameObject.Find("categoryDropdown(" + i + ")").GetComponent<Dropdown>().options[0].text = "Unlock at lvl 10";
                 GameObject.Find("categoryDropdown(" + i + ")").GetComponent<Dropdown>().interactable = false;
             }
-        }
-        else
+        
+        if(nbButtonUnlocked > 3)
         {
-            for (int i = 4; i < indexButtonMax + 1; i++)
+            for (int i = 4; i < nbButtonUnlocked+1; i++)
             {
                 //GameObject.Find("categoryDropdown(" + i + ")").GetComponent<Dropdown>().options[0].text = "Unlock at lvl 10";
-                GameObject.Find("categoryDropdown(" + i + ")").GetComponent<Dropdown>().interactable = false;
+                GameObject.Find("categoryDropdown(" + i + ")").GetComponent<Dropdown>().interactable = true;
+                initLine(i);
             }
         }
     }
@@ -91,7 +89,6 @@ public class IASceneManager : MonoBehaviour
     {
         textAlert.SetActive(false);
 
-
         for (int ind = 0; ind < nbButtonUnlocked; ind++)
         {
 
@@ -99,43 +96,17 @@ public class IASceneManager : MonoBehaviour
             {
                 nbConditionChosen++;
             }
+            else
+            {
+                initLine(ind);
+            }
         }
 
         for (int ind= nbButtonUnlocked; ind<indexButtonMax ;ind++)
         {
-            gObjHealthBis[ind].SetActive(false);
-            gObjManaBis[ind].SetActive(false);
-            gObjHealthBisEn[ind].SetActive(false);
-            gObjManaBisEn[ind].SetActive(false);
-
-            gObjCast[ind].SetActive(false);
-            gObjEnemiesNb[ind].SetActive(false);
-            gObjEnemyClass[ind].SetActive(false);
-
-            gObjPourcentValue[ind].SetActive(false);
-            gObjSign[ind].SetActive(false);
-
-            
-
+            initLine(ind);
         }
-        if (nbConditionChosen == 0)
-        { 
-            for (int ind = 0; ind < nbButtonUnlocked; ind++)
-            {
-                gObjHealthBis[ind].SetActive(false);
-                gObjManaBis[ind].SetActive(false);
-                gObjHealthBisEn[ind].SetActive(false);
-                gObjManaBisEn[ind].SetActive(false);
-
-                gObjCast[ind].SetActive(false);
-                gObjEnemiesNb[ind].SetActive(false);
-                gObjEnemyClass[ind].SetActive(false);
-
-                gObjPourcentValue[ind].SetActive(false);
-                gObjSign[ind].SetActive(false);
-                
-            }
-        }
+        
     }
 
     void initLine(int ind)

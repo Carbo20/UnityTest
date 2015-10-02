@@ -13,11 +13,13 @@ public class IaData
     public int nbOrder; // Number of Order line into the IA 
     public int nbOrderMax;
     public int nbLvlRequireToAquireNewOrder;
+    public int nbConditionChosen;
 
     public IaData()
     {
         nbOrderMax = 8; //TODO 10!
         nbLvlRequireToAquireNewOrder = 25;
+        nbConditionChosen = 0;
         nbOrder = Data.heroData.nbIAOrderAvailable; 
         value = new int[nbOrder];
         idTarget = new int[nbOrder];

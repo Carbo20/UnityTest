@@ -7,11 +7,13 @@ public class IA
     private HeroManager hManager;
     private EnemiesManager eManager;
     private Skill skill;
+    private LevelSceneManager lsm;
 
     private bool isValid = false;
 
     public IA(HeroManager _hManager, EnemiesManager _eManager, Skill _skill)
     {
+        lsm = GameObject.Find("LevelSceneManager").GetComponent<LevelSceneManager>();
         hManager = _hManager;
         eManager = _eManager;
         skill = _skill;
@@ -35,12 +37,14 @@ public class IA
                     case IaData.IaCondition.HEALTH:
                         if (hManager.hero.Hp * 100 / hManager.hero.HpMax >= Data.iaData.value[i]) // If Current HP > X%
                         {
+                            lsm.triggerCondition(i);
                             return DoAnAction(i);
                         }
                         break;
                     case IaData.IaCondition.MANA:
                         if (hManager.hero.Mana * 100 / hManager.hero.ManaMax >= Data.iaData.value[i]) // If Current Mana > X%
                         {
+                            lsm.triggerCondition(i);
                             return DoAnAction(i);
                         }
                         break;
@@ -50,6 +54,7 @@ public class IA
                             if (e.enemy.Hp * 100 / e.enemy.HpMax >= Data.iaData.value[i])  // If Current Enemy Health > X%
                             {
                                 Data.iaData.idTarget[i] = enemyId;
+                                lsm.triggerCondition(i);
                                 return DoAnAction(i);
                             }
                             enemyId++;
@@ -61,6 +66,7 @@ public class IA
                             if(e.enemy.Mana * 100 / e.enemy.ManaMax >= Data.iaData.value[i])  // If Current Enemy Mana > X%
                             {
                                 Data.iaData.idTarget[i] = enemyId;
+                                lsm.triggerCondition(i);
                                 return DoAnAction(i);
                             }
                             enemyId++;
@@ -75,12 +81,14 @@ public class IA
                     case IaData.IaCondition.HEALTH:
                         if (hManager.hero.Hp * 100 / hManager.hero.HpMax <= Data.iaData.value[i]) // If Current HP < X%
                         {
+                            lsm.triggerCondition(i);
                             return DoAnAction(i);
                         }
                         break;
                     case IaData.IaCondition.MANA:
                         if (hManager.hero.Mana * 100 / hManager.hero.ManaMax <= Data.iaData.value[i]) // If Current Mana < X%
                         {
+                            lsm.triggerCondition(i);
                             return DoAnAction(i);
                         }
                         break;
@@ -89,6 +97,7 @@ public class IA
                         {
                             if (e.enemy.Hp * 100 / e.enemy.HpMax <= Data.iaData.value[i])  // If Current Enemy Health < X%
                             {
+                                lsm.triggerCondition(i);
                                 Data.iaData.idTarget[i] = enemyId;
                                 DoAnAction(i);
                                 
@@ -101,6 +110,7 @@ public class IA
                         {
                             if (e.enemy.Mana * 100 / e.enemy.ManaMax <= Data.iaData.value[i])  // If Current Enemy Mana < X%
                             {
+                                lsm.triggerCondition(i);
                                 Data.iaData.idTarget[i] = enemyId;
                                 return DoAnAction(i);
                             }
@@ -116,6 +126,7 @@ public class IA
                     case IaData.IaCondition.ENEMYNB:
                         if(eManager.enemyList.Count == Data.iaData.value[i])
                         {
+                            lsm.triggerCondition(i);
                             Debug.Log("Test");
                             return DoAnAction(i);
                         }
@@ -125,6 +136,7 @@ public class IA
                         {
                             if (e.enemy.IsCasting)
                             {
+                                lsm.triggerCondition(i);
                                 Data.iaData.idTarget[i] = enemyId;
                                 return DoAnAction(i);
                             }

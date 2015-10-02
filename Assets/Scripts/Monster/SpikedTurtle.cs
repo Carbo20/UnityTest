@@ -24,8 +24,8 @@ public class SpikedTurtle : EnemyStatus
         /* List here all the skill the monster can use */
         SkillAvailable = new Data.EnemySkillType[NumberOfSkills];
         SkillAvailable[0] = Data.EnemySkillType.ATTACK;
-        SkillAvailable[0] = Data.EnemySkillType.SPIKE;
-        SkillAvailable[0] = Data.EnemySkillType.BUTTSTOMP;
+        SkillAvailable[1] = Data.EnemySkillType.SPIKE;
+        SkillAvailable[2] = Data.EnemySkillType.BUTTSTOMP;
     }
 
     public override Data.EnemySkillType DoAnAction()

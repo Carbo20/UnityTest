@@ -24,7 +24,7 @@ public class BigShroom : EnemyStatus
         /* List here all the skill the monster can use */
         SkillAvailable = new Data.EnemySkillType[NumberOfSkills];
         SkillAvailable[0] = Data.EnemySkillType.ATTACK;
-        SkillAvailable[0] = Data.EnemySkillType.POISON;
+        SkillAvailable[1] = Data.EnemySkillType.POISON;
     }
 
     public override Data.EnemySkillType DoAnAction()

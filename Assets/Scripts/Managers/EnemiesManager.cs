@@ -13,9 +13,27 @@ public class EnemiesManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         enemyList = new List<EnemyManager>();
-        GameObject enemy = Instantiate(Resources.Load("Prefabs/Monsters/Mumy")) as GameObject;
+        // TODO change the Temporary set for monsters BEGIN
+        List<string> monstersToLoad = new List<string>();
+        monstersToLoad.Add("Prefabs/Monsters/mumy");
+        monstersToLoad.Add("Prefabs/Monsters/stonegolem");
+        monstersToLoad.Add("Prefabs/Monsters/spikedturtle");
+        monstersToLoad.Add("Prefabs/Monsters/slime");
+        monstersToLoad.Add("Prefabs/Monsters/bat");
+        monstersToLoad.Add("Prefabs/Monsters/minishroom");
+        monstersToLoad.Add("Prefabs/Monsters/bigshroom");
+        monstersToLoad.Add("Prefabs/Monsters/bigstomp");
+        monstersToLoad.Add("Prefabs/Monsters/swordbear");
+        monstersToLoad.Add("Prefabs/Monsters/gargoyle");
+        monstersToLoad.Add("Prefabs/Monsters/pinkslob");
+
+        int monsterToLoadRand = UnityEngine.Random.Range(0, monstersToLoad.Count);
+
+        // TODO change the Temporary set for monsters END
+        GameObject enemy = Instantiate(Resources.Load(monstersToLoad[monsterToLoadRand])) as GameObject;
         eManager = enemy.GetComponent<EnemyManager>();
         enemyList.Add(eManager);
+
         gamePaused = false;
         /*GameObject enemy2 = Instantiate(Resources.Load("Prefabs/Monsters/Mumy")) as GameObject;
         eManager = enemy2.GetComponent<EnemyManager>();

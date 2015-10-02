@@ -555,12 +555,12 @@ public class CharacterBuildManager : MonoBehaviour {
             SPEATKBon.text = Data.inventory.items[(int)selectedSlotType][selectedItem].SpellBonus.ToString();
             MANABon.text   = Data.inventory.items[(int)selectedSlotType][selectedItem].ManaBonus.ToString();
             HPBon.text     = Data.inventory.items[(int)selectedSlotType][selectedItem].HealthBonus.ToString();
-            ATKCDBon.text  = Data.inventory.items[(int)selectedSlotType][selectedItem].CdAttackBonus.ToString();
-            SPECDBon.text  = Data.inventory.items[(int)selectedSlotType][selectedItem].CastTimeBonus.ToString();
-            REGHPBon.text  = Data.inventory.items[(int)selectedSlotType][selectedItem].RegenHealthBonus.ToString();
-            REGMANBon.text = Data.inventory.items[(int)selectedSlotType][selectedItem].RegenManaBonus.ToString();
-            DODBon.text    = Data.inventory.items[(int)selectedSlotType][selectedItem].DodgeBonus.ToString();
-            CRITBon.text   = Data.inventory.items[(int)selectedSlotType][selectedItem].CritBonus.ToString();
+            ATKCDBon.text  = (Math.Round(Data.inventory.items[(int)selectedSlotType][selectedItem].CdAttackBonus * 100, 2)).ToString() + "%"; 
+            SPECDBon.text  = (Math.Round(Data.inventory.items[(int)selectedSlotType][selectedItem].CastTimeBonus * 100, 2)).ToString() + "%"; 
+            REGHPBon.text  = (Math.Round(Data.inventory.items[(int)selectedSlotType][selectedItem].RegenHealthBonus,0)).ToString();
+            REGMANBon.text = (Math.Round(Data.inventory.items[(int)selectedSlotType][selectedItem].RegenManaBonus,0)).ToString();
+            DODBon.text    = (Math.Round(Data.inventory.items[(int)selectedSlotType][selectedItem].DodgeBonus* 100, 2)).ToString() + "%";
+            CRITBon.text   = (Math.Round(Data.inventory.items[(int)selectedSlotType][selectedItem].CritBonus * 100, 2)).ToString() + "%";
         }
         else
         {
@@ -661,7 +661,6 @@ public class CharacterBuildManager : MonoBehaviour {
         }
         else
         {
-
             if (Data.inventory.LeftHandItemID != -1)
             {
                 GameObject.Find("LeftHandSlot/Icon").GetComponent<Image>().enabled = true;
@@ -696,6 +695,7 @@ public class CharacterBuildManager : MonoBehaviour {
         if(!heroStatTextLoad)   
             initHeroStatTxt();
 
+        // TODO Check that everything is here!
         LVLStat.text = Data.heroData.level.ToString();
         XPStat.text = Data.heroData.xp + " / " + Data.heroData.xpForNextLevel;
         HPStat.text = Data.heroData.hpMax.ToString();
@@ -706,11 +706,10 @@ public class CharacterBuildManager : MonoBehaviour {
         VITStat.text = Data.heroData.vitality.ToString();
         DMGStat.text = Data.heroData.damage.ToString();
         SPDMGStat.text = Data.heroData.spellDamage.ToString();
-        DODStat.text = Data.heroData.dodge.ToString();
-        CRITStat.text = Data.heroData.critical.ToString();
-        SPEStat.text = Data.heroData.cdAttackBase.ToString();
+        DODStat.text = (Math.Round(Data.heroData.dodge,2)).ToString();
+        CRITStat.text = (Math.Round(Data.heroData.critical,2)).ToString();
+        SPEStat.text = (Math.Round(Data.heroData.cdAttackBase,2)).ToString();
         ARMORStat.text = Data.heroData.armor.ToString();
-
     }
 
     public void showItemDescription()

@@ -29,7 +29,7 @@ public class HeroManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        Debug.Log("HP: " + hero.Hp + " / " + hero.HpMax);
+        //Debug.Log("HP: " + hero.Hp + " / " + hero.HpMax);
         if (gamePause) return;
         /* Speed computation, wait here the hero is ready to do something
         [TODO] Computation of the delta.time with the hero speed in heroActivation */
@@ -48,7 +48,7 @@ public class HeroManager : MonoBehaviour {
         else
         {
             heroDeltaTime += Time.deltaTime;
-            Debug.Log(iaResult);
+            //Debug.Log(iaResult);
             if (heroDeltaTime >= skill.cdAction[(int)iaResult])
             {
                 hero.IsReady = false;

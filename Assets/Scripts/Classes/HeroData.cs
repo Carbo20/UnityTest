@@ -148,8 +148,8 @@ public class HeroData
         level = 1;
         xp = 0;
         xpForNextLevel = GetXPForLevel(level);
-        hpMax = 20;
-        manaMax = 20;
+        hpMax = 150;
+        manaMax = 75;
         regenHp = 0;
         regenMana = 0;
         armor = 10;
@@ -161,7 +161,7 @@ public class HeroData
         spellDamage = 10;
         dodge = 5;
         critical = 5;
-        cdAttackBase = 0;
+        cdAttackBase = 1;
         cdAttackModified = 0;
         cdAttackBonusTotal = 0;
         Data.iaData.nbOrder = 3;

@@ -25,7 +25,7 @@ public class SwordBear : EnemyStatus
         SkillAvailable = new Data.EnemySkillType[NumberOfSkills];
         SkillAvailable[0] = Data.EnemySkillType.ATTACK;
         SkillAvailable[1] = Data.EnemySkillType.BITE;
-        SkillAvailable[3] = Data.EnemySkillType.RAGE;
+        SkillAvailable[2] = Data.EnemySkillType.RAGE;
     }
 
     public override Data.EnemySkillType DoAnAction()

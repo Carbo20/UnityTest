@@ -50,12 +50,12 @@ public class Item
     private int spellPerLevelMin = 1, spellPerLevelMax = 2;
     private int manaPerLevelMin = 8, manaPerLevelMax = 10;
     private int healthPerLevelMin = 8, healthPerLevelMax = 10;
-    //float dodgePerLevelMin, dodgePerLevelMax;                 // CF in generate
-    //float critPerLevelMin, critPerLevelMax;                   // CF in generate
-    private float regenManaPerLevelMin = 0.15f, regenManaPerLevelMax = 0.2f;
-    private float regenHealthPerLevelMin = 0.15f, regenHealthPerLevelMax = 0.2f;
-    //float cdAttackPerLevelMin, cdAttackPerLevelMax;           // CF BELOW
-    //float castTimePerLevelMin, castTimePerLevelMax;           // CF BELOW
+    private float dodgePerLevelMin = 0.0005f, dodgePerLevelMax = 0.001f;               // de 0.05% à 0.1% par level, lvl 100: de 5%  à 10% par item donc en moyenne 35% à 70%, le cap sera a 75 %
+    private float critPerLevelMin = 0.0005f, critPerLevelMax = 0.001f;  // de 0.05% à 0.1% par level, lvl 100: de 5%  à 10% par item donc en moyenne 35% à 70%, le cap sera a 100%
+    private float regenManaPerLevelMin = 2f, regenManaPerLevelMax = 4f;
+    private float regenHealthPerLevelMin = 1f, regenHealthPerLevelMax = 2f;
+    private float cdAttackPerLevelMin = 0.0005f, cdAttackPerLevelMax = 0.001f;
+    private float castTimePerLevelMin = 0.0005f, castTimePerLevelMax = 0.001f;
 
     // Peculiar restrictions
     private float maxDodgePerItem = 0.07f;
@@ -281,10 +281,10 @@ public class Item
                     break;
 
                 case Data.BonusType.DODGE:
-                    DodgeBonus += Math.Min(maxDodgeBonusPerItem, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
+                    DodgeBonus += UnityEngine.Random.Range(levelFloat * dodgePerLevelMin, levelFloat * dodgePerLevelMax);
                     break;
                 case Data.BonusType.CRIT:
-                    CritBonus += Math.Min(maxCritBonusPerItem, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100);// between 0 and 0.07
+                    CritBonus += UnityEngine.Random.Range(levelFloat * critPerLevelMin, levelFloat * critPerLevelMax);
                     break;
 
                 case Data.BonusType.REGENMANA:
@@ -294,10 +294,10 @@ public class Item
                     RegenHealthBonus += UnityEngine.Random.Range(regenHealthPerLevelMin * levelFloat, regenHealthPerLevelMax * levelFloat);
                     break;
                 case Data.BonusType.ATTACKSPEED:
-                    CdAttackBonus += Math.Min(maxCdAttackBonusPerItem, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100); // between 0 and 0.07
+                    CdAttackBonus += UnityEngine.Random.Range(levelFloat * cdAttackPerLevelMin, levelFloat * cdAttackPerLevelMax); 
                     break;
                 case Data.BonusType.CASTTIME:
-                    CastTimeBonus += Math.Min(maxCastTimeBonusPerItem, (UnityEngine.Random.Range(levelFloat / 16, levelFloat / 14)) / 100); // between 0 and 0.07
+                    CastTimeBonus += UnityEngine.Random.Range(levelFloat * castTimePerLevelMin, levelFloat * castTimePerLevelMax); 
                     break;
             }
         }

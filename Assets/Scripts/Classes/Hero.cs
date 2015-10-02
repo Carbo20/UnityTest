@@ -73,7 +73,7 @@ public class Hero
     /// Used to decide if a physical is gonna do damage or not
     /// </summary>
     /// <returns></returns>
-    public Boolean IsDodge()
+    public bool IsDodge()
     {
         int randomDodge;
         randomDodge = UnityEngine.Random.Range(0, 100);
@@ -89,7 +89,7 @@ public class Hero
     /// Used to decide if a hit is a critical or not
     /// </summary>
     /// <returns></returns>
-    public Boolean IsCritical()
+    public bool IsCritical()
     {
         int randomCrit = UnityEngine.Random.Range(0, 100);
         float chancesOfCrit = (Data.heroData.critical * (1f + Data.heroData.criticalPerAgil * Data.heroData.agility));

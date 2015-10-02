@@ -24,7 +24,7 @@ public class StoneGolem : EnemyStatus
         /* List here all the skill the monster can use */
         SkillAvailable = new Data.EnemySkillType[NumberOfSkills];
         SkillAvailable[0] = Data.EnemySkillType.ATTACK;
-        SkillAvailable[0] = Data.EnemySkillType.MINISTUN;
+        SkillAvailable[1] = Data.EnemySkillType.MINISTUN;
     }
 
     public override Data.EnemySkillType DoAnAction()

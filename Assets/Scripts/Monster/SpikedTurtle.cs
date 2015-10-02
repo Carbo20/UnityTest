@@ -6,6 +6,7 @@ public class SpikedTurtle : EnemyStatus
     public override void InitStatus()
     {
         IsBoss = true;
+        MagicFind = 70;
         Level = 10;
         Damage = 178;
         CdAttack = 2.5f;

@@ -113,8 +113,8 @@ public class Hero
         else
         {
             Debug.Log(" damageSentBefore = " + Data.heroData.damage);
-            Debug.Log(" Data.heroData.damage * (1f + Data.heroData.damagePerStrength * Data.heroData.strenght) " + Data.heroData.damage * (1f + Data.heroData.damagePerStrength * Data.heroData.strenght));
-            Debug.Log(" (int)(Data.heroData.damage * (1f + Data.heroData.damagePerStrength * Data.heroData.strenght)) " +(int)(Data.heroData.damage * (1f + Data.heroData.damagePerStrength * Data.heroData.strenght)));
+            //Debug.Log(" Data.heroData.damage * (1f + Data.heroData.damagePerStrength * Data.heroData.strenght) " + Data.heroData.damage * (1f + Data.heroData.damagePerStrength * Data.heroData.strenght));
+            //Debug.Log(" (int)(Data.heroData.damage * (1f + Data.heroData.damagePerStrength * Data.heroData.strenght)) " +(int)(Data.heroData.damage * (1f + Data.heroData.damagePerStrength * Data.heroData.strenght)));
             damageSent = (int)(Data.heroData.damage * (1f + Data.heroData.damagePerStrength * Data.heroData.strenght));
             Debug.Log(" damageSentAfter = " + damageSent);
         }

@@ -67,13 +67,14 @@ public class Enemy
         float damageReduc;
         int trueDamage;
 
-        Debug.Log("Enemy hp : " + hp);
-
         // TODO : don't forget to take dodge into account wherever takeDamage is called
         /*[TODO] Put TakeDamage Animation here*/
 
         damageReduc = (float)Math.Min(80, Armor/ heroLevel) / 100;
         trueDamage = (int)(damage * (1 - damageReduc));
+
+        Debug.Log("Enemy hp : " + hp + "  DamageSent  " + damage + "  DamageReceived " + trueDamage);
+
 
         Hp = Hp - trueDamage;
         if (Hp <= 0)

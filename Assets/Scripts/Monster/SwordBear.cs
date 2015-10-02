@@ -6,6 +6,7 @@ public class SwordBear : EnemyStatus
     public override void InitStatus()
     {
         IsBoss = true;
+        MagicFind = 70;
         Level = 5;
         Damage = 124;
         CdAttack = 3f;

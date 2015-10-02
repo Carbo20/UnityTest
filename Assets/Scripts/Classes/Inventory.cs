@@ -306,7 +306,7 @@ public class Inventory {
             Item it = new Item(level, magicFind);
             Data.inventory.AddItem(it);
             Data.inventory.SaveInventory();
-            Debug.Log("item looted : " + it.Name + " (" + it.SlotType.ToString() + ") lvl:" + it.Level);
+            Debug.Log("item looted : " + it.Name + " (" + it.SlotType.ToString() + ") lvl:" + it.Level + "   Qualité :   " + it.ItemQuality);
         }
     }
 

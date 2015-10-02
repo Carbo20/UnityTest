@@ -4,6 +4,7 @@ using System.Collections;
 public abstract class EnemyStatus : MonoBehaviour
 {
     private bool isBoss;
+    private int magicFind;
     private int level;
     private int hpMax;
     private int manaMax;
@@ -308,6 +309,19 @@ public abstract class EnemyStatus : MonoBehaviour
         set
         {
             numberOfSkills = value;
+        }
+    }
+
+    public int MagicFind
+    {
+        get
+        {
+            return magicFind;
+        }
+
+        set
+        {
+            magicFind = value;
         }
     }
 }
